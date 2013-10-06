@@ -1,0 +1,14 @@
+﻿<Button x:Class="Client.PrintScreenButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Button.Template>
+        <ControlTemplate>
+            <Border Width="35" Height="35" Background="White">
+                <TextBlock Text="截屏"/>
+            </Border>
+        </ControlTemplate>
+    </Button.Template>
+</Button>
