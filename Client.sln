@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Host.Framework", "Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Host", "Client.Host\Client.Host.csproj", "{863677A4-15D4-45D9-BEB5-4D18EAF9130D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.CustomerService", "Client.CustomerService\Client.CustomerService.csproj", "{1E561CF3-6F6C-4054-8F16-339D0FB084E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.CustomerService.Web", "Client.CustomerService.Web\Client.CustomerService.Web.csproj", "{E16DBB4E-B068-45E4-ADB6-77D468E3E35D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,14 @@ Global
 		{863677A4-15D4-45D9-BEB5-4D18EAF9130D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{863677A4-15D4-45D9-BEB5-4D18EAF9130D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{863677A4-15D4-45D9-BEB5-4D18EAF9130D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E561CF3-6F6C-4054-8F16-339D0FB084E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E561CF3-6F6C-4054-8F16-339D0FB084E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E561CF3-6F6C-4054-8F16-339D0FB084E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E561CF3-6F6C-4054-8F16-339D0FB084E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E16DBB4E-B068-45E4-ADB6-77D468E3E35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E16DBB4E-B068-45E4-ADB6-77D468E3E35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E16DBB4E-B068-45E4-ADB6-77D468E3E35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E16DBB4E-B068-45E4-ADB6-77D468E3E35D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,5 +90,7 @@ Global
 		{7F28EBDB-34CC-4F78-AAD2-A87EA4C8AFEF} = {A7ECF6A4-77AD-4043-94E9-A24AFBA45B03}
 		{3C59AAD9-49E7-45E7-A87B-13B45441F47C} = {A7ECF6A4-77AD-4043-94E9-A24AFBA45B03}
 		{D35F0098-DB82-4F60-A782-E4120071E370} = {944A7383-D313-479B-A3E4-38785279F794}
+		{1E561CF3-6F6C-4054-8F16-339D0FB084E5} = {61BCDF47-3D1A-4636-B924-6F905C3632EA}
+		{E16DBB4E-B068-45E4-ADB6-77D468E3E35D} = {61BCDF47-3D1A-4636-B924-6F905C3632EA}
 	EndGlobalSection
 EndGlobal
