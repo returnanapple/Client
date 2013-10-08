@@ -41,5 +41,12 @@ namespace Client.Service
         /// <returns>返回包含用户列表的操作结果（如果操作失败列表为空）</returns>
         [OperationContract]
         OperatingResult<List<UserInfoResult>> GetFriends(string username);
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <returns>返回包含用户列表的操作结果（如果操作失败列表为空）</returns>
+        [OperationContract]
+        OperatingResult<List<UserInfoResult>> GetUsers();
     }
 }

@@ -82,5 +82,22 @@ namespace Client.Service
                 return new OperatingResult<List<UserInfoResult>>(null, ex.Message);
             }
         }
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <returns>返回包含用户列表的操作结果（如果操作失败列表为空）</returns>
+        public OperatingResult<List<UserInfoResult>> GetUsers()
+        {
+            try
+            {
+                List<UserInfoResult> t = UserReader.ReadUsers();
+                return new OperatingResult<List<UserInfoResult>>(t);
+            }
+            catch (Exception ex)
+            {
+                return new OperatingResult<List<UserInfoResult>>(null, ex.Message);
+            }
+        }
     }
 }

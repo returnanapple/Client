@@ -13,10 +13,12 @@ namespace Client.Service.DataContract
     public enum UserInfoType
     {
         [EnumMember]
-        客服,
+        上级 = 101,
         [EnumMember]
-        上级,
+        下级 = 102,
         [EnumMember]
-        下级
+        客服 = 201,
+        [EnumMember]
+        用户 = 202
     }
 }

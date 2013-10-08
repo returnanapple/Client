@@ -7,8 +7,16 @@ using Client.Model;
 
 namespace Client.Service.Reader
 {
+    /// <summary>
+    /// 用户令牌的阅读者对象
+    /// </summary>
     public class UserReader
     {
+        /// <summary>
+        /// 读取好友列表
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <returns>返回好友列表</returns>
         public static List<UserInfoResult> ReadFriends(string username)
         {
             using (MainDatadbmlDataContext db = new MainDatadbmlDataContext())
@@ -31,6 +39,18 @@ namespace Client.Service.Reader
                         });
 
                 return result;
+            }
+        }
+
+        /// <summary>
+        /// 读取用户列表
+        /// </summary>
+        /// <returns>返回用户列表</returns>
+        public static List<UserInfoResult> ReadUsers()
+        {
+            using (MainDatadbmlDataContext db = new MainDatadbmlDataContext())
+            {
+                return db.UserInfo.ToList().ConvertAll(x => new UserInfoResult(x.UserID, UserInfoType.用户));
             }
         }
     }

@@ -19,7 +19,7 @@
   <Class Name="Client.Service.UserService" Collapsed="true">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>UserService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -34,7 +34,7 @@
   <Interface Name="Client.Service.IUserService" Collapsed="true">
     <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>IUserService.cs</FileName>
     </TypeIdentifier>
   </Interface>
