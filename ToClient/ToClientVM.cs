@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net;
 using System.Windows;
@@ -9,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using ToClient.Classes;
 
 namespace ToClient
 {
@@ -17,13 +19,46 @@ namespace ToClient
         #region 私有字段
         private bool chatWindowIsOpen;
         private bool friendListWindowIsOpen;
-        private int newMessageCount;
-
+        private string newMessageCount;
         private bool customerServiceListIsOpen;
         private bool superiorListIsOpen;
         private bool lowerListIsOpen;
+        private string waitSendContent;
         #endregion
         #region 属性
+        public bool ChatWindowIsOpen
+        {
+            get
+            { return chatWindowIsOpen; }
+            set
+            {
+                chatWindowIsOpen = value;
+                OnPropertyChanged(this, "ChatWindowIsOpen");
+            }
+        }
+
+        public bool FriendListWindowIsOpen
+        {
+            get
+            { return friendListWindowIsOpen; }
+            set 
+            {
+                friendListWindowIsOpen = value;
+                OnPropertyChanged(this, "FriendListWindowIsOpen");
+            }
+        }
+
+        public string NewMessageCount
+        {
+            get
+            { return newMessageCount; }
+            set
+            {
+                newMessageCount = value;
+                OnPropertyChanged(this, "NewMessageCount");
+            }
+        }
+
         public bool CustomerServiceListIsOpen
         {
             get
@@ -54,6 +89,20 @@ namespace ToClient
                 OnPropertyChanged(this, "LowerListIsOpen");
             }
         }
+        public string WaitSendContent
+        {
+            get
+            { return waitSendContent; }
+            set
+            {
+                waitSendContent = value;
+                OnPropertyChanged(this, "WaitSendContent");
+            }
+        }
+        public ObservableCollection<UserInfo> CustomerServiceList { get; set; }
+        public ObservableCollection<UserInfo> SuperiorList { get; set; }
+        public ObservableCollection<UserInfo> LowerList { get; set; }
+        public ObservableCollection<UserInfo> ChatingWithList { get; set; }
         #endregion
 
 
