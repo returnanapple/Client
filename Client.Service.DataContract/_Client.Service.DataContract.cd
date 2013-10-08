@@ -24,7 +24,7 @@
   <Class Name="Client.Service.DataContract.SendMessageImport" Collapsed="true">
     <Position X="2.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAgAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgAAAAAAAgAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SendMessageImport.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Enum Name="Client.Service.DataContract.UserInfoType" Collapsed="true">
     <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAwAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAwAAAAAAAAIAAAAAAgAAAAA=</HashCode>
       <FileName>UserInfoType.cs</FileName>
     </TypeIdentifier>
   </Enum>

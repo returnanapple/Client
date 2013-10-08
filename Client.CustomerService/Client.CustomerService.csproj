@@ -60,6 +60,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
@@ -77,6 +79,21 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\MessageService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PicService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UserService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -90,6 +107,94 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\DataSources\System.ServiceModel.Channels.Message.datasource" />
+    <None Include="Service References\MessageService\Client.CustomerService.MessageService.OperatingResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MessageService\Client.CustomerService.MessageService.OperatingResultOfArrayOfMessageResult5O3_PPRz2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MessageService\Client.CustomerService.MessageService.OperatingResultOfArrayOfUnreadMessageCountResult5O3_PPRz2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MessageService\Client.CustomerService.MessageService.OperatingResultOfPaginationListOfMessageResult5O3_PPRz25O3_PPRz2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MessageService\OfficialMessageService.wsdl" />
+    <None Include="Service References\MessageService\OfficialMessageService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MessageService\OfficialMessageService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MessageService\OfficialMessageService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PicService\Client.CustomerService.PicService.OperatingResultOfstring.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PicService\PicService.disco" />
+    <None Include="Service References\PicService\configuration91.svcinfo" />
+    <None Include="Service References\PicService\configuration.svcinfo" />
+    <None Include="Service References\PicService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\MessageService\OfficialMessageService.disco" />
+    <None Include="Service References\MessageService\configuration91.svcinfo" />
+    <None Include="Service References\MessageService\configuration.svcinfo" />
+    <None Include="Service References\MessageService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\UserService\Client.CustomerService.UserService.OperatingResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\Client.CustomerService.UserService.OperatingResultOfArrayOfUserInfoResult5O3_PPRz2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UserService\OfficialUserService.disco" />
+    <None Include="Service References\UserService\configuration91.svcinfo" />
+    <None Include="Service References\UserService\configuration.svcinfo" />
+    <None Include="Service References\UserService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="ServiceReferences.ClientConfig" />
+    <None Include="Service References\PicService\PicService.wsdl" />
+    <None Include="Service References\PicService\PicService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PicService\PicService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PicService\PicService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PicService\PicService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\OfficialUserService.wsdl" />
+    <None Include="Service References\UserService\OfficialUserService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\OfficialUserService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\OfficialUserService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\OfficialUserService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\MessageService\" />
+    <WCFMetadataStorage Include="Service References\PicService\" />
+    <WCFMetadataStorage Include="Service References\UserService\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

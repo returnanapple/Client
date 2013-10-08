@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="OperatingResultOfArrayOfUnreadMessageCountResult5O3_PPRz2">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="OperatingResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ArrayOfUnreadMessageCountResult" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:OperatingResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Content" nillable="true" type="tns:ArrayOfUnreadMessageCountResult" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OperatingResultOfArrayOfUnreadMessageCountResult5O3_PPRz2" nillable="true" type="tns:OperatingResultOfArrayOfUnreadMessageCountResult5O3_PPRz2" />
+  <xs:complexType name="OperatingResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperatingResult" nillable="true" type="tns:OperatingResult" />
+  <xs:complexType name="ArrayOfUnreadMessageCountResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UnreadMessageCountResult" nillable="true" type="tns:UnreadMessageCountResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUnreadMessageCountResult" nillable="true" type="tns:ArrayOfUnreadMessageCountResult" />
+  <xs:complexType name="UnreadMessageCountResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnreadMessageCountResult" nillable="true" type="tns:UnreadMessageCountResult" />
+  <xs:complexType name="OperatingResultOfArrayOfMessageResult5O3_PPRz2">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="OperatingResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ArrayOfMessageResult" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:OperatingResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Content" nillable="true" type="tns:ArrayOfMessageResult" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OperatingResultOfArrayOfMessageResult5O3_PPRz2" nillable="true" type="tns:OperatingResultOfArrayOfMessageResult5O3_PPRz2" />
+  <xs:complexType name="ArrayOfMessageResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MessageResult" nillable="true" type="tns:MessageResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMessageResult" nillable="true" type="tns:ArrayOfMessageResult" />
+  <xs:complexType name="MessageResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsOfficial" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SendTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="To" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MessageResult" nillable="true" type="tns:MessageResult" />
+  <xs:complexType name="OperatingResultOfPaginationListOfMessageResult5O3_PPRz25O3_PPRz2">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="OperatingResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="PaginationListOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract">
+            <GenericParameter Name="MessageResult" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" />
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:OperatingResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Content" nillable="true" type="tns:PaginationListOfMessageResult5O3_PPRz2" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OperatingResultOfPaginationListOfMessageResult5O3_PPRz25O3_PPRz2" nillable="true" type="tns:OperatingResultOfPaginationListOfMessageResult5O3_PPRz25O3_PPRz2" />
+  <xs:complexType name="PaginationListOfMessageResult5O3_PPRz2">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="PaginationListOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MessageResult" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Content" nillable="true" type="tns:ArrayOfMessageResult" />
+      <xs:element minOccurs="0" name="PageIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalOfPage" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaginationListOfMessageResult5O3_PPRz2" nillable="true" type="tns:PaginationListOfMessageResult5O3_PPRz2" />
+  <xs:complexType name="SendMessageImport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="To" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SendMessageImport" nillable="true" type="tns:SendMessageImport" />
+</xs:schema>

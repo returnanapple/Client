@@ -3,7 +3,7 @@
   <Class Name="Client.Host.Framework.HostManager" Collapsed="true">
     <Position X="0.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAABAAAAAAAAAQBAAgAAAAIIAAAAAAAAAI=</HashCode>
+      <HashCode>AAAAIAAAAAAABAAAAAFAAAQBAAgAAAAIIAAAAAAAAAI=</HashCode>
       <FileName>HostManager.cs</FileName>
     </TypeIdentifier>
   </Class>

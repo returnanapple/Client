@@ -77,30 +77,5 @@ namespace Client.Service.Reader
                 return new PaginationList<MessageResult>(page, pageSize, c, t);
             }
         }
-
-        /// <summary>
-        /// 读取聊天记录的分页列表
-        /// </summary>
-        /// <param name="_from">发件人</param>
-        /// <param name="_to">收件人</param>
-        /// <param name="pageSize">每个页面包含信息条数</param>
-        /// <returns>返回聊天记录的分页列表</returns>
-        public static PaginationList<MessageResult> ReadMessages(string username, int page, int pageSize)
-        {
-            using (Model2DataContext db = new Model2DataContext())
-            {
-                int statrRow = (page - 1) * pageSize;
-                Expression<Func<Message, bool>> pre = x => (x.To == username || x.From == username)
-                    && x.IsOfficial == true;
-                int c = db.Messages.Count(pre);
-                List<MessageResult> t = db.Messages.Where(pre)
-                    .OrderByDescending(x => x.CreatedTime)
-                    .Skip(statrRow)
-                    .Take(pageSize)
-                    .ToList()
-                    .ConvertAll(x => new MessageResult(x));
-                return new PaginationList<MessageResult>(page, pageSize, c, t);
-            }
-        }
     }
 }
