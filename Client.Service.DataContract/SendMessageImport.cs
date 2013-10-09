@@ -29,11 +29,5 @@ namespace Client.Service.DataContract
         /// </summary>
         [DataMember]
         public string Content { get; set; }
-
-        /// <summary>
-        /// 一个布尔值 标识改信息是否官方信息
-        /// </summary>
-        [DataMember]
-        public bool IsOfficial { get; set; }
     }
 }

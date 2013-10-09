@@ -17,6 +17,7 @@ namespace ToClient
         public MainPage()
         {
             InitializeComponent();
+            root.DataContext = new ToClientVM { CurrentUser = "aaaa"};
         }
     }
 }

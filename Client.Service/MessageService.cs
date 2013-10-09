@@ -76,26 +76,6 @@ namespace Client.Service
         }
 
         /// <summary>
-        /// 获取聊天记录的分页列表
-        /// </summary>
-        /// <param name="username">用户名</param>
-        /// <param name="page">页码</param>
-        /// <param name="pageSize">每个页面包含信息条数</param>
-        /// <returns>返回包含聊天纪录的分页列表的操作结果</returns>
-        public OperatingResult<PaginationList<MessageResult>> GetMessagesForAdmin(string username, int page, int pageSize)
-        {
-            try
-            {
-                PaginationList<MessageResult> t = MessageReader.ReadMessages(username, page, pageSize);
-                return new OperatingResult<PaginationList<MessageResult>>(t);
-            }
-            catch (Exception ex)
-            {
-                return new OperatingResult<PaginationList<MessageResult>>(null, ex.Message);
-            }
-        }
-
-        /// <summary>
         /// 发送新消息
         /// </summary>
         /// <param name="import">数据集</param>
@@ -104,7 +84,7 @@ namespace Client.Service
         {
             try
             {
-                MessageManager.Send(import.From, import.To, import.Content, import.IsOfficial);
+                MessageManager.Send(import.From, import.To, import.Content, false);
                 return new OperatingResult();
             }
             catch (Exception ex)

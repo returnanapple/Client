@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a967ffda-6fe1-48c9-b1f9-816b94ebe8b5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.119:4511/OfficialUserService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="OfficialUserService.xsd" MetadataType="Schema" ID="63c57353-f5e3-41b8-a546-4ac092772002" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialUserService?xsd=xsd1" />
+    <MetadataFile FileName="OfficialUserService1.xsd" MetadataType="Schema" ID="51e82a36-5069-4701-8ab3-ecdf61e1ea5a" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialUserService?xsd=xsd0" />
+    <MetadataFile FileName="OfficialUserService.disco" MetadataType="Disco" ID="2a35493f-22aa-4a50-ab76-a181becd5cea" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialUserService?disco" />
+    <MetadataFile FileName="OfficialUserService2.xsd" MetadataType="Schema" ID="c3bb6b01-dfb3-4e4f-b547-d70b5f07de8d" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialUserService?xsd=xsd2" />
+    <MetadataFile FileName="OfficialUserService.wsdl" MetadataType="Wsdl" ID="70e4149a-fa62-466a-b46d-2369a9d6d264" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialUserService?wsdl" />
+    <MetadataFile FileName="OfficialUserService3.xsd" MetadataType="Schema" ID="a90def97-d70a-41fe-ae3a-cd9acb259d0f" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialUserService?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

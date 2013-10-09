@@ -42,16 +42,6 @@ namespace Client.Service
         OperatingResult<PaginationList<MessageResult>> GetMessages(string _from, string _to, int page, int pageSize);
 
         /// <summary>
-        /// 获取聊天记录的分页列表
-        /// </summary>
-        /// <param name="username">用户名</param>
-        /// <param name="page">页码</param>
-        /// <param name="pageSize">每个页面包含信息条数</param>
-        /// <returns>返回包含聊天纪录的分页列表的操作结果</returns>
-        [OperationContract]
-        OperatingResult<PaginationList<MessageResult>> GetMessagesForAdmin(string username, int page, int pageSize);
-
-        /// <summary>
         /// 发送新消息
         /// </summary>
         /// <param name="import">数据集</param>

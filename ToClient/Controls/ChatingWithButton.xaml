@@ -4,18 +4,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
-    <Grid Width="120" Height="20" Background="White">
+
+    <Grid Width="120" Height="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <TextBlock Text="Username" 
-                       VerticalAlignment="Center"/>
+        <Grid x:Name="TextGrid"  Grid.Column="0" Background="#FF452F30" 
+               MouseEnter="TextMouseEnterAction" MouseLeave="TextMouseLeaveAction"
+               MouseLeftButtonDown="TextMouseLeftButtonDown">
+            <TextBlock x:Name="UsernameTextBlock" Text="{Binding Username}" 
+                       VerticalAlignment="Center" Foreground="White"/>
         </Grid>
-        <Grid Grid.Column="1">
-            <TextBlock Text="X" FontSize="13"
+        <Grid x:Name="CloseGrid" Grid.Column="1" Background="#FF452F30" 
+              MouseEnter="CloseMouseEnterAction" MouseLeave="CloseMouseLeaveAction">
+            <TextBlock Text="X" FontSize="13" Foreground="White"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>

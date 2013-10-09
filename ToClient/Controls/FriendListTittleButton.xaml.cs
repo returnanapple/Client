@@ -25,7 +25,15 @@ namespace ToClient.Controls
             set { SetValue(IsOpenProperty, value); }
         }
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(FriendListTittleButton), new PropertyMetadata(false));
+            DependencyProperty.Register("IsOpen", typeof(bool), typeof(FriendListTittleButton), new PropertyMetadata(false,(d,e)=>
+            {
+                FriendListTittleButton tempD = (FriendListTittleButton)d;
+                bool tempE = (bool)(e.NewValue);
+                Storyboard tempStoryboard = tempD.Resources["IsOpenSymbolStoryboard"] as Storyboard;
+                tempD.FirstAnimation.To=tempE == true ? 180 : 90;
+                tempStoryboard.Begin();
+                
+            }));
 
 
 
@@ -39,13 +47,13 @@ namespace ToClient.Controls
 
 
 
-        public string OnLineFriendsCount
+        public string OnlineFriendsCount
         {
             get { return (string)GetValue(OnLineFriendsCountProperty); }
             set { SetValue(OnLineFriendsCountProperty, value); }
         }
         public static readonly DependencyProperty OnLineFriendsCountProperty =
-            DependencyProperty.Register("OnLineFriendsCount", typeof(string), typeof(FriendListTittleButton), new PropertyMetadata(""));
+            DependencyProperty.Register("OnlineFriendsCount", typeof(string), typeof(FriendListTittleButton), new PropertyMetadata(""));
 
         public string AllFriendsCount
         {
@@ -62,7 +70,7 @@ namespace ToClient.Controls
 
         public void MouseLeaveAction(object sender, MouseEventArgs e)
         {
-            (sender as Grid).Background = new SolidColorBrush(Colors.White);
+            (sender as Grid).Background = new SolidColorBrush(Color.FromArgb(255, 247, 245, 245));
             
         }
 

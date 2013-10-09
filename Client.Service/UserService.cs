@@ -19,13 +19,12 @@ namespace Client.Service
         /// </summary>
         /// <param name="username">用户名</param>
         /// <param name="onlineStatus">在线状态</param>
-        /// <param name="isOfficial">一个布尔值 标识用户是否官方成员</param>
         /// <returns>返回操作结果</returns>
-        public OperatingResult SetIn(string username, UserOnlineStatus onlineStatus, bool isOfficial = false)
+        public OperatingResult SetIn(string username, UserOnlineStatus onlineStatus)
         {
             try
             {
-                UserManager.SetIn(username, onlineStatus, isOfficial);
+                UserManager.SetIn(username, onlineStatus, false);
                 return new OperatingResult();
             }
             catch (Exception ex)
@@ -39,13 +38,12 @@ namespace Client.Service
         /// </summary>
         /// <param name="username">用户名</param>
         /// <param name="newOnlineStatus">新的在线状态</param>
-        /// <param name="isOfficial">一个布尔值 标识用户是否官方成员</param>
         /// <returns>返回操作结果</returns>
-        public OperatingResult ChangeOnlineStatus(string username, UserOnlineStatus newOnlineStatus, bool isOfficial = false)
+        public OperatingResult ChangeOnlineStatus(string username, UserOnlineStatus newOnlineStatus)
         {
             try
             {
-                UserManager.ChangeOnlineStatus(username, newOnlineStatus, isOfficial);
+                UserManager.ChangeOnlineStatus(username, newOnlineStatus, false);
                 return new OperatingResult();
             }
             catch (Exception ex)

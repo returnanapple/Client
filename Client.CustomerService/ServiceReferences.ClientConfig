@@ -1,0 +1,31 @@
+﻿<configuration>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="BasicHttpBinding_IPicService" maxBufferSize="2147483647"
+            maxReceivedMessageSize="2147483647">
+          <security mode="None" />
+        </binding>
+        <binding name="BasicHttpBinding_IOfficialMessageService" maxBufferSize="2147483647"
+            maxReceivedMessageSize="2147483647">
+          <security mode="None" />
+        </binding>
+        <binding name="BasicHttpBinding_IOfficialUserService" maxBufferSize="2147483647"
+            maxReceivedMessageSize="2147483647">
+          <security mode="None" />
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="http://192.168.1.119:4511/PicService" binding="basicHttpBinding"
+          bindingConfiguration="BasicHttpBinding_IPicService" contract="PicService.IPicService"
+          name="BasicHttpBinding_IPicService" />
+      <endpoint address="http://192.168.1.119:4511/OfficialMessageService"
+          binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IOfficialMessageService"
+          contract="MessageService.IOfficialMessageService" name="BasicHttpBinding_IOfficialMessageService" />
+      <endpoint address="http://192.168.1.119:4511/OfficialUserService"
+          binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IOfficialUserService"
+          contract="UserService.IOfficialUserService" name="BasicHttpBinding_IOfficialUserService" />
+    </client>
+  </system.serviceModel>
+</configuration>

@@ -15,6 +15,9 @@ namespace Client.Host.Framework
         static ServiceHost messageHost = new ServiceHost(typeof(MessageService));
         static ServiceHost userHost = new ServiceHost(typeof(UserService));
         static ServiceHost picHost = new ServiceHost(typeof(PicService));
+        static ServiceHost officialMessageService = new ServiceHost(typeof(OfficialMessageService));
+        static ServiceHost officialUserService = new ServiceHost(typeof(OfficialUserService));
+        static ServiceHost domainHost = new ServiceHost(typeof(DomainService));
         static bool running = false;
 
         /// <summary>
@@ -31,6 +34,9 @@ namespace Client.Host.Framework
             messageHost.Open();
             userHost.Open();
             picHost.Open();
+            officialMessageService.Open();
+            officialUserService.Open();
+            domainHost.Open();
             running = true;
         }
 
@@ -43,6 +49,9 @@ namespace Client.Host.Framework
             messageHost.Close();
             userHost.Close();
             picHost.Close();
+            officialMessageService.Close();
+            officialUserService.Close();
+            domainHost.Close();
             Reset();
             running = false;
         }
@@ -55,6 +64,9 @@ namespace Client.Host.Framework
             messageHost = new ServiceHost(typeof(MessageService));
             userHost = new ServiceHost(typeof(UserService));
             picHost = new ServiceHost(typeof(PicService));
+            domainHost = new ServiceHost(typeof(DomainService));
+            officialMessageService = new ServiceHost(typeof(OfficialMessageService));
+            officialUserService = new ServiceHost(typeof(OfficialUserService));
         }
     }
 }

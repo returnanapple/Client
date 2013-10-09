@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageReader.cs" />
+    <Compile Include="OfficialMessageReader.cs" />
+    <Compile Include="OfficialUserReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserReader.cs" />
   </ItemGroup>

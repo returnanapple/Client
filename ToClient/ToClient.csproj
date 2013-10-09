@@ -30,6 +30,7 @@
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <LinkedServerProject>
     </LinkedServerProject>
+    <ExpressionBlendVersion>5.0.40218.0</ExpressionBlendVersion>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -59,6 +60,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -81,11 +83,29 @@
     <Compile Include="Controls\ChatRecordsButton.xaml.cs">
       <DependentUpon>ChatRecordsButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChatWindowControl.xaml.cs">
+      <DependentUpon>ChatWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CurrentUserStateControl.xaml.cs">
+      <DependentUpon>CurrentUserStateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomerServiceButton.xaml.cs">
+      <DependentUpon>CustomerServiceButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ExpressionButton.xaml.cs">
       <DependentUpon>ExpressionButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FriendButton.xaml.cs">
+      <DependentUpon>FriendButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FriendListControl.xaml.cs">
+      <DependentUpon>FriendListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FriendListTittleButton.xaml.cs">
       <DependentUpon>FriendListTittleButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FriendsControl.xaml.cs">
+      <DependentUpon>FriendsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ScreenShotButton.xaml.cs">
       <DependentUpon>ScreenShotButton.xaml</DependentUpon>
@@ -101,6 +121,11 @@
       <DependentUpon>ToClientV.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToClientVM.cs" />
+    <Compile Include="ValueConverters\AllFriendsCountConverter.cs" />
+    <Compile Include="ValueConverters\CurrentUserOnlineStateConverter.cs" />
+    <Compile Include="ValueConverters\NewMessageCountSymbolConverter.cs" />
+    <Compile Include="ValueConverters\OnlineFriendsCountConverter.cs" />
+    <Compile Include="ValueConverters\OnlineStateConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -115,11 +140,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ChatWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CurrentUserStateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CustomerServiceButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ExpressionButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\FriendButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FriendListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FriendListTittleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FriendsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,7 +192,15 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\在线.png" />
+    <Resource Include="Images\忙碌.png" />
+    <Resource Include="Images\离线.png" />
+    <Resource Include="Images\隐身.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\客服.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
