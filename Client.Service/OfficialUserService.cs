@@ -15,18 +15,28 @@ namespace Client.Service
         /// 用户登入
         /// </summary>
         /// <param name="username">用户名</param>
+        /// <param name="password">密码</param>
         /// <param name="onlineStatus">在线状态</param>
         /// <returns>返回操作结果</returns>
-        public OperatingResult SetIn(string username, UserOnlineStatus onlineStatus)
+        public OperatingResult<string> SetIn(string username, string password, UserOnlineStatus onlineStatus)
         {
             try
             {
+                using (MainDatadbmlDataContext db = new MainDatadbmlDataContext())
+                {
+                    UserInfo info = db.UserInfo.FirstOrDefault(x => x.UserID == username
+                        && x.UserPwd == password);
+                    if (info == null)
+                    {
+                        throw new Exception("用户名或密码错误，请重试");
+                    }
+                }
                 UserManager.SetIn(username, onlineStatus, true);
-                return new OperatingResult();
+                return new OperatingResult<string>(username);
             }
             catch (Exception ex)
             {
-                return new OperatingResult(ex.Message);
+                return new OperatingResult<string>("", ex.Message);
             }
         }
 
@@ -61,19 +71,37 @@ namespace Client.Service
                 UserManager.Pond.Where(x => result.Any(r => r.Username == x.Username))
                     .ToList().ForEach(x =>
                     {
-                        result.First(user => user.Username == x.Username).OnlineStatus = x.OnlineStatus;
+                        var u = result.First(user => user.Username == x.Username);
+                        u.OnlineStatus = x.OnlineStatus;
+                        if (x.IsOfficial)
+                        {
+                            u.Type = UserInfoType.客服;
+                        }
                     });
-                List<UserInfoResult> t = UserManager.Pond.Where(x => x.IsOfficial == true)
-                    .ToList().ConvertAll(x =>
-                        new UserInfoResult(x.Username, UserInfoType.客服) { OnlineStatus = x.OnlineStatus }
-                        );
-                result.AddRange(t);
 
                 return new OperatingResult<List<UserInfoResult>>(result);
             }
             catch (Exception ex)
             {
                 return new OperatingResult<List<UserInfoResult>>(null, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 心跳
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <returns>返回操作结果</returns>
+        public OperatingResult Heartbeat(string username)
+        {
+            try
+            {
+                UserManager.Heartbeat(username, true);
+                return new OperatingResult();
+            }
+            catch (Exception ex)
+            {
+                return new OperatingResult(ex.Message);
             }
         }
     }

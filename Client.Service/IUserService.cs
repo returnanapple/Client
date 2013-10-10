@@ -39,5 +39,13 @@ namespace Client.Service
         /// <returns>返回包含用户列表的操作结果（如果操作失败列表为空）</returns>
         [OperationContract]
         OperatingResult<List<UserInfoResult>> GetFriends(string username);
+
+        /// <summary>
+        /// 心跳
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <returns>返回操作结果</returns>
+        [OperationContract]
+        OperatingResult Heartbeat(string username);
     }
 }

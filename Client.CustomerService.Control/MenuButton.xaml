@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Client.CustomerService.Control.MenuButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="t_normal" BasedOn="{StaticResource ResourceKey=TextBlockBaseStyle}">
+            <Setter Property="Foreground" Value="#FF555555"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="t_hover" BasedOn="{StaticResource ResourceKey=TextBlockBaseStyle}">
+            <Setter Property="Foreground" Value="#57A000"/>
+        </Style>
+        <Style TargetType="Border" x:Key="bg_normal">
+            <Setter Property="Background" Value="#FFF0F0F0"/>
+        </Style>
+        <Style TargetType="Border" x:Key="bg_hover">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="root" Width="135" Cursor="Hand" MouseEnter="ShowHoverStyle" 
+          MouseLeave="ShowNormalStyle" MouseLeftButtonDown="OnClick">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Name="bg" BorderBrush="#CCC" BorderThickness="1" Style="{StaticResource ResourceKey=bg_normal}"
+                CornerRadius="5" Grid.RowSpan="2"/>
+        <Image Name="img" Source="img/icon_list.png" Width="55" Height="55"/>
+        <TextBlock Name="text_content" Text="Menu Button" Grid.Row="1" Style="{StaticResource ResourceKey=t_normal}"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,0,10,10"
+                   TextWrapping="Wrap" TextAlignment="Center"/>
+    </Grid>
+</UserControl>

@@ -17,8 +17,8 @@ namespace Client.Service.DataContract
         [EnumMember]
         下级 = 102,
         [EnumMember]
-        客服 = 201,
+        用户 = 201,
         [EnumMember]
-        用户 = 202
+        客服 = 301,
     }
 }

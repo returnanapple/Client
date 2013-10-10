@@ -18,10 +18,11 @@ namespace Client.Service
         /// 用户登入
         /// </summary>
         /// <param name="username">用户名</param>
+        /// <param name="password">密码</param>
         /// <param name="onlineStatus">在线状态</param>
         /// <returns>返回操作结果</returns>
         [OperationContract]
-        OperatingResult SetIn(string username, UserOnlineStatus onlineStatus);
+        OperatingResult<string> SetIn(string username, string password, UserOnlineStatus onlineStatus);
 
         /// <summary>
         /// 改变在线状态
@@ -38,5 +39,13 @@ namespace Client.Service
         /// <returns>返回包含用户列表的操作结果（如果操作失败列表为空）</returns>
         [OperationContract]
         OperatingResult<List<UserInfoResult>> GetUsers();
+
+        /// <summary>
+        /// 心跳
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <returns>返回操作结果</returns>
+        [OperationContract]
+        OperatingResult Heartbeat(string username);
     }
 }
