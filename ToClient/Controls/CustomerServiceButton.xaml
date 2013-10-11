@@ -43,7 +43,7 @@
             </Image.RenderTransform>
         </Image>
         <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="12" Opacity="0.5" RenderTransformOrigin="0.5,0.5">
-            <Run Text="{Binding Username}"/>
+            <Run x:Name="Username" Text="{Binding Username}"/>
             <Run Text="（"/>
             <Run Text="{Binding UserState}"/>
             <Run Text="）"/>

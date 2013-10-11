@@ -4,11 +4,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Background="White" Width="70" Height="25">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25"/>
-            <ColumnDefinition Width="45"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="1" Text="表情" FontSize="15" VerticalAlignment="Center"/>
-    </Grid>
+    <Border x:Name="RootBorder" CornerRadius="2" Background="#FFF7F5F5" 
+            MouseEnter="MouseEnterAction"
+            MouseLeave="MouseLeaveAction">
+        <Grid Width="70" Height="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="45"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1" Text="表情" FontSize="15" VerticalAlignment="Center"/>
+        </Grid>
+    </Border>
 </UserControl>

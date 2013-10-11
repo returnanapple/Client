@@ -4,47 +4,77 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ToClient.Controls" x:Class="ToClient.Controls.ChatWindowControl"
+    xmlns:v="clr-namespace:ToClient"
     mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="White" Height="400">
+    <Grid x:Name="RootGrid" Background="White" Height="400" Width="655">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="155"/>
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding ChatingWithList}">
+            <ScrollViewer.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF7E7E7E" Offset="0"/>
+                    <GradientStop Color="#FFB9B9B9" Offset="0.5"/>
+                    <GradientStop Color="#FF616161" Offset="1"/>
+                </LinearGradientBrush>
+            </ScrollViewer.Background>
+            <ItemsControl ItemsSource="{Binding ChatingWithList}"
+                          HorizontalAlignment="Left">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:ChatingWithButton/>
+                        <local:ChatingWithButton Command="{Binding SwitchChatingWithCommand}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="220"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="230"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="110"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FF919191" Offset="1"/>
+                        <GradientStop Color="#FF727272" Offset="0.5"/>
+                        <GradientStop Color="#FFE4E4E4"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
             </Grid>
+            <TextBlock Grid.Column="0" Text="{Binding ChatingWith}" FontSize="15" VerticalAlignment="Center" Margin="10,0,0,0"/>
             <Grid Grid.Row="2">
-                <local:ExpressionButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,420,5"/>
-                <local:UploadButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="85,0,320,5"/>
-                <local:ScreenShotButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,0,245,5"/>
-                <local:ChatRecordsButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="260,0,145,5"/>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF8B8B8B"/>
+                        <GradientStop Color="LightGray" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <local:ExpressionButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,3,420,3"/>
+                <local:UploadButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="85,3,320,3"/>
+                <local:ScreenShotButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,3,245,3"/>
+                <local:ChatRecordsButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="260,3,145,3"/>
             </Grid>
             <Grid Grid.Row="3">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="LightGray" Offset="0.007"/>
+                        <GradientStop Color="#FF535353" Offset="0.997"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="365"/>
                     <ColumnDefinition Width="135"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Margin="8,0,7,9"/>
+                <TextBox Grid.Column="0" Margin="8,4,7,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                <Image Grid.Column="1" Source="/ToClient;component/Images/发送.png" Cursor="Hand" Width="60" Height="60" Margin="38,19,37,31"/>
             </Grid>
         </Grid>
     </Grid>

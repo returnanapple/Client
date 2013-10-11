@@ -21,27 +21,27 @@ namespace ToClient.Controls
             InitializeComponent();
         }
 
-        private void TextMouseEnterAction(object sender, MouseEventArgs e)
-        {
-            TextGrid.Background = new SolidColorBrush(Color.FromArgb(255, 113, 87, 86));
-            CloseGrid.Background = new SolidColorBrush(Color.FromArgb(255, 113, 87, 86));
-        }
-        public void TextMouseLeaveAction(object sender, MouseEventArgs e)
-        {
-            TextGrid.Background = new SolidColorBrush(Color.FromArgb(255, 69, 47, 48));
-            CloseGrid.Background = new SolidColorBrush(Color.FromArgb(255, 69, 47, 48));
-        }
-        public void TextMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-        }
 
-        public void CloseMouseEnterAction(object sender, MouseEventArgs e)
+        public ICommand Command
         {
-            CloseGrid.Background = new SolidColorBrush(Color.FromArgb(255,234,0,41));
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
-        public void CloseMouseLeaveAction(object sender, MouseEventArgs e)
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(ChatingWithButton), new PropertyMetadata(null));
+
+        
+        public void MouseEnterAction(object sender, MouseEventArgs e)
         {
-            CloseGrid.Background = new SolidColorBrush(Color.FromArgb(255, 69, 47, 48));
+            RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 252, 240, 193));//#FFFCF0C1
+        }
+        public void MouseLeaveAction(object sender, MouseEventArgs e)
+        {
+            RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 247, 245, 245));//#FFF7F5F5
+        }
+        public void MouseLeftButtonDownAction(object sender,MouseButtonEventArgs e)
+        {
+            this.Command.Execute(TextBlock.Text);
         }
     }
 }

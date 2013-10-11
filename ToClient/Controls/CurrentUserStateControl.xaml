@@ -18,10 +18,16 @@
         </Style>
         <Storyboard x:Key="DirectionStoryboard">
             <DoubleAnimation x:Name="DirectionDoubleAnimation" Storyboard.TargetName="Direction"
-                             Storyboard.TargetProperty="RotationZ" Duration="0:0:0.3"/>
+                             Storyboard.TargetProperty="RotationZ" Duration="0:0:0.1"/>
         </Storyboard>
     </UserControl.Resources>
-    <Grid Width="220" Height="110" Background="LightGray">
+    <Grid Width="220" Height="110">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF404040" Offset="0"/>
+                <GradientStop Color="#FFB4B4B4" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="35"/>
@@ -33,9 +39,9 @@
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding CurrentUser}"/>
-            <ed:BlockArrow Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="24" Margin="6,6,0,0" Orientation="Up" 
+            <ed:BlockArrow Fill="LightGray" HorizontalAlignment="Left" Height="24" Margin="6,6,0,0" Orientation="Up" 
                            Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" Width="24" Grid.Column="1"
-                           Cursor="Hand" MouseLeftButtonDown="FriendListWindowOpenOrCloseMouseLeftButtonDownAction"> 
+                           Cursor="Hand" MouseLeftButtonDown="FriendListWindowOpenOrCloseMouseLeftButtonDownAction">
                 <ed:BlockArrow.Projection>
                     <PlaneProjection x:Name="Direction" 
                                      RotationZ="0"/>
@@ -50,8 +56,8 @@
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="90"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Foreground="black" FontSize="15" Text="{Binding CurrentUserOnlineState}" 
-					VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <TextBlock Grid.Column="0" FontSize="15" Text="{Binding CurrentUserOnlineState}" 
+					VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FFEAEAEA"/>
             <Image Grid.Column="1" Source="/ToClient;component/Images/在线.png" MouseLeftButtonDown="StateImageMouseLeftButtonDownAction" Style="{StaticResource ImageStyle}"
 					Opacity="{Binding CurrentUserOnlineState, ConverterParameter=在线, Converter={StaticResource CurrentUserOnlineStateConverter}, Mode=TwoWay}"/>
             <Image Grid.Column="2" Source="/ToClient;component/Images/忙碌.png" MouseLeftButtonDown="StateImageMouseLeftButtonDownAction" Style="{StaticResource ImageStyle}"
@@ -59,8 +65,8 @@
             <Image Grid.Column="3" Source="/ToClient;component/Images/隐身.png" MouseLeftButtonDown="StateImageMouseLeftButtonDownAction" Style="{StaticResource ImageStyle}"
 					Opacity="{Binding CurrentUserOnlineState, ConverterParameter=隐身, Converter={StaticResource CurrentUserOnlineStateConverter}, Mode=TwoWay}"/>
         </Grid>
-        <TextBlock Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="15" 
-                   Opacity="{Binding NewMessageCount,Converter={StaticResource NewMessageCountSymbolConverter}}">
+        <TextBlock Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="15"
+                   Opacity="{Binding NewMessageCount,Converter={StaticResource NewMessageCountSymbolConverter}}" Foreground="White">
             <Run Text="NewMessage"/>
             <Run Text="("/>
             <Run Text="{Binding NewMessageCount}"/>

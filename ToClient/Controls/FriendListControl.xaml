@@ -9,14 +9,9 @@
     <UserControl.Resources>
         <ValueConverter:OnlineFriendsCountConverter x:Key="OnlineFriendsCountConverter"/>
         <ValueConverter:AllFriendsCountConverter x:Key="AllFriendsCountConverter"/>
-        <Storyboard x:Key="RootScrollViewerStoryboard">
-            <DoubleAnimation x:Name="RootScrollViewerDoubleAnimation" Duration="0:0:0.4"
-                             Storyboard.TargetName="RootScrollViewer"
-                             Storyboard.TargetProperty="Height"/>
-        </Storyboard>
     </UserControl.Resources>
 
-    <ScrollViewer x:Name="RootScrollViewer" Grid.Row="3" Background="LightGray" Height="0" 
+    <ScrollViewer x:Name="RootScrollViewer" Grid.Row="3" Background="LightGray" Height="290" 
                   Width="220">
         <StackPanel Width="200" HorizontalAlignment="Left">
             <Controls:FriendListTittleButton TittleText="客服" IsOpen="{Binding CustomerServiceListIsOpen, Mode=TwoWay}"
@@ -25,7 +20,7 @@
             <Controls:FriendsControl ItemsSource="{Binding CustomerServiceList}" IsOpen="{Binding CustomerServiceListIsOpen}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
-                        <Controls:CustomerServiceButton/>
+                        <Controls:CustomerServiceButton Command="{Binding Command}"/>
                     </DataTemplate>
                 </Controls:FriendsControl.ItemTemplate>
             </Controls:FriendsControl>
@@ -35,7 +30,7 @@
             <Controls:FriendsControl ItemsSource="{Binding SuperiorList}" IsOpen="{Binding SuperiorListIsOpen}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
-                        <Controls:FriendButton/>
+                        <Controls:FriendButton Command="{Binding Command}"/>
                     </DataTemplate>
                 </Controls:FriendsControl.ItemTemplate>
             </Controls:FriendsControl>
@@ -45,7 +40,7 @@
             <Controls:FriendsControl ItemsSource="{Binding LowerList}" IsOpen="{Binding LowerListIsOpen}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
-                        <Controls:FriendButton/>
+                        <Controls:FriendButton Command="{Binding Command}"/>
                     </DataTemplate>
                 </Controls:FriendsControl.ItemTemplate>
             </Controls:FriendsControl>

@@ -41,7 +41,7 @@ namespace ToClient.Controls
             set { SetValue(CommandProperty, value); }
         }
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(FriendButton), new PropertyMetadata(null));
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(CustomerServiceButton), new PropertyMetadata(null));
 
 
 
@@ -55,7 +55,7 @@ namespace ToClient.Controls
         }
         public void MouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
         {
-            Command.Execute(null);
+            Command.Execute(this.Username.Text);
         }
     }
 }

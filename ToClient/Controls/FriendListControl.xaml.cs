@@ -18,21 +18,5 @@ namespace ToClient.Controls
         {
             InitializeComponent();
         }
-
-
-        public bool FriendListWindowIsOpen
-        {
-            get { return (bool)GetValue(FriendListWindowIsOpenProperty); }
-            set { SetValue(FriendListWindowIsOpenProperty, value); }
-        }
-        public static readonly DependencyProperty FriendListWindowIsOpenProperty =
-            DependencyProperty.Register("FriendListWindowIsOpen", typeof(bool), typeof(FriendListControl), new PropertyMetadata(false, (d, e) => 
-            {
-                FriendListControl tempD = (FriendListControl)d;
-                bool tempE = (bool)e.NewValue;
-                Storyboard tempStoryboard = tempD.Resources["RootScrollViewerStoryboard"] as Storyboard;
-                tempD.RootScrollViewerDoubleAnimation.To = tempE == true ? 290 : 0;
-                tempStoryboard.Begin();
-            }));
     }
 }

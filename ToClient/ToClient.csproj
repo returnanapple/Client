@@ -75,6 +75,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\BaseCommand.cs" />
     <Compile Include="Classes\States.cs" />
     <Compile Include="Classes\UserInfo.cs" />
     <Compile Include="Controls\ChatingWithButton.xaml.cs">
@@ -200,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\客服.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\发送.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

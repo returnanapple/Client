@@ -17,7 +17,12 @@ namespace ToClient.Classes
         private String username;
         private States userState;
         private int newMessageCount;
-
+        private ICommand command;
+        private ICommand switchChatingWithCommand;
+        #region 属性
+        /// <summary>
+        /// 用户名
+        /// </summary>
         public String Username
         {
             get
@@ -28,7 +33,9 @@ namespace ToClient.Classes
                 OnPropertyChanged(this, "Username");
             }
         }
-
+        /// <summary>
+        /// 用户在线状态
+        /// </summary>
         public States UserState
         {
             get
@@ -39,7 +46,9 @@ namespace ToClient.Classes
                 OnPropertyChanged(this, "UserState");
             }
         }
-
+        /// <summary>
+        /// 新信息条数
+        /// </summary>
         public int NewMessageCount
         {
             get
@@ -50,12 +59,39 @@ namespace ToClient.Classes
                 OnPropertyChanged(this, "NewMessageCount");
             }
         }
+        /// <summary>
+        /// 点击好友按键开始聊天命令
+        /// </summary>
+        public ICommand Command
+        {
+            get
+            { return command; }
+            set
+            {
+                command = value;
+                OnPropertyChanged(this, "Command");
+            }
+        }
+        public ICommand SwitchChatingWithCommand
+        {
+            get
+            { return switchChatingWithCommand; }
+            set
+            {
+                switchChatingWithCommand = value;
+                OnPropertyChanged(this, "SwitchChatingWithCommand");
+            }
+        }
+        #endregion 属性
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(object sender, String property)
         {
-            PropertyChanged(sender, new PropertyChangedEventArgs("property"));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, new PropertyChangedEventArgs("property"));
+            }
         }
     }
 }

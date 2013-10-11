@@ -55,7 +55,7 @@ namespace ToClient.Controls
         }
         public void MouseLeftButtonDownAction(object sender,MouseButtonEventArgs e)
         {
-            Command.Execute(null);
+            Command.Execute(this.Username.Text);
         }
     }
 }

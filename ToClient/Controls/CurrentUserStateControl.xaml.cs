@@ -41,6 +41,7 @@ namespace ToClient.Controls
             Image tempSender = (Image)sender;
             tempSender.Opacity = 1;
         }
+
         public void FriendListWindowOpenOrCloseMouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
         {
             this.FriendListWindowIsOpen = this.FriendListWindowIsOpen == true ? false : true;

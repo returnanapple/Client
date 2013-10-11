@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using ToClient.Classes;
+using System.Linq;
 
 namespace ToClient
 {
@@ -19,9 +21,10 @@ namespace ToClient
         public ToClientVM()
         {
             CustomerServiceList = new ObservableCollection<UserInfo>{ new UserInfo()};
-            SuperiorList = new ObservableCollection<UserInfo> { new UserInfo(),new UserInfo() };
+            SuperiorList = new ObservableCollection<UserInfo> { new UserInfo{Username="a"},new UserInfo{Username="b"} };
             LowerList = new ObservableCollection<UserInfo> {new UserInfo(),new UserInfo(),new UserInfo(),new UserInfo() };
             ChatingWithList = new ObservableCollection<UserInfo> { new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo() };
+            FriendButtonAddBeginChatToSomeoneCommand();
         }
         #region 私有字段
         private string currentUser;
@@ -72,6 +75,10 @@ namespace ToClient
             set
             {
                 chatWindowIsOpen = value;
+                if (value == false)
+                {
+                    ChatingWithList.Clear();
+                }
                 OnPropertyChanged(this, "ChatWindowIsOpen");
             }
         }
@@ -185,6 +192,7 @@ namespace ToClient
         #endregion
 
 
+        #region 属性改变事件
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(object sender, string property)
         {
@@ -192,6 +200,61 @@ namespace ToClient
             {
                 PropertyChanged(sender, new PropertyChangedEventArgs(property));
             }
+        }
+        #endregion 属性改变事件
+
+        /// <summary>
+        /// 点击好友按键开始聊天函数
+        /// </summary>
+        /// <param name="objectUsername"></param>
+        public void BeginChatToSomeone(object objectUsername)
+        {
+            string username = objectUsername.ToString();
+
+            if (ChatWindowIsOpen == false)
+            {
+                ChatWindowIsOpen = true;
+            }
+            ChatingWith = username;
+
+            if (ChatingWithList.Where(x => x.Username == username).ToList().Count == 0)
+            {
+                List<UserInfo> tempList = new List<UserInfo>();
+                UserInfo tempUserInfo;
+                tempList.AddRange(CustomerServiceList.ToList());
+                tempList.AddRange(SuperiorList.ToList());
+                tempList.AddRange(LowerList.ToList());
+                tempUserInfo = tempList.Where(x => x.Username == username).ToList().First();
+                ChatingWithList.Insert(0, tempUserInfo);
+            }
+        }
+        /// <summary>
+        /// 添加命令
+        /// </summary>
+        public void FriendButtonAddBeginChatToSomeoneCommand()
+        {
+            BaseCommand command = new BaseCommand(BeginChatToSomeone);
+            BaseCommand switchChatingWithCommand = new BaseCommand(SwitchChatingWith);
+            foreach (UserInfo i in CustomerServiceList)
+            {
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+            foreach (UserInfo i in SuperiorList)
+            { 
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+            foreach (UserInfo i in LowerList)
+            { 
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+        }
+
+        public void SwitchChatingWith(object objectUsername)
+        {
+            ChatingWith = objectUsername.ToString();
         }
     }
 }

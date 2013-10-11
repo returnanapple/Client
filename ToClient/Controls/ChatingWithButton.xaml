@@ -5,21 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Width="120" Height="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="TextGrid"  Grid.Column="0" Background="#FF452F30" 
-               MouseEnter="TextMouseEnterAction" MouseLeave="TextMouseLeaveAction"
-               MouseLeftButtonDown="TextMouseLeftButtonDown">
-            <TextBlock x:Name="UsernameTextBlock" Text="{Binding Username}" 
-                       VerticalAlignment="Center" Foreground="White"/>
-        </Grid>
-        <Grid x:Name="CloseGrid" Grid.Column="1" Background="#FF452F30" 
-              MouseEnter="CloseMouseEnterAction" MouseLeave="CloseMouseLeaveAction">
-            <TextBlock Text="X" FontSize="13" Foreground="White"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
-    </Grid>
+    <Border x:Name="RootBorder" Width="125" Height="20" CornerRadius="2" Background="#FFF7F5F5" BorderThickness="1"
+            MouseEnter="MouseEnterAction" MouseLeave="MouseLeaveAction" MouseLeftButtonDown="MouseLeftButtonDownAction">
+        <TextBlock x:Name="TextBlock" Text="{Binding Username}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </Border>
 </UserControl>
