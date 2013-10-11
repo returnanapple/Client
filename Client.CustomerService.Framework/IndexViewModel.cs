@@ -8,6 +8,7 @@ using System.IO.IsolatedStorage;
 using System.Windows.Controls;
 using Client.CustomerService.Framework.UserService;
 using Client.CustomerService.Framework.MessageService;
+using System.Windows.Threading;
 
 namespace Client.CustomerService.Framework
 {
@@ -200,6 +201,8 @@ namespace Client.CustomerService.Framework
             ShowChooseIconWindowCommand = new UniversalCommand(new Action<object>(ShowChooseIconWindow));
             ShowUploadPicWindowCommand = new UniversalCommand(new Action<object>(ShowUploadPicWindow));
             RefreshUserList();
+            ReadMessageListOnTimeLine();
+            KeepHeartbeat();
         }
 
         #endregion
@@ -402,6 +405,30 @@ namespace Client.CustomerService.Framework
         }
 
         #endregion
+        #region 读取唯独信息条数
+
+        void ReadCountOfNewMessage()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(300);
+            timer.Tick += (sender, e) =>
+                {
+                    OfficialMessageServiceClient client = new OfficialMessageServiceClient();
+                    client.GetCountOfUnreadMessagesCompleted += UpdateCountOfNewMessage;
+                };
+            timer.Start();
+        }
+
+        void UpdateCountOfNewMessage(object sender, GetCountOfUnreadMessagesCompletedEventArgs e)
+        {
+            if (!e.Result.Success) { Logout_do(); }
+            e.Result.Content.ForEach(x =>
+                {
+                    Users.First(u => u.Username == x.Username).CountOfNewMessage = x.Count;
+                });
+        }
+
+        #endregion
 
         #endregion
 
@@ -423,6 +450,20 @@ namespace Client.CustomerService.Framework
                 {
                     Messages.Add(x);
                 });
+        }
+
+        #endregion
+        #region 轮询唯独信息
+
+        void ReadMessageListOnTimeLine()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(30);
+            timer.Tick += (sender, e) =>
+                {
+                    RefreshMessageList();
+                };
+            timer.Start();
         }
 
         #endregion
@@ -467,6 +508,22 @@ namespace Client.CustomerService.Framework
             {
                 TalkToolHeight = new GridLength(220);
             }
+        }
+
+        #endregion
+
+        #region 心跳协议
+
+        void KeepHeartbeat()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(300);
+            timer.Tick += (sender, e) =>
+                {
+                    OfficialUserServiceClient client = new OfficialUserServiceClient();
+                    client.HeartbeatAsync(Username);
+                };
+            timer.Start();
         }
 
         #endregion
