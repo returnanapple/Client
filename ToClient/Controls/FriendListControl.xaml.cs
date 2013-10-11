@@ -10,14 +10,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace ToClient
+namespace ToClient.Controls
 {
-    public partial class MainPage : UserControl
+    public partial class FriendListControl : UserControl
     {
-        public MainPage()
+        public FriendListControl()
         {
             InitializeComponent();
-            root.DataContext = new ToClientVM { CurrentUser = "aaaa"};
         }
     }
 }

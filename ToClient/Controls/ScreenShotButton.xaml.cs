@@ -18,5 +18,13 @@ namespace ToClient.Controls
         {
             InitializeComponent();
         }
+        public void MouseEnterAction(object sender, MouseEventArgs e)
+        {
+            RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 252, 240, 193));//#FFFCF0C1
+        }
+        public void MouseLeaveAction(object sender, MouseEventArgs e)
+        {
+            RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 247, 245, 245));//#FFF7F5F5
+        }
     }
 }

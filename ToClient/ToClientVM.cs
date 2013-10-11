@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net;
@@ -11,21 +12,62 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using ToClient.Classes;
+using System.Linq;
 
 namespace ToClient
 {
     public class ToClientVM:INotifyPropertyChanged
     {
+        public ToClientVM()
+        {
+            CustomerServiceList = new ObservableCollection<UserInfo>{ new UserInfo()};
+            SuperiorList = new ObservableCollection<UserInfo> { new UserInfo{Username="a"},new UserInfo{Username="b"} };
+            LowerList = new ObservableCollection<UserInfo> {new UserInfo(),new UserInfo(),new UserInfo(),new UserInfo() };
+            ChatingWithList = new ObservableCollection<UserInfo> { new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo() };
+            FriendButtonAddBeginChatToSomeoneCommand();
+        }
         #region 私有字段
-        private bool chatWindowIsOpen;
-        private bool friendListWindowIsOpen;
-        private string newMessageCount;
-        private bool customerServiceListIsOpen;
-        private bool superiorListIsOpen;
-        private bool lowerListIsOpen;
-        private string waitSendContent;
-        #endregion
+        private string currentUser;
+        private States currentUserOnlineState=States.在线;
+        private bool chatWindowIsOpen = false;
+        private bool friendListWindowIsOpen=false;
+        private int newMessageCount=8;
+        private bool customerServiceListIsOpen =false;
+        private bool superiorListIsOpen = false;
+        private bool lowerListIsOpen=false;
+        private string waitSendContent="";
+        private string chatingWith="";
+        #endregion        
         #region 属性
+        /// <summary>
+        /// 当前用户
+        /// </summary>
+        public string CurrentUser
+        {
+            get
+            { return currentUser; }
+            set
+            {
+                currentUser = value;
+                OnPropertyChanged(this, "currentUser");
+            }
+        }
+        /// <summary>
+        /// 当前用户在线状态
+        /// </summary>
+        public States CurrentUserOnlineState
+        {
+            get
+            { return currentUserOnlineState; }
+            set
+            {
+                currentUserOnlineState = value;
+                OnPropertyChanged(this, "CurrentUserOnlineState");
+            }
+        }
+        /// <summary>
+        /// 聊天窗口是否打开
+        /// </summary>
         public bool ChatWindowIsOpen
         {
             get
@@ -33,10 +75,16 @@ namespace ToClient
             set
             {
                 chatWindowIsOpen = value;
+                if (value == false)
+                {
+                    ChatingWithList.Clear();
+                }
                 OnPropertyChanged(this, "ChatWindowIsOpen");
             }
         }
-
+        /// <summary>
+        /// 好友总列表是否打开
+        /// </summary>
         public bool FriendListWindowIsOpen
         {
             get
@@ -47,8 +95,10 @@ namespace ToClient
                 OnPropertyChanged(this, "FriendListWindowIsOpen");
             }
         }
-
-        public string NewMessageCount
+        /// <summary>
+        /// 新信息条数
+        /// </summary>
+        public int NewMessageCount
         {
             get
             { return newMessageCount; }
@@ -58,7 +108,9 @@ namespace ToClient
                 OnPropertyChanged(this, "NewMessageCount");
             }
         }
-
+        /// <summary>
+        /// 客服分组是否打开
+        /// </summary>
         public bool CustomerServiceListIsOpen
         {
             get
@@ -69,6 +121,9 @@ namespace ToClient
                 OnPropertyChanged(this, "CustomerServiceListIsOpen");
             }
         }
+        /// <summary>
+        /// 上级分组是否打开
+        /// </summary>
         public bool SuperiorListIsOpen
         {
             get
@@ -79,6 +134,9 @@ namespace ToClient
                 OnPropertyChanged(this, "SuperiorListIsOpen");
             }
         }
+        /// <summary>
+        /// 下级分组是否打开
+        /// </summary>
         public bool LowerListIsOpen
         {
             get
@@ -89,6 +147,9 @@ namespace ToClient
                 OnPropertyChanged(this, "LowerListIsOpen");
             }
         }
+        /// <summary>
+        /// 编辑框内容
+        /// </summary>
         public string WaitSendContent
         {
             get
@@ -99,17 +160,101 @@ namespace ToClient
                 OnPropertyChanged(this, "WaitSendContent");
             }
         }
+        /// <summary>
+        /// 正在聊天的好友
+        /// </summary>
+        public string ChatingWith
+        {
+            get
+            { return chatingWith; }
+            set
+            {
+                chatingWith = value;
+                OnPropertyChanged(this, "ChatingWith");
+            }
+        }
+        /// <summary>
+        /// 客服分组列表
+        /// </summary>
         public ObservableCollection<UserInfo> CustomerServiceList { get; set; }
+        /// <summary>
+        /// 上级分组列表
+        /// </summary>
         public ObservableCollection<UserInfo> SuperiorList { get; set; }
+        /// <summary>
+        /// 下级分组列表
+        /// </summary>
         public ObservableCollection<UserInfo> LowerList { get; set; }
+        /// <summary>
+        /// 正在聊天的好友列表
+        /// </summary>
         public ObservableCollection<UserInfo> ChatingWithList { get; set; }
         #endregion
 
 
+        #region 属性改变事件
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(object sender, string property)
         {
-            PropertyChanged(sender, new PropertyChangedEventArgs(property));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, new PropertyChangedEventArgs(property));
+            }
+        }
+        #endregion 属性改变事件
+
+        /// <summary>
+        /// 点击好友按键开始聊天函数
+        /// </summary>
+        /// <param name="objectUsername"></param>
+        public void BeginChatToSomeone(object objectUsername)
+        {
+            string username = objectUsername.ToString();
+
+            if (ChatWindowIsOpen == false)
+            {
+                ChatWindowIsOpen = true;
+            }
+            ChatingWith = username;
+
+            if (ChatingWithList.Where(x => x.Username == username).ToList().Count == 0)
+            {
+                List<UserInfo> tempList = new List<UserInfo>();
+                UserInfo tempUserInfo;
+                tempList.AddRange(CustomerServiceList.ToList());
+                tempList.AddRange(SuperiorList.ToList());
+                tempList.AddRange(LowerList.ToList());
+                tempUserInfo = tempList.Where(x => x.Username == username).ToList().First();
+                ChatingWithList.Insert(0, tempUserInfo);
+            }
+        }
+        /// <summary>
+        /// 添加命令
+        /// </summary>
+        public void FriendButtonAddBeginChatToSomeoneCommand()
+        {
+            BaseCommand command = new BaseCommand(BeginChatToSomeone);
+            BaseCommand switchChatingWithCommand = new BaseCommand(SwitchChatingWith);
+            foreach (UserInfo i in CustomerServiceList)
+            {
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+            foreach (UserInfo i in SuperiorList)
+            { 
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+            foreach (UserInfo i in LowerList)
+            { 
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+        }
+
+        public void SwitchChatingWith(object objectUsername)
+        {
+            ChatingWith = objectUsername.ToString();
         }
     }
 }

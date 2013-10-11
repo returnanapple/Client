@@ -3,40 +3,42 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Controls="clr-namespace:ToClient.Controls" x:Class="ToClient.ToClientV"
+    xmlns:Controls="clr-namespace:ToClient.Controls"
+    x:Class="ToClient.ToClientV"
     mc:Ignorable="d">
-
-    <Grid Background="White" Width="650" Height="400">
+    <UserControl.Resources>
+        <Storyboard x:Key="ChatWindowControlStoryboard">
+            <DoubleAnimation x:Name="ChatWindowControlDoubleAnimation" Duration="0:0:0.3"
+                             Storyboard.TargetProperty="Width"
+                             Storyboard.TargetName="MyChatWindowControl"/>
+        </Storyboard>
+        <Storyboard x:Key="OtherChatWindowControlStoryboard">
+            <DoubleAnimation Duration="0:0:0.3" To="0"
+                             Storyboard.TargetProperty="Width"
+                             Storyboard.TargetName="MyChatWindowControl"/>
+        </Storyboard>
+        <Storyboard x:Key="FriendListControlStoryboard">
+            <DoubleAnimation x:Name="FriendListControlDoubleAnimation" Duration="0:0:0.3"
+                             Storyboard.TargetProperty="Height"
+                             Storyboard.TargetName="MyFriendListControl"/>
+            <DoubleAnimation x:Name="OtherDoubleAnimation" Duration="0:0:0.3"
+                             Storyboard.TargetProperty="Height"
+                             Storyboard.TargetName="MyChatWindowControl"/>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid/>
+        <Controls:ChatWindowControl x:Name="MyChatWindowControl" Grid.Column="0" Width="0" Height="110"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="290"/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="在线状态:" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Grid.Row="0" Margin="70,3,120,3" Background="LightGray" SelectedIndex="0"
-                      >
-                <TextBlock Text="在线" FontSize="12"/>
-                <TextBlock Text="忙碌" FontSize="12"/>
-                <TextBlock Text="隐身" FontSize="12"/>
-            </ComboBox>
-            <TextBlock Grid.Row="2" Text="NewMessage" Foreground="Gray" VerticalAlignment="Center" FontSize="18"/>
-            <ScrollViewer Grid.Row="3">
-                <StackPanel>
-                    <Controls:FriendListTittleButton TittleText="客服"/>
-                    <ItemsControl/>
-                    <Controls:FriendListTittleButton TittleText="上级"/>
-                    <ItemsControl/>
-                    <Controls:FriendListTittleButton TittleText="下级"/>
-                    <ItemsControl/>
-                </StackPanel>
-            </ScrollViewer>
+            <Controls:CurrentUserStateControl Grid.Row="0" FriendListWindowIsOpen="{Binding FriendListWindowIsOpen, Mode=TwoWay}"/>
+            <Controls:FriendListControl x:Name="MyFriendListControl" Grid.Row="1" Height="0"/>
         </Grid>
     </Grid>
 </UserControl>

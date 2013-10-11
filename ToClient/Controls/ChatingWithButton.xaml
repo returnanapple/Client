@@ -4,19 +4,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
-    <Grid Width="120" Height="20" Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <TextBlock Text="Username" 
-                       VerticalAlignment="Center"/>
-        </Grid>
-        <Grid Grid.Column="1">
-            <TextBlock Text="X" FontSize="13"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
-    </Grid>
+
+    <Border x:Name="RootBorder" Width="125" Height="20" CornerRadius="2" Background="#FFF7F5F5" BorderThickness="1"
+            MouseEnter="MouseEnterAction" MouseLeave="MouseLeaveAction" MouseLeftButtonDown="MouseLeftButtonDownAction">
+        <TextBlock x:Name="TextBlock" Text="{Binding Username}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </Border>
 </UserControl>

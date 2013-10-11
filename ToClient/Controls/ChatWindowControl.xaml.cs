@@ -10,14 +10,15 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace ToClient
+namespace ToClient.Controls
 {
-    public partial class MainPage : UserControl
+    public partial class ChatWindowControl : UserControl
     {
-        public MainPage()
+        public ChatWindowControl()
         {
             InitializeComponent();
-            root.DataContext = new ToClientVM { CurrentUser = "aaaa"};
         }
+
+
     }
 }

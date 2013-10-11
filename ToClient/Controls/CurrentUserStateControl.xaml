@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ToClient.Controls.CurrentUserStateControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+    xmlns:ValueConverter="clr-namespace:ToClient.ValueConverters">
+
+    <UserControl.Resources>
+        <ValueConverter:CurrentUserOnlineStateConverter x:Key="CurrentUserOnlineStateConverter"/>
+        <ValueConverter:NewMessageCountSymbolConverter x:Key="NewMessageCountSymbolConverter"/>
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Storyboard x:Key="DirectionStoryboard">
+            <DoubleAnimation x:Name="DirectionDoubleAnimation" Storyboard.TargetName="Direction"
+                             Storyboard.TargetProperty="RotationZ" Duration="0:0:0.1"/>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid Width="220" Height="110">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF404040" Offset="0"/>
+                <GradientStop Color="#FFB4B4B4" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding CurrentUser}"/>
+            <ed:BlockArrow Fill="LightGray" HorizontalAlignment="Left" Height="24" Margin="6,6,0,0" Orientation="Up" 
+                           Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" Width="24" Grid.Column="1"
+                           Cursor="Hand" MouseLeftButtonDown="FriendListWindowOpenOrCloseMouseLeftButtonDownAction">
+                <ed:BlockArrow.Projection>
+                    <PlaneProjection x:Name="Direction" 
+                                     RotationZ="0"/>
+                </ed:BlockArrow.Projection>
+            </ed:BlockArrow>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" FontSize="15" Text="{Binding CurrentUserOnlineState}" 
+					VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FFEAEAEA"/>
+            <Image Grid.Column="1" Source="/ToClient;component/Images/在线.png" MouseLeftButtonDown="StateImageMouseLeftButtonDownAction" Style="{StaticResource ImageStyle}"
+					Opacity="{Binding CurrentUserOnlineState, ConverterParameter=在线, Converter={StaticResource CurrentUserOnlineStateConverter}, Mode=TwoWay}"/>
+            <Image Grid.Column="2" Source="/ToClient;component/Images/忙碌.png" MouseLeftButtonDown="StateImageMouseLeftButtonDownAction" Style="{StaticResource ImageStyle}"
+					Opacity="{Binding CurrentUserOnlineState, ConverterParameter=忙碌, Converter={StaticResource CurrentUserOnlineStateConverter}, Mode=TwoWay}"/>
+            <Image Grid.Column="3" Source="/ToClient;component/Images/隐身.png" MouseLeftButtonDown="StateImageMouseLeftButtonDownAction" Style="{StaticResource ImageStyle}"
+					Opacity="{Binding CurrentUserOnlineState, ConverterParameter=隐身, Converter={StaticResource CurrentUserOnlineStateConverter}, Mode=TwoWay}"/>
+        </Grid>
+        <TextBlock Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="15"
+                   Opacity="{Binding NewMessageCount,Converter={StaticResource NewMessageCountSymbolConverter}}" Foreground="White">
+            <Run Text="NewMessage"/>
+            <Run Text="("/>
+            <Run Text="{Binding NewMessageCount}"/>
+            <Run Text=")"/>
+        </TextBlock>
+    </Grid>
+</UserControl>
