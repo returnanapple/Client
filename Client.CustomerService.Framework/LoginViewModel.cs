@@ -12,6 +12,12 @@ namespace Client.CustomerService.Framework
     /// </summary>
     public class LoginViewModel : ViewModelBase
     {
+        #region 网络链接
+
+        OfficialUserServiceClient UserClient { get; set; }
+
+        #endregion
+
         #region 私有字段
 
         string _username = "";
@@ -127,6 +133,8 @@ namespace Client.CustomerService.Framework
                 this.Password = package.Password;
                 this.RememberMe = true;
             }
+            UserClient = new OfficialUserServiceClient();
+            UserClient.SetInCompleted += ShowLoginResult;
         }
 
         #region 私有方法
@@ -167,9 +175,7 @@ namespace Client.CustomerService.Framework
             #endregion
 
             //登陆
-            OfficialUserServiceClient client = new OfficialUserServiceClient();
-            client.SetInCompleted += ShowLoginResult;
-            client.SetInAsync(this.Username, this.Password, UserOnlineStatus.在线);
+            UserClient.SetInAsync(this.Username, this.Password, UserOnlineStatus.在线);
 
         }
 

@@ -68,7 +68,7 @@
                 </Border.Background>
                 <Border Width="1" HorizontalAlignment="Right" Background="#FF323232"></Border>
             </Border>
-            <TextBlock Text="Client 客户服务" Foreground="White" FontSize="20"
+            <TextBlock Name="_title" Text="Client 客户服务" Foreground="White" FontSize="20"
                    HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,40,0,0" Grid.Row="0">
                 <TextBlock.Effect>
                     <DropShadowEffect Direction="340"/>
@@ -140,7 +140,7 @@
                 <TextBlock Text="{Binding DoingNow}" Style="{StaticResource ResourceKey=PageTitle}" Margin="365,65,0,0"/>
                 <TextBlock Text="==>" Style="{StaticResource ResourceKey=PageTitle}" Margin="504,65,0,0"/>
                 <TextBlock Text="{Binding TargetUser}" Style="{StaticResource ResourceKey=PageTitle}" Margin="574,65,0,0"/>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible"
+                <ScrollViewer Name="sv" Grid.Row="1" VerticalScrollBarVisibility="Visible"
                               Margin="30,0,0,0">
                     <ScrollViewer.Background>
                         <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">

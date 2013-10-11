@@ -17,6 +17,13 @@ namespace Client.CustomerService.Framework
     /// </summary>
     public class IndexViewModel : ViewModelBase
     {
+        #region 网络链接
+
+        OfficialUserServiceClient UserClient { get; set; }
+        OfficialMessageServiceClient MessageClient { get; set; }
+
+        #endregion
+
         #region 私有字段
 
         string username = "";
@@ -192,6 +199,14 @@ namespace Client.CustomerService.Framework
         /// </summary>
         public IndexViewModel()
         {
+            UserClient = new OfficialUserServiceClient();
+            UserClient.GetUsersCompleted += WriteUserList;
+            MessageClient = new OfficialMessageServiceClient();
+            MessageClient.SendCompleted += ShowSendMessageResult;
+            MessageClient.GetCountOfUnreadMessagesCompleted += UpdateCountOfNewMessage;
+            MessageClient.GetUnreadMessagesCompleted += WriteMessageList;
+            MessageClient.GetMessagesCompleted += WriteOldMessages;
+
             Users = new ObservableCollection<UserInfoModel>();
             Messages = new ObservableCollection<MessageResult>();
             LogoutCommand = new UniversalCommand(new Action<object>(Logout));
@@ -274,15 +289,14 @@ namespace Client.CustomerService.Framework
                 pop.Show();
                 return;
             }
+            if (MessageValue == "") { return; }
             SendMessageImport import = new SendMessageImport
             {
                 From = Username,
                 To = TargetUser,
                 Content = MessageValue
             };
-            OfficialMessageServiceClient client = new OfficialMessageServiceClient();
-            client.SendCompleted += ShowSendMessageResult;
-            client.SendAsync(import);
+            MessageClient.SendAsync(import);
         }
         #region 显示信息发送结果
 
@@ -348,9 +362,7 @@ namespace Client.CustomerService.Framework
         /// </summary>
         void RefreshUserList()
         {
-            OfficialUserServiceClient client = new OfficialUserServiceClient();
-            client.GetUsersCompleted += WriteUserList;
-            client.GetUsersAsync(Username);
+            UserClient.GetUsersAsync(Username);
         }
         #region 写用户列表
 
@@ -413,8 +425,7 @@ namespace Client.CustomerService.Framework
             timer.Interval = new TimeSpan(300);
             timer.Tick += (sender, e) =>
                 {
-                    OfficialMessageServiceClient client = new OfficialMessageServiceClient();
-                    client.GetCountOfUnreadMessagesCompleted += UpdateCountOfNewMessage;
+                    MessageClient.GetCountOfUnreadMessagesAsync(Username);
                 };
             timer.Start();
         }
@@ -437,9 +448,7 @@ namespace Client.CustomerService.Framework
         void RefreshMessageList()
         {
             if (TargetUser == "" || Username == "") { return; }
-            OfficialMessageServiceClient client = new OfficialMessageServiceClient();
-            client.GetUnreadMessagesCompleted += WriteMessageList;
-            client.GetUnreadMessagesAsync(TargetUser, Username);
+            MessageClient.GetUnreadMessagesAsync(TargetUser, Username);
         }
         #region 写消息列表
 
@@ -474,9 +483,7 @@ namespace Client.CustomerService.Framework
 
         void ShowOldMessages(int page = 1)
         {
-            OfficialMessageServiceClient client = new OfficialMessageServiceClient();
-            client.GetMessagesCompleted += WriteOldMessages;
-            client.GetMessagesAsync(TargetUser, page, 20000);
+            MessageClient.GetMessagesAsync(TargetUser, page, 20000);
         }
 
         void WriteOldMessages(object sender, GetMessagesCompletedEventArgs e)
@@ -520,8 +527,7 @@ namespace Client.CustomerService.Framework
             timer.Interval = new TimeSpan(300);
             timer.Tick += (sender, e) =>
                 {
-                    OfficialUserServiceClient client = new OfficialUserServiceClient();
-                    client.HeartbeatAsync(Username);
+                    UserClient.HeartbeatAsync(Username);
                 };
             timer.Start();
         }
