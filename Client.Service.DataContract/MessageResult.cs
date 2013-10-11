@@ -26,6 +26,12 @@ namespace Client.Service.DataContract
         public string To { get; set; }
 
         /// <summary>
+        /// 一个布尔值 表示是否自己的发言
+        /// </summary>
+        [DataMember]
+        public bool IsSelf { get; set; }
+
+        /// <summary>
         /// 正文
         /// </summary>
         [DataMember]
@@ -47,13 +53,15 @@ namespace Client.Service.DataContract
         /// 实例化一个新的聊天信息
         /// </summary>
         /// <param name="message">聊天信息的数据封装</param>
-        public MessageResult(Message message)
+        /// <param name="isSelf">一个布尔值 表示是否自己的发言</param>
+        public MessageResult(Message message, bool isSelf)
         {
             this.From = message.From;
             this.To = message.To;
             this.Content = message.Content;
             this.IsOfficial = message.IsOfficial;
             this.SendTime = message.CreatedTime;
+            this.IsSelf = isSelf;
         }
     }
 }

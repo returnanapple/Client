@@ -19,7 +19,7 @@
     </UserControl.Resources>
 
     <!--整体框架-->
-    <Grid MinHeight="300" MinWidth="400">
+    <Grid MinHeight="45" MinWidth="140">
         <!--覆盖层半透明北京-->
         <Grid.Background>
             <SolidColorBrush Color="Black" Opacity="0.3"/>

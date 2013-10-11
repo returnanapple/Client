@@ -18,7 +18,8 @@
   <xs:element name="GetUnreadMessages">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_from" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_to" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -32,7 +33,7 @@
   <xs:element name="GetMessages">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_from" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="page" type="xs:int" />
         <xs:element minOccurs="0" name="pageSize" type="xs:int" />
       </xs:sequence>

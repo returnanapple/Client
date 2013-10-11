@@ -131,7 +131,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="160"/>
                     <RowDefinition/>
-                    <RowDefinition Height="220"/>
+                    <RowDefinition Height="{Binding TalkToolHeight}"/>
                 </Grid.RowDefinitions>
                 <Control1:MenuButton Text="发送消息" HorizontalAlignment="Left" VerticalAlignment="Top" 
                                      Icon="Pen" Margin="30,25,0,0" Command="{Binding ChooseWhatDoingCommand}"/>
@@ -148,6 +148,15 @@
                             <GradientStop Color="White" Offset="0.996"/>
                         </LinearGradientBrush>
                     </ScrollViewer.Background>
+                    <ItemsControl ItemsSource="{Binding Messages}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Control1:MessageShowTool IsOwn="{Binding IsSelf}" 
+                                                          MessageText="{Binding Content}" 
+                                                          SendTime="{Binding SendTime}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </ScrollViewer>
                 <Grid Grid.Row="2" Margin="30,0,0,60">
                     <Control:TalkingTool />

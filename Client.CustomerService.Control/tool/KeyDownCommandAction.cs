@@ -24,7 +24,7 @@ namespace Client.CustomerService.Control
         protected override void Invoke(object parameter)
         {
             KeyEventArgs e = (KeyEventArgs)parameter;
-            if (e.Key != Key)
+            if (e.Key != Key || Keyboard.Modifiers != ModifierKey)
             {
                 return;
             }
@@ -63,6 +63,19 @@ namespace Client.CustomerService.Control
 
         public static readonly DependencyProperty KeyProperty =
             DependencyProperty.Register("Key", typeof(Key), typeof(KeyDownCommandAction), new PropertyMetadata(Key.Enter));
+
+        /// <summary>
+        /// 组合键
+        /// </summary>
+        public ModifierKeys ModifierKey
+        {
+            get { return (ModifierKeys)GetValue(ModifierKeyProperty); }
+            set { SetValue(ModifierKeyProperty, value); }
+        }
+
+        public static readonly DependencyProperty ModifierKeyProperty =
+            DependencyProperty.Register("ModifierKey", typeof(ModifierKeys), typeof(KeyDownCommandAction)
+            , new PropertyMetadata(ModifierKeys.None));
 
         #endregion
     }

@@ -18,5 +18,13 @@ namespace Client.CustomerService.Framework
         /// 错误提示弹窗
         /// </summary>
         ErrorPrompt = 102,
+        /// <summary>
+        /// 选择表情窗口
+        /// </summary>
+        ChooseIconWindow = 201,
+        /// <summary>
+        /// 上传图片窗口
+        /// </summary>
+        UploadPicWindow = 202
     }
 }

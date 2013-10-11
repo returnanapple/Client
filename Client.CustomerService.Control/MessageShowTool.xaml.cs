@@ -21,12 +21,9 @@ namespace Client.CustomerService.Control
         public MessageShowTool()
         {
             InitializeComponent();
-            WriteMessage("1111[^pic]0[$pic]34343434[^icon]41[$icon]36666666");
         }
 
         #region 依赖属性
-
-
 
         public bool IsOwn
         {
@@ -45,8 +42,6 @@ namespace Client.CustomerService.Control
                 tool.text_date.Style = s;
                 tool.text_time.Style = s;
             }));
-
-
 
         public string MessageText
         {
@@ -88,6 +83,7 @@ namespace Client.CustomerService.Control
 
             Regex regOfPic = new Regex(@"\[\^pic\]([a-zA-Z0-9]{0,})\[\$pic\]");
             Regex regOfIcon = new Regex(@"\[\^icon\]([a-zA-Z0-9]{0,})\[\$icon\]");
+            Regex regOfLineBreak = new Regex(@"\r|\n|\r\n|\n\r");
             List<string> listOfPic = new List<string>();
             List<string> listOfIcon = new List<string>();
             Match mOfPic = regOfPic.Match(message);
@@ -106,6 +102,7 @@ namespace Client.CustomerService.Control
             }
             message = regOfPic.Replace(message, ",[==>pic<==],");
             message = regOfIcon.Replace(message, ",[==>icon<==],");
+            message = regOfLineBreak.Replace(message, ",[==>lineBreak<==],");
 
             #endregion
 
@@ -126,6 +123,10 @@ namespace Client.CustomerService.Control
                 {
                     tClass.Add(new TClass(TEnum.icon, listOfIcon[numOfIcon]));
                     numOfIcon++;
+                }
+                else if (values[i] == "[==>lineBreak<==]")
+                {
+                    tClass.Add(new TClass(TEnum.lineBreak, ""));
                 }
                 else
                 {
@@ -168,9 +169,13 @@ namespace Client.CustomerService.Control
                 {
                     return GetIcon(Value);
                 }
-                else
+                else if (Type == TEnum.pic)
                 {
                     return GetPic(Value);
+                }
+                else
+                {
+                    return GetLineBreak();
                 }
             }
 
@@ -206,11 +211,20 @@ namespace Client.CustomerService.Control
                     BitmapImage bi = new BitmapImage();
                     bi.SetSource(s);
                     img.Source = bi;
-                    img.ClearValue(WidthProperty);
+                    img.Width = bi.PixelWidth > 480 ? 480 : bi.PixelWidth;
                 };
                 client.DownloadAsync(input);
 
                 return img;
+            }
+
+            Grid GetLineBreak()
+            {
+                Grid grid = new Grid();
+                grid.Width = 2000;
+                grid.Height = 0;
+
+                return grid;
             }
 
             #endregion
@@ -220,7 +234,8 @@ namespace Client.CustomerService.Control
         {
             text,
             icon,
-            pic
+            pic,
+            lineBreak
         }
 
         #endregion

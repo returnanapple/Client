@@ -65,6 +65,7 @@
       <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsOfficial" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelf" type="xs:boolean" />
       <xs:element minOccurs="0" name="SendTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="To" nillable="true" type="xs:string" />
     </xs:sequence>

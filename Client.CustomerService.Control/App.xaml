@@ -167,5 +167,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="TextBlock" x:Key="PageTitle" BasedOn="{StaticResource ResourceKey=TextBlockBaseStyle}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

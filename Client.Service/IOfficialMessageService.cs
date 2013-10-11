@@ -24,20 +24,21 @@ namespace Client.Service
         /// <summary>
         /// 获取未读信息的列表
         /// </summary>
-        /// <param name="username">用户名</param>
+        /// <param name="_from">发件人</param>
+        /// <param name="_to">收件人</param>
         /// <returns>返回包含未读信息的列表的操作结果</returns>
         [OperationContract]
-        OperatingResult<List<MessageResult>> GetUnreadMessages(string username);
+        OperatingResult<List<MessageResult>> GetUnreadMessages(string _from, string _to);
 
         /// <summary>
         /// 获取聊天记录的分页列表
         /// </summary>
-        /// <param name="username">用户名</param>
+        /// <param name="_from">发件人</param>
         /// <param name="page">页码</param>
         /// <param name="pageSize">每个页面包含信息条数</param>
         /// <returns>返回包含聊天纪录的分页列表的操作结果</returns>
         [OperationContract]
-        OperatingResult<PaginationList<MessageResult>> GetMessages(string username, int page, int pageSize);
+        OperatingResult<PaginationList<MessageResult>> GetMessages(string _from, int page, int pageSize);
 
         /// <summary>
         /// 发送新消息

@@ -25,10 +25,11 @@ namespace Client.Service
         /// <summary>
         /// 获取未读信息的列表
         /// </summary>
-        /// <param name="username">用户名</param>
+        /// <param name="_from">发件人</param>
+        /// <param name="_to">收件人</param>
         /// <returns>返回包含未读信息的列表的操作结果</returns>
         [OperationContract]
-        OperatingResult<List<MessageResult>> GetUnreadMessages(string username);
+        OperatingResult<List<MessageResult>> GetUnreadMessages(string _from, string _to);
 
         /// <summary>
         /// 获取聊天记录的分页列表

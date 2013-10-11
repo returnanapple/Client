@@ -64,6 +64,12 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChooseIconButton.xaml.cs">
+      <DependentUpon>ChooseIconButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseIconWindow.xaml.cs">
+      <DependentUpon>ChooseIconWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="class\RI.cs" />
     <Compile Include="CoverFloorTool.xaml.cs">
       <DependentUpon>CoverFloorTool.xaml</DependentUpon>
@@ -95,6 +101,9 @@
     <Compile Include="tool\KeepPasswordRealTime.cs" />
     <Compile Include="tool\KeyDownCommandAction.cs" />
     <Compile Include="tool\VerticalScrollTrigger.cs" />
+    <Compile Include="UploadPicTool.xaml.cs">
+      <DependentUpon>UploadPicTool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
@@ -104,6 +113,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChooseIconButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChooseIconWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TalkingTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UploadPicTool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

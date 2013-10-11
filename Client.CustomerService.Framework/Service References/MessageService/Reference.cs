@@ -182,6 +182,8 @@ namespace Client.CustomerService.Framework.MessageService {
         
         private bool IsOfficialField;
         
+        private bool IsSelfField;
+        
         private System.DateTime SendTimeField;
         
         private string ToField;
@@ -221,6 +223,19 @@ namespace Client.CustomerService.Framework.MessageService {
                 if ((this.IsOfficialField.Equals(value) != true)) {
                     this.IsOfficialField = value;
                     this.RaisePropertyChanged("IsOfficial");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsSelf {
+            get {
+                return this.IsSelfField;
+            }
+            set {
+                if ((this.IsSelfField.Equals(value) != true)) {
+                    this.IsSelfField = value;
+                    this.RaisePropertyChanged("IsSelf");
                 }
             }
         }
@@ -421,12 +436,12 @@ namespace Client.CustomerService.Framework.MessageService {
         Client.CustomerService.Framework.MessageService.OperatingResultOfArrayOfUnreadMessageCountResult5O3_PPRz2 EndGetCountOfUnreadMessages(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IOfficialMessageService/GetUnreadMessages", ReplyAction="http://tempuri.org/IOfficialMessageService/GetUnreadMessagesResponse")]
-        System.IAsyncResult BeginGetUnreadMessages(string username, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetUnreadMessages(string _from, string _to, System.AsyncCallback callback, object asyncState);
         
         Client.CustomerService.Framework.MessageService.OperatingResultOfArrayOfMessageResult5O3_PPRz2 EndGetUnreadMessages(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IOfficialMessageService/GetMessages", ReplyAction="http://tempuri.org/IOfficialMessageService/GetMessagesResponse")]
-        System.IAsyncResult BeginGetMessages(string username, int page, int pageSize, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetMessages(string _from, int page, int pageSize, System.AsyncCallback callback, object asyncState);
         
         Client.CustomerService.Framework.MessageService.OperatingResultOfPaginationListOfMessageResult5O3_PPRz25O3_PPRz2 EndGetMessages(System.IAsyncResult result);
         
@@ -655,8 +670,8 @@ namespace Client.CustomerService.Framework.MessageService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Client.CustomerService.Framework.MessageService.IOfficialMessageService.BeginGetUnreadMessages(string username, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetUnreadMessages(username, callback, asyncState);
+        System.IAsyncResult Client.CustomerService.Framework.MessageService.IOfficialMessageService.BeginGetUnreadMessages(string _from, string _to, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetUnreadMessages(_from, _to, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -665,8 +680,9 @@ namespace Client.CustomerService.Framework.MessageService {
         }
         
         private System.IAsyncResult OnBeginGetUnreadMessages(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string username = ((string)(inValues[0]));
-            return ((Client.CustomerService.Framework.MessageService.IOfficialMessageService)(this)).BeginGetUnreadMessages(username, callback, asyncState);
+            string _from = ((string)(inValues[0]));
+            string _to = ((string)(inValues[1]));
+            return ((Client.CustomerService.Framework.MessageService.IOfficialMessageService)(this)).BeginGetUnreadMessages(_from, _to, callback, asyncState);
         }
         
         private object[] OnEndGetUnreadMessages(System.IAsyncResult result) {
@@ -682,11 +698,11 @@ namespace Client.CustomerService.Framework.MessageService {
             }
         }
         
-        public void GetUnreadMessagesAsync(string username) {
-            this.GetUnreadMessagesAsync(username, null);
+        public void GetUnreadMessagesAsync(string _from, string _to) {
+            this.GetUnreadMessagesAsync(_from, _to, null);
         }
         
-        public void GetUnreadMessagesAsync(string username, object userState) {
+        public void GetUnreadMessagesAsync(string _from, string _to, object userState) {
             if ((this.onBeginGetUnreadMessagesDelegate == null)) {
                 this.onBeginGetUnreadMessagesDelegate = new BeginOperationDelegate(this.OnBeginGetUnreadMessages);
             }
@@ -697,12 +713,13 @@ namespace Client.CustomerService.Framework.MessageService {
                 this.onGetUnreadMessagesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUnreadMessagesCompleted);
             }
             base.InvokeAsync(this.onBeginGetUnreadMessagesDelegate, new object[] {
-                        username}, this.onEndGetUnreadMessagesDelegate, this.onGetUnreadMessagesCompletedDelegate, userState);
+                        _from,
+                        _to}, this.onEndGetUnreadMessagesDelegate, this.onGetUnreadMessagesCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Client.CustomerService.Framework.MessageService.IOfficialMessageService.BeginGetMessages(string username, int page, int pageSize, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetMessages(username, page, pageSize, callback, asyncState);
+        System.IAsyncResult Client.CustomerService.Framework.MessageService.IOfficialMessageService.BeginGetMessages(string _from, int page, int pageSize, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetMessages(_from, page, pageSize, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -711,10 +728,10 @@ namespace Client.CustomerService.Framework.MessageService {
         }
         
         private System.IAsyncResult OnBeginGetMessages(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string username = ((string)(inValues[0]));
+            string _from = ((string)(inValues[0]));
             int page = ((int)(inValues[1]));
             int pageSize = ((int)(inValues[2]));
-            return ((Client.CustomerService.Framework.MessageService.IOfficialMessageService)(this)).BeginGetMessages(username, page, pageSize, callback, asyncState);
+            return ((Client.CustomerService.Framework.MessageService.IOfficialMessageService)(this)).BeginGetMessages(_from, page, pageSize, callback, asyncState);
         }
         
         private object[] OnEndGetMessages(System.IAsyncResult result) {
@@ -730,11 +747,11 @@ namespace Client.CustomerService.Framework.MessageService {
             }
         }
         
-        public void GetMessagesAsync(string username, int page, int pageSize) {
-            this.GetMessagesAsync(username, page, pageSize, null);
+        public void GetMessagesAsync(string _from, int page, int pageSize) {
+            this.GetMessagesAsync(_from, page, pageSize, null);
         }
         
-        public void GetMessagesAsync(string username, int page, int pageSize, object userState) {
+        public void GetMessagesAsync(string _from, int page, int pageSize, object userState) {
             if ((this.onBeginGetMessagesDelegate == null)) {
                 this.onBeginGetMessagesDelegate = new BeginOperationDelegate(this.OnBeginGetMessages);
             }
@@ -745,7 +762,7 @@ namespace Client.CustomerService.Framework.MessageService {
                 this.onGetMessagesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetMessagesCompleted);
             }
             base.InvokeAsync(this.onBeginGetMessagesDelegate, new object[] {
-                        username,
+                        _from,
                         page,
                         pageSize}, this.onEndGetMessagesDelegate, this.onGetMessagesCompletedDelegate, userState);
         }
@@ -885,9 +902,10 @@ namespace Client.CustomerService.Framework.MessageService {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetUnreadMessages(string username, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = username;
+            public System.IAsyncResult BeginGetUnreadMessages(string _from, string _to, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = _from;
+                _args[1] = _to;
                 System.IAsyncResult _result = base.BeginInvoke("GetUnreadMessages", _args, callback, asyncState);
                 return _result;
             }
@@ -898,9 +916,9 @@ namespace Client.CustomerService.Framework.MessageService {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetMessages(string username, int page, int pageSize, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginGetMessages(string _from, int page, int pageSize, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[3];
-                _args[0] = username;
+                _args[0] = _from;
                 _args[1] = page;
                 _args[2] = pageSize;
                 System.IAsyncResult _result = base.BeginInvoke("GetMessages", _args, callback, asyncState);

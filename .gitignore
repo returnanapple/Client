@@ -5,3 +5,5 @@ obj
 ClientBin
 *.suo
 /TestResults
+
+/Client.CustomerService.Web/img

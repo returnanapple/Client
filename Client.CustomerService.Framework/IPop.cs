@@ -11,6 +11,11 @@ namespace Client.CustomerService.Framework
     public interface IPop
     {
         /// <summary>
+        /// 获取或设置一个值，该值指示是接受还是取消
+        /// </summary>
+        bool? DialogResult { get; set; }
+
+        /// <summary>
         /// 显示弹窗
         /// </summary>
         void Show();

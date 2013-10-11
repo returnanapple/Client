@@ -18,7 +18,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" MinWidth="600" >
+    <Grid x:Name="LayoutRoot" MinWidth="600" MaxWidth="760">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
@@ -30,7 +30,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="text_username" Text="Admin" 
+            <TextBlock x:Name="text_username" Text="{Binding From}" 
                        Grid.Column="0" Style="{StaticResource ResourceKey=other}"/>
             <TextBlock x:Name="text_date" Text="2013-10-11" 
                        Grid.Column="1" Margin="5,0" Style="{StaticResource ResourceKey=other}"/>
@@ -54,6 +54,8 @@
                     <Setter Property="MaxWidth" Value="480"/>
                 </Style>
             </ItemsControl.Resources>
+            <ItemsControl.Items>
+            </ItemsControl.Items>
         </ItemsControl>
     </Grid>
 </UserControl>

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.IO.IsolatedStorage;
 using System.Windows.Controls;
 using Client.CustomerService.Framework.UserService;
+using Client.CustomerService.Framework.MessageService;
 
 namespace Client.CustomerService.Framework
 {
@@ -20,6 +22,9 @@ namespace Client.CustomerService.Framework
         string doingNow = "发送消息";
         string targetUser = "";
         string messageValue = "";
+        int pageInde = 0;
+        int allPage = 0;
+        GridLength talkToolHeight = new GridLength(220);
 
         #endregion
 
@@ -90,9 +95,62 @@ namespace Client.CustomerService.Framework
         }
 
         /// <summary>
+        /// 页码（聊天纪录）
+        /// </summary>
+        public int PageIndex
+        {
+            get { return pageInde; }
+            set
+            {
+                if (pageInde != value)
+                {
+                    pageInde = value;
+                    OnPropertyChanged("PageIndex");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 所有页数（聊天纪录）
+        /// </summary>
+        public int AllPage
+        {
+            get { return allPage; }
+            set
+            {
+                if (allPage != value)
+                {
+                    allPage = value;
+                    OnPropertyChanged("AllPage");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 聊天工具高度
+        /// </summary>
+        public GridLength TalkToolHeight
+        {
+            get { return talkToolHeight; }
+            set
+            {
+                if (talkToolHeight != value)
+                {
+                    talkToolHeight = value;
+                    OnPropertyChanged("TalkToolHeight");
+                }
+            }
+        }
+
+        /// <summary>
         /// 用户列表
         /// </summary>
         public ObservableCollection<UserInfoModel> Users { get; set; }
+
+        /// <summary>
+        /// 消息列表
+        /// </summary>
+        public ObservableCollection<MessageResult> Messages { get; set; }
 
         /// <summary>
         /// 安全退出命令
@@ -114,6 +172,16 @@ namespace Client.CustomerService.Framework
         /// </summary>
         public UniversalCommand SendMessageCommand { get; set; }
 
+        /// <summary>
+        /// 显示表情选择窗口的命令
+        /// </summary>
+        public UniversalCommand ShowChooseIconWindowCommand { get; set; }
+
+        /// <summary>
+        /// 显示上传图片窗口的命令
+        /// </summary>
+        public UniversalCommand ShowUploadPicWindowCommand { get; set; }
+
         #endregion
 
         #region 构造方法
@@ -123,10 +191,14 @@ namespace Client.CustomerService.Framework
         /// </summary>
         public IndexViewModel()
         {
+            Users = new ObservableCollection<UserInfoModel>();
+            Messages = new ObservableCollection<MessageResult>();
             LogoutCommand = new UniversalCommand(new Action<object>(Logout));
             OpenTalkingWindowCommand = new UniversalCommand(new Action<object>(OpenTalkingWindow));
             ChooseWhatDoingCommand = new UniversalCommand(new Action<object>(ChooseWhatDoing));
             SendMessageCommand = new UniversalCommand(new Action<object>(SendNewMessage));
+            ShowChooseIconWindowCommand = new UniversalCommand(new Action<object>(ShowChooseIconWindow));
+            ShowUploadPicWindowCommand = new UniversalCommand(new Action<object>(ShowUploadPicWindow));
             RefreshUserList();
         }
 
@@ -148,7 +220,7 @@ namespace Client.CustomerService.Framework
             pop.State = "该操作将推出客服聊天系统，你确定要退出吗？";
             pop.Closed += (sender, e) =>
                 {
-                    ChildWindow cw = (ChildWindow)sender;
+                    IPop cw = (IPop)sender;
                     if (cw.DialogResult == false) { return; }
                     Logout_do();
                 };
@@ -173,6 +245,7 @@ namespace Client.CustomerService.Framework
         public void OpenTalkingWindow(object parameter)
         {
             TargetUser = parameter.ToString();
+            ResetPage();
         }
 
         #endregion
@@ -182,6 +255,7 @@ namespace Client.CustomerService.Framework
         public void ChooseWhatDoing(object parameter)
         {
             DoingNow = parameter.ToString();
+            ResetPage();
         }
 
         #endregion
@@ -190,13 +264,79 @@ namespace Client.CustomerService.Framework
 
         void SendNewMessage(object parameter)
         {
-            if (TargetUser == "") { return; }
-            Users.First(x => x.Username == TargetUser).CountOfNewMessage += 1;
+            if (TargetUser == "" || !Users.Any(x => x.Username == TargetUser))
+            {
+                IPop<string> pop = ViewModelService.Current.GetPop(Pop.ErrorPrompt) as IPop<string>;
+                pop.State = "请先指定你要对话的用户";
+                pop.Show();
+                return;
+            }
+            SendMessageImport import = new SendMessageImport
+            {
+                From = Username,
+                To = TargetUser,
+                Content = MessageValue
+            };
+            OfficialMessageServiceClient client = new OfficialMessageServiceClient();
+            client.SendCompleted += ShowSendMessageResult;
+            client.SendAsync(import);
+        }
+        #region 显示信息发送结果
+
+        void ShowSendMessageResult(object sender, SendCompletedEventArgs e)
+        {
+            if (!e.Result.Success)
+            {
+                IPop<string> pop = ViewModelService.Current.GetPop(Pop.ErrorPrompt) as IPop<string>;
+                pop.State = "消息发送失败，请重试";
+                pop.Show();
+                return;
+            }
+            MessageValue = "";
+            RefreshMessageList();
         }
 
         #endregion
 
         #endregion
+
+        #region 显示表情选择窗口
+
+        void ShowChooseIconWindow(object parameter)
+        {
+            IPop<string> cw = ViewModelService.Current.GetPop(Pop.ChooseIconWindow) as IPop<string>;
+            cw.Closed += (sender, e) =>
+                {
+                    IPop<string> _cw = (IPop<string>)sender;
+                    if (_cw.DialogResult != true) { return; }
+                    string value = string.Format("[^icon]{0}[$icon]", _cw.State);
+                    MessageValue += value;
+                };
+            cw.Show();
+        }
+
+        #endregion
+
+        #region 显示图片上传窗口
+
+        void ShowUploadPicWindow(object parameter)
+        {
+            IPop<string> cw = ViewModelService.Current.GetPop(Pop.UploadPicWindow) as IPop<string>;
+            cw.Closed += (sender, e) =>
+                {
+                    IPop<string> _cw = (IPop<string>)sender;
+                    if (_cw.DialogResult != true) { return; }
+                    string value = string.Format("[^pic]{0}[$pic]", _cw.State);
+                    MessageValue += value;
+                };
+            cw.Show();
+        }
+
+        #endregion
+
+        #endregion
+
+        #region 后台操作
 
         #region 刷新用户列表
 
@@ -220,7 +360,6 @@ namespace Client.CustomerService.Framework
         {
             if (e.Result.Success)
             {
-                if (Users == null) { Users = new ObservableCollection<UserInfoModel>(); }
                 lock (Users)
                 {
                     List<UserInfoModel> ums = new List<UserInfoModel>();
@@ -266,39 +405,73 @@ namespace Client.CustomerService.Framework
 
         #endregion
 
+        #region 刷新消息列表
+
+        void RefreshMessageList()
+        {
+            if (TargetUser == "" || Username == "") { return; }
+            OfficialMessageServiceClient client = new OfficialMessageServiceClient();
+            client.GetUnreadMessagesCompleted += WriteMessageList;
+            client.GetUnreadMessagesAsync(TargetUser, Username);
+        }
+        #region 写消息列表
+
+        void WriteMessageList(object sender, GetUnreadMessagesCompletedEventArgs e)
+        {
+            if (!e.Result.Success) { Logout_do(); }
+            e.Result.Content.OrderBy(x => x.SendTime).ToList().ForEach(x =>
+                {
+                    Messages.Add(x);
+                });
+        }
+
         #endregion
 
-        #region 内嵌类型
+        #endregion
 
-        /// <summary>
-        /// 操作名
-        /// </summary>
-        public enum ActionName
+        #region 显示聊天纪录
+
+        void ShowOldMessages(int page = 1)
         {
-            /// <summary>
-            /// 登出
-            /// </summary>
-            Logout = 0,
+            OfficialMessageServiceClient client = new OfficialMessageServiceClient();
+            client.GetMessagesCompleted += WriteOldMessages;
+            client.GetMessagesAsync(TargetUser, page, 20000);
         }
 
-        /// <summary>
-        /// 登出动作的状态
-        /// </summary>
-        public enum LogoutStatus
+        void WriteOldMessages(object sender, GetMessagesCompletedEventArgs e)
         {
-            /// <summary>
-            /// 等待确认
-            /// </summary>
-            WaitForEnter = 0,
-            /// <summary>
-            /// 执行
-            /// </summary>
-            Do = 1,
-            /// <summary>
-            /// 执行完毕
-            /// </summary>
-            Done = 2
+            if (!e.Result.Success) { Logout_do(); }
+            Messages.Clear();
+            e.Result.Content.Content.OrderBy(x => x.SendTime).ToList().ForEach(x =>
+            {
+                Messages.Add(x);
+            });
+            PageIndex = e.Result.Content.PageIndex;
+            AllPage = e.Result.Content.TotalOfPage;
         }
+
+        #endregion
+
+        #region 重置界面
+
+        void ResetPage()
+        {
+            Messages.Clear();
+            MessageValue = "";
+            if (DoingNow == "聊天记录")
+            {
+                TalkToolHeight = new GridLength(60);
+                ShowOldMessages();
+            }
+            else
+            {
+                TalkToolHeight = new GridLength(220);
+            }
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }
