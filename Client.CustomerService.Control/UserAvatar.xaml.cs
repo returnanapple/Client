@@ -36,6 +36,7 @@ namespace Client.CustomerService.Control
                 Storyboard s = (Storyboard)tool.Resources["s"];
                 if ((int)e.NewValue != 0)
                 {
+                    s.Stop();
                     s.Begin();
                 }
                 else

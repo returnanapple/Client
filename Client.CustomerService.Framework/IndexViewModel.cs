@@ -19,6 +19,7 @@ namespace Client.CustomerService.Framework
         string username = "";
         string doingNow = "发送消息";
         string targetUser = "";
+        string messageValue = "";
 
         #endregion
 
@@ -73,6 +74,22 @@ namespace Client.CustomerService.Framework
         }
 
         /// <summary>
+        /// 将要发送的消息主体
+        /// </summary>
+        public string MessageValue
+        {
+            get { return messageValue; }
+            set
+            {
+                if (messageValue != value)
+                {
+                    messageValue = value;
+                    OnPropertyChanged("MessageValue");
+                }
+            }
+        }
+
+        /// <summary>
         /// 用户列表
         /// </summary>
         public ObservableCollection<UserInfoModel> Users { get; set; }
@@ -92,6 +109,11 @@ namespace Client.CustomerService.Framework
         /// </summary>
         public UniversalCommand ChooseWhatDoingCommand { get; set; }
 
+        /// <summary>
+        /// 发送新消息的命令
+        /// </summary>
+        public UniversalCommand SendMessageCommand { get; set; }
+
         #endregion
 
         #region 构造方法
@@ -104,12 +126,15 @@ namespace Client.CustomerService.Framework
             LogoutCommand = new UniversalCommand(new Action<object>(Logout));
             OpenTalkingWindowCommand = new UniversalCommand(new Action<object>(OpenTalkingWindow));
             ChooseWhatDoingCommand = new UniversalCommand(new Action<object>(ChooseWhatDoing));
+            SendMessageCommand = new UniversalCommand(new Action<object>(SendNewMessage));
             RefreshUserList();
         }
 
         #endregion
 
         #region 私有方法
+
+        #region 命令
 
         #region 登出
 
@@ -119,10 +144,27 @@ namespace Client.CustomerService.Framework
         /// <param name="parameter">可选参数</param>
         void Logout(object parameter)
         {
-            string p = "该操作将退出客户管理，你是要退出吗？";
-            IMessage m = Messager.Default.CreateMessage<LogoutStatus>(this, ActionName.Logout, p);
-            Messager.Default.Send(m);
+            IPop<string> pop = (IPop<string>)ViewModelService.Current.GetPop(Pop.NormalPrompt);
+            pop.State = "该操作将推出客服聊天系统，你确定要退出吗？";
+            pop.Closed += (sender, e) =>
+                {
+                    ChildWindow cw = (ChildWindow)sender;
+                    if (cw.DialogResult == false) { return; }
+                    Logout_do();
+                };
+            pop.Show();
         }
+        #region 登出
+
+        void Logout_do()
+        {
+            string dataKeyOfUsername = DataKey.Client_Username.ToString();
+            IsolatedStorageSettings.ApplicationSettings.Remove(dataKeyOfUsername);
+            IsolatedStorageSettings.ApplicationSettings.Save();
+            ViewModelService.Current.JumpToDefaultPage();
+        }
+
+        #endregion
 
         #endregion
 
@@ -141,6 +183,18 @@ namespace Client.CustomerService.Framework
         {
             DoingNow = parameter.ToString();
         }
+
+        #endregion
+
+        #region 发送新消息
+
+        void SendNewMessage(object parameter)
+        {
+            if (TargetUser == "") { return; }
+            Users.First(x => x.Username == TargetUser).CountOfNewMessage += 1;
+        }
+
+        #endregion
 
         #endregion
 
@@ -204,50 +258,11 @@ namespace Client.CustomerService.Framework
             }
             else
             {
-                IMessage<LogoutStatus> m = Messager.Default
-                    .CreateMessage<LogoutStatus>(this, ActionName.Logout) as IMessage<LogoutStatus>;
-                m.SetStatus(LogoutStatus.Do);
-                Messager.Default.Send(m);
+                Logout_do();
             }
         }
 
         #endregion
-
-        #endregion
-
-        #endregion
-
-        #region 静态方法
-
-        #region 登出
-
-        /// <summary>
-        /// 确认登出
-        /// </summary>
-        /// <param name="message">系统消息</param>
-        [RegisterToMessager(typeof(IndexViewModel), ActionName.Logout, LogoutStatus.WaitForEnter)]
-        public static void ConfirmLogout(IMessage message)
-        {
-            IPop pop = ViewModelService.Current.GetPop(Pop.NormalPrompt);
-            pop.SystemMessage = message;
-            pop.Show();
-        }
-
-        /// <summary>
-        /// 执行登出动作
-        /// </summary>
-        /// <param name="message">系统消息</param>
-        [RegisterToMessager(typeof(IndexViewModel), ActionName.Logout, LogoutStatus.Do)]
-        public static void DoLogout(IMessage message)
-        {
-            bool confirm = (bool)message.Content;
-            if (!confirm) { return; }
-            message.Handle();
-            Messager.Default.Send(message);
-            string dataKeyOfUsername = DataKey.Client_Username.ToString();
-            IsolatedStorageSettings.ApplicationSettings.Remove(dataKeyOfUsername);
-            ViewModelService.Current.JumpToDefaultPage();
-        }
 
         #endregion
 

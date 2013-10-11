@@ -18,7 +18,7 @@
     <ItemsControl.ItemTemplate>
         <DataTemplate>
             <Grid x:Name="root" Height="25" MinWidth="100">
-                <Grid HorizontalAlignment="Right" Margin="0,0,10,0">
+                <Grid HorizontalAlignment="Left" Margin="0,0,10,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>

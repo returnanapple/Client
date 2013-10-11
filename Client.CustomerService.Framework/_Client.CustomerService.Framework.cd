@@ -67,7 +67,7 @@
   <Class Name="Client.CustomerService.Framework.IndexViewModel" Collapsed="true" HideInheritanceLine="true">
     <Position X="2.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAASAAIAAAAAAAAQAAAAsAIAAAAABAEAQAQAQAAIA=</HashCode>
+      <HashCode>AwAAECCAIAAAAAAAAQAABAsAIAAAAABAEQQAQAgAAJA=</HashCode>
       <FileName>IndexViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -143,7 +143,7 @@
   <Interface Name="Client.CustomerService.Framework.IPop" Collapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
       <FileName>IPop.cs</FileName>
     </TypeIdentifier>
   </Interface>

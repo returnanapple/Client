@@ -17,6 +17,7 @@
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <ExpressionBlendVersion>5.0.40218.0</ExpressionBlendVersion>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -46,13 +47,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="mscorlib" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="system.windows.controls.toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit.Internals, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
@@ -66,6 +71,13 @@
     <Compile Include="ErrorPrompt.xaml.cs">
       <DependentUpon>ErrorPrompt.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IconAndPicButton.xaml.cs">
+      <DependentUpon>IconAndPicButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MessageShowTool.xaml.cs">
+      <DependentUpon>MessageShowTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="tool\KeepTextRealTime.cs" />
     <Compile Include="LoginPrompt.xaml.cs">
       <DependentUpon>LoginPrompt.xaml</DependentUpon>
     </Compile>
@@ -103,11 +115,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="IconAndPicButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MenuButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MessageShowTool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,6 +167,47 @@
     <Resource Include="img\icon_list.png" />
     <Resource Include="img\icon_pen.png" />
     <Resource Include="img\icon_women.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\openPic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\openIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon\41.png" />
+    <Resource Include="icon\42.png" />
+    <Resource Include="icon\43.png" />
+    <Resource Include="icon\44.png" />
+    <Resource Include="icon\45.png" />
+    <Resource Include="icon\46.png" />
+    <Resource Include="icon\47.png" />
+    <Resource Include="icon\48.png" />
+    <Resource Include="icon\49.png" />
+    <Resource Include="icon\50.png" />
+    <Resource Include="icon\51.png" />
+    <Resource Include="icon\52.png" />
+    <Resource Include="icon\53.png" />
+    <Resource Include="icon\54.png" />
+    <Resource Include="icon\55.png" />
+    <Resource Include="icon\56.png" />
+    <Resource Include="icon\57.png" />
+    <Resource Include="icon\58.png" />
+    <Resource Include="icon\59.png" />
+    <Resource Include="icon\60.png" />
+    <Resource Include="icon\61.png" />
+    <Resource Include="icon\62.png" />
+    <Resource Include="icon\63.png" />
+    <Resource Include="icon\64.png" />
+    <Resource Include="icon\65.png" />
+    <Resource Include="icon\66.png" />
+    <Resource Include="icon\67.png" />
+    <Resource Include="icon\68.png" />
+    <Resource Include="icon\69.png" />
+    <Resource Include="icon\70.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\waitForLoding.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

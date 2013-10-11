@@ -11,13 +11,21 @@ namespace Client.CustomerService.Framework
     public interface IPop
     {
         /// <summary>
-        /// 系统消息
-        /// </summary>
-        IMessage SystemMessage { get; set; }
-
-        /// <summary>
         /// 显示弹窗
         /// </summary>
         void Show();
+
+        /// <summary>
+        /// 窗口关闭之后将触发的事件
+        /// </summary>
+        event EventHandler Closed;
+    }
+
+    public interface IPop<T> : IPop
+    {
+        /// <summary>
+        /// 内容
+        /// </summary>
+        T State { get; set; }
     }
 }

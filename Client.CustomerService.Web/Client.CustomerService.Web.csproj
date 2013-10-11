@@ -71,6 +71,7 @@
     <Content Include="Client.CustomerServiceTestPage.aspx" />
     <Content Include="Client.CustomerServiceTestPage.html" />
     <Content Include="ClientBin\Client.CustomerService.xap" />
+    <Content Include="img\0.jpg" />
     <Content Include="Silverlight.js" />
     <Content Include="Web.config" />
   </ItemGroup>
