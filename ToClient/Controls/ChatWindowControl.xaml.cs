@@ -19,6 +19,15 @@ namespace ToClient.Controls
             InitializeComponent();
         }
 
-
+        public void SenderBorderMouseEnterAction(object sender, MouseEventArgs e)
+        {
+            SenderBorder.BorderThickness = new Thickness(1);
+        }
+        public void SenderBorderMouseLeaveAction(object sender, MouseEventArgs e)
+        {
+            SenderBorder.BorderThickness = new Thickness(0);
+        }
+        public void SenderBorderMouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
+        { }
     }
 }

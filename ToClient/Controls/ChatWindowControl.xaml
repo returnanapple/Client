@@ -74,7 +74,10 @@
                     <ColumnDefinition Width="135"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Margin="8,4,7,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
-                <Border Grid.Column="1" Margin="38,19,37,31" Cursor="Hand">
+                <Border x:Name="SenderBorder" Grid.Column="1" Margin="38,19,37,31" BorderBrush="White" 
+                        MouseEnter="SenderBorderMouseEnterAction"
+                        MouseLeave="SenderBorderMouseLeaveAction"
+                        MouseLeftButtonDown="SenderBorderMouseLeftButtonDownAction">
                     <Image Source="/ToClient;component/Images/发送.png" Width="60" Height="60" />
                 </Border>
             </Grid>
