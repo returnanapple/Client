@@ -26,6 +26,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Host", "Client.Host\Client.Host.csproj", "{863677A4-15D4-45D9-BEB5-4D18EAF9130D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToClient", "ToClient\ToClient.csproj", "{FAA4F6E8-5C99-48DF-98BC-3CF867D1A366}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5500DBB7-EE06-4810-8E9D-696A57A67265} = {5500DBB7-EE06-4810-8E9D-696A57A67265}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToClient.Web", "ToClient.Web\ToClient.Web.csproj", "{5500DBB7-EE06-4810-8E9D-696A57A67265}"
 EndProject

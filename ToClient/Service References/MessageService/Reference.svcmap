@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b0074a84-9a57-45b2-bd81-b6a1cd69f4e9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:4293/Api/MessageService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MessageService.xsd" MetadataType="Schema" ID="d879013d-fe64-48a4-857c-ca2d549f6a3d" SourceId="1" SourceUrl="http://localhost:4293/Api/MessageService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MessageService.wsdl" MetadataType="Wsdl" ID="b94d46e8-e89e-4979-8e57-54be1de02416" SourceId="1" SourceUrl="http://localhost:4293/Api/MessageService.svc?wsdl" />
+    <MetadataFile FileName="MessageService1.xsd" MetadataType="Schema" ID="77ed5730-7f83-4174-b0a0-0f63081a2eed" SourceId="1" SourceUrl="http://localhost:4293/Api/MessageService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MessageService.disco" MetadataType="Disco" ID="446c6f09-3921-4725-aa68-549e5b7dea25" SourceId="1" SourceUrl="http://localhost:4293/Api/MessageService.svc?disco" />
+    <MetadataFile FileName="MessageService2.xsd" MetadataType="Schema" ID="d468db3e-6104-40f4-aac0-b172a4d99706" SourceId="1" SourceUrl="http://localhost:4293/Api/MessageService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
