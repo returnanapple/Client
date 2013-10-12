@@ -467,7 +467,7 @@ namespace Client.CustomerService.Framework
         }
 
         #endregion
-        #region 轮询唯独信息
+        #region 轮询未读信息
 
         void ReadMessageListOnTimeLine()
         {

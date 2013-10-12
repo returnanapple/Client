@@ -9,13 +9,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using ToClient.UserService;
 
 namespace ToClient.Classes
 {
     public class UserInfo : INotifyPropertyChanged
     {
         private String username;
-        private States userState;
+        private UserOnlineStatus userState;
         private int newMessageCount;
         private ICommand command;
         private ICommand switchChatingWithCommand;
@@ -36,7 +37,7 @@ namespace ToClient.Classes
         /// <summary>
         /// 用户在线状态
         /// </summary>
-        public States UserState
+        public UserOnlineStatus UserState
         {
             get
             { return userState; }
