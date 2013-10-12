@@ -28,5 +28,12 @@
       <FileName>OfficialUserReader.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Client.Service.Reader.PicRead" Collapsed="true">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>PicRead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Microsoft YaHei UI" Size="9" />
 </ClassDiagram>
