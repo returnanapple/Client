@@ -5,6 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ToClient.Controls" x:Class="ToClient.Controls.ChatWindowControl"
     xmlns:v="clr-namespace:ToClient"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:Control="clr-namespace:Client.CustomerService.Control;assembly=Client.CustomerService.Control"
     mc:Ignorable="d">
 
     <Grid x:Name="RootGrid" Background="White" Height="400" Width="655">
@@ -73,7 +75,15 @@
                     <ColumnDefinition Width="365"/>
                     <ColumnDefinition Width="135"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Margin="8,4,7,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                <TextBox Grid.Column="0" Margin="8,4,7,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"
+                         Text="{Binding WaitSendContent, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <Control:KeepTextRealTime />
+                        <i:EventTrigger EventName="KeyDown">
+                            <Control:KeyDownCommandAction Key="Enter" ModifierKey="Control" Command="{Binding SendMessageCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
                 <Border x:Name="SenderBorder" Grid.Column="1" Margin="38,19,37,31" BorderBrush="White" 
                         MouseEnter="SenderBorderMouseEnterAction"
                         MouseLeave="SenderBorderMouseLeaveAction"

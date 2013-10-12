@@ -68,6 +68,7 @@
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
@@ -204,6 +205,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\发送.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Client.CustomerService.Control\Client.CustomerService.Control.csproj">
+      <Project>{747220c9-2893-42be-b066-fc492194d146}</Project>
+      <Name>Client.CustomerService.Control</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

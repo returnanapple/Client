@@ -37,6 +37,8 @@ namespace ToClient
         private bool lowerListIsOpen=false;
         private string waitSendContent="";
         private string chatingWith="";
+
+        private ICommand sendMessageCommand
         #endregion        
         #region 属性
         /// <summary>
@@ -189,6 +191,8 @@ namespace ToClient
         /// 正在聊天的好友列表
         /// </summary>
         public ObservableCollection<UserInfo> ChatingWithList { get; set; }
+
+        public ICommand SendMessageCommand { }
         #endregion
 
 
