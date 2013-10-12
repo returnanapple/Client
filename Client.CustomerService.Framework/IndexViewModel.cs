@@ -263,6 +263,10 @@ namespace Client.CustomerService.Framework
         public void OpenTalkingWindow(object parameter)
         {
             TargetUser = parameter.ToString();
+            if (DoingNow == "发送消息")
+            {
+                Users.First(x => x.Username == TargetUser).CountOfNewMessage = 0;
+            }
             ResetPage();
         }
 
@@ -297,6 +301,7 @@ namespace Client.CustomerService.Framework
                 Content = MessageValue
             };
             MessageClient.SendAsync(import);
+            MessageValue = "";
         }
         #region 显示信息发送结果
 
@@ -309,7 +314,6 @@ namespace Client.CustomerService.Framework
                 pop.Show();
                 return;
             }
-            MessageValue = "";
             RefreshMessageList();
         }
 
