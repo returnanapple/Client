@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ad3e565c-3757-4474-8819-6f0abd68c973" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:4293/Api/PicService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PicService.xsd" MetadataType="Schema" ID="b22d7429-b3d8-42c9-b5f8-739b5c8bb0da" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PicService1.xsd" MetadataType="Schema" ID="9168299f-25a5-4d76-bba6-a96c63c388f3" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PicService2.xsd" MetadataType="Schema" ID="b9735e4e-0ec8-4683-bbb1-2a1da16ad983" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PicService.disco" MetadataType="Disco" ID="619ed7c1-2ea1-4f06-aecc-126f96b0d7d1" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?disco" />
+    <MetadataFile FileName="PicService.wsdl" MetadataType="Wsdl" ID="9b335ea3-69d9-469f-b57b-07a476761470" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?wsdl" />
+    <MetadataFile FileName="PicService3.xsd" MetadataType="Schema" ID="5c77b7f1-7c14-48db-8d5e-13a77ee4e92b" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
