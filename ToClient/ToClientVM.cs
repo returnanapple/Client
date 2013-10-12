@@ -38,7 +38,7 @@ namespace ToClient
         private string waitSendContent="";
         private string chatingWith="";
 
-        private ICommand sendMessageCommand
+        private ICommand sendMessageCommand;
         #endregion        
         #region 属性
         /// <summary>
@@ -192,7 +192,16 @@ namespace ToClient
         /// </summary>
         public ObservableCollection<UserInfo> ChatingWithList { get; set; }
 
-        public ICommand SendMessageCommand { }
+        public ICommand SendMessageCommand 
+        {
+            get
+            { return sendMessageCommand; }
+            set
+            {
+                sendMessageCommand = value;
+                OnPropertyChanged(this, "SendMessageCommand");
+            }
+        }
         #endregion
 
 

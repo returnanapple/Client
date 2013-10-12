@@ -26,5 +26,9 @@ namespace ToClient.Controls
         {
             RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 247, 245, 245));//#FFF7F5F5
         }
+        public void MouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
+        {
+            //(new UploadControl()).Show();
+        }
     }
 }

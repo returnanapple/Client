@@ -19,6 +19,18 @@ namespace ToClient.Controls
             InitializeComponent();
         }
 
+
+
+        public ICommand SendMessageConmmand
+        {
+            get { return (ICommand)GetValue(SendMessageConmmandProperty); }
+            set { SetValue(SendMessageConmmandProperty, value); }
+        }
+        public static readonly DependencyProperty SendMessageConmmandProperty =
+            DependencyProperty.Register("SendMessageConmmand", typeof(ICommand), typeof(ChatWindowControl), new PropertyMetadata(null));
+
+
+
         public void SenderBorderMouseEnterAction(object sender, MouseEventArgs e)
         {
             SenderBorder.BorderThickness = new Thickness(1);
@@ -28,6 +40,8 @@ namespace ToClient.Controls
             SenderBorder.BorderThickness = new Thickness(0);
         }
         public void SenderBorderMouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
-        { }
+        {
+            this.SendMessageConmmand.Execute(null);
+        }
     }
 }
