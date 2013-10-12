@@ -457,6 +457,7 @@ namespace Client.CustomerService.Framework
             if (!e.Result.Success) { Logout_do(); }
             e.Result.Content.OrderBy(x => x.SendTime).ToList().ForEach(x =>
                 {
+                    if (Messages.Any(m => IsSameMessage(x, m))) { return; }
                     Messages.Add(x);
                 });
         }
@@ -473,6 +474,17 @@ namespace Client.CustomerService.Framework
                     RefreshMessageList();
                 };
             timer.Start();
+        }
+
+        #endregion
+        #region 判断两条消息是否相等
+
+        bool IsSameMessage(MessageResult m1, MessageResult m2)
+        {
+            return m1.From == m2.From
+                && m1.To == m2.To
+                && m1.Content == m2.Content
+                && m1.SendTime == m2.SendTime;
         }
 
         #endregion
