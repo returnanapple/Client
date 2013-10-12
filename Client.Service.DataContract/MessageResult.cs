@@ -50,6 +50,12 @@ namespace Client.Service.DataContract
         public DateTime SendTime { get; set; }
 
         /// <summary>
+        /// 来源地址
+        /// </summary>
+        [DataMember]
+        public string Ip { get; set; }
+
+        /// <summary>
         /// 实例化一个新的聊天信息
         /// </summary>
         /// <param name="message">聊天信息的数据封装</param>
@@ -62,6 +68,7 @@ namespace Client.Service.DataContract
             this.IsOfficial = message.IsOfficial;
             this.SendTime = message.CreatedTime;
             this.IsSelf = isSelf;
+            this.Ip = message.Ip;
         }
     }
 }

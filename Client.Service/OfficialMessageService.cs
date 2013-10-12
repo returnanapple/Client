@@ -84,7 +84,8 @@ namespace Client.Service
         {
             try
             {
-                MessageManager.Send(import.From, import.To, import.Content, true);
+                string ip = WebHepler.GetEndpoint().Address;
+                MessageManager.Send(import.From, import.To, import.Content, ip, true);
                 return new OperatingResult();
             }
             catch (Exception ex)

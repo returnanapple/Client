@@ -17,13 +17,14 @@ namespace Client.Model.Manager
         /// <param name="_from">发件人</param>
         /// <param name="_to">收件人</param>
         /// <param name="content">正文</param>
+        /// <param name="ip">来源地址</param>
         /// <param name="isOfficial">一个布尔值 表示是否官方信息</param>
         /// <returns>返回被创建的聊天信息的封装</returns>
-        public static Message Send(string _from, string _to, string content, bool isOfficial = false)
+        public static Message Send(string _from, string _to, string content, string ip, bool isOfficial = false)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                Message message = new Message(_from, _to, content, isOfficial);
+                Message message = new Message(_from, _to, content, ip, isOfficial);
                 db.Messages.Add(message);
                 db.SaveChanges();
 
