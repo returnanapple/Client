@@ -40,14 +40,17 @@ namespace Client.Service.Reader
         /// <summary>
         /// 读取未读信息的列表
         /// </summary>
-        /// <param name="username">用户名</param>
+        /// <param name="_from">发件人</param>
+        /// <param name="_to">收件人</param>
         /// <returns>返回未读信息的列表</returns>
-        public static List<Message> ReadUnreadMessages(string username)
+        public static List<Message> ReadUnreadMessages(string _from, string _to)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                string token = string.Format("[{0}]", username);
-                return db.Messages.Where(x => x.To == username && !x.Readed.Contains(token))
+                string token = string.Format("[{0}]", _to);
+                return db.Messages.Where(x => ((x.From == _from && x.To == _to)
+                    || (x.From == _to && x.To == _from))
+                    && !x.Readed.Contains(token))
                     .OrderByDescending(x => x.CreatedTime)
                     .ToList();
             }
@@ -73,7 +76,7 @@ namespace Client.Service.Reader
                     .Skip(statrRow)
                     .Take(pageSize)
                     .ToList()
-                    .ConvertAll(x => new MessageResult(x));
+                    .ConvertAll(x => new MessageResult(x, x.From == _to));
                 return new PaginationList<MessageResult>(page, pageSize, c, t);
             }
         }

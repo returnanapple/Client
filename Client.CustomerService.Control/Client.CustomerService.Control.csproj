@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{747220C9-2893-42BE-B066-FC492194D146}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Client.CustomerService.Control</RootNamespace>
+    <AssemblyName>Client.CustomerService.Control</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <ExpressionBlendVersion>5.0.40218.0</ExpressionBlendVersion>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Drawing" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core">
+      <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="system.windows.controls.toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit.Internals, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChooseIconButton.xaml.cs">
+      <DependentUpon>ChooseIconButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseIconWindow.xaml.cs">
+      <DependentUpon>ChooseIconWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="class\RI.cs" />
+    <Compile Include="CoverFloorTool.xaml.cs">
+      <DependentUpon>CoverFloorTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPrompt.xaml.cs">
+      <DependentUpon>ErrorPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IconAndPicButton.xaml.cs">
+      <DependentUpon>IconAndPicButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MessageShowTool.xaml.cs">
+      <DependentUpon>MessageShowTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="tool\KeepTextRealTime.cs" />
+    <Compile Include="LoginPrompt.xaml.cs">
+      <DependentUpon>LoginPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MenuButton.xaml.cs">
+      <DependentUpon>MenuButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NormalPrompt.xaml.cs">
+      <DependentUpon>NormalPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TalkingTool.xaml.cs">
+      <DependentUpon>TalkingTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="tool\ClearPasswordOnFocus.cs" />
+    <Compile Include="tool\KeepPasswordRealTime.cs" />
+    <Compile Include="tool\KeyDownCommandAction.cs" />
+    <Compile Include="tool\VerticalScrollTrigger.cs" />
+    <Compile Include="UploadPicTool.xaml.cs">
+      <DependentUpon>UploadPicTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserAvatar.xaml.cs">
+      <DependentUpon>UserAvatar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserListTool.xaml.cs">
+      <DependentUpon>UserListTool.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChooseIconButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChooseIconWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoverFloorTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ErrorPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IconAndPicButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MenuButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MessageShowTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NormalPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TalkingTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UploadPicTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserAvatar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserListTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\user_off.png" />
+    <Resource Include="img\cs.png" />
+    <Resource Include="img\user_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Client.CustomerService.Framework\Client.CustomerService.Framework.csproj">
+      <Project>{8bd05702-f34a-4aa5-99f4-2f32a3f77e47}</Project>
+      <Name>Client.CustomerService.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\icon_files.png" />
+    <Resource Include="img\icon_list.png" />
+    <Resource Include="img\icon_pen.png" />
+    <Resource Include="img\icon_women.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\openPic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\openIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon\41.png" />
+    <Resource Include="icon\42.png" />
+    <Resource Include="icon\43.png" />
+    <Resource Include="icon\44.png" />
+    <Resource Include="icon\45.png" />
+    <Resource Include="icon\46.png" />
+    <Resource Include="icon\47.png" />
+    <Resource Include="icon\48.png" />
+    <Resource Include="icon\49.png" />
+    <Resource Include="icon\50.png" />
+    <Resource Include="icon\51.png" />
+    <Resource Include="icon\52.png" />
+    <Resource Include="icon\53.png" />
+    <Resource Include="icon\54.png" />
+    <Resource Include="icon\55.png" />
+    <Resource Include="icon\56.png" />
+    <Resource Include="icon\57.png" />
+    <Resource Include="icon\58.png" />
+    <Resource Include="icon\59.png" />
+    <Resource Include="icon\60.png" />
+    <Resource Include="icon\61.png" />
+    <Resource Include="icon\62.png" />
+    <Resource Include="icon\63.png" />
+    <Resource Include="icon\64.png" />
+    <Resource Include="icon\65.png" />
+    <Resource Include="icon\66.png" />
+    <Resource Include="icon\67.png" />
+    <Resource Include="icon\68.png" />
+    <Resource Include="icon\69.png" />
+    <Resource Include="icon\70.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\waitForLoding.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -16,14 +16,14 @@ namespace Client.Service.Reader
         /// <summary>
         /// 读取未读信息的数量
         /// </summary>
-        /// <param name="username">用户名</param>
+        /// <param name="_to">收件人</param>
         /// <returns>返回未读信息的数量</returns>
-        public static List<UnreadMessageCountResult> ReadCountOfUnreadMessages(string username)
+        public static List<UnreadMessageCountResult> ReadCountOfUnreadMessages(string _to)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
                 List<UnreadMessageCountResult> result = new List<UnreadMessageCountResult>();
-                string token = string.Format("[{0}]", username);
+                string token = string.Format("[{0}]", _to);
                 List<string> tos = db.Messages.Where(x => x.IsOfficial == true && !x.Readed.Contains(token))
                     .Select(x => x.From)
                     .Distinct()
@@ -40,14 +40,17 @@ namespace Client.Service.Reader
         /// <summary>
         /// 读取未读信息的列表
         /// </summary>
-        /// <param name="username">用户名</param>
+        /// <param name="_from">发件人</param>
+        /// <param name="_to">收件人</param>
         /// <returns>返回未读信息的列表</returns>
-        public static List<Message> ReadUnreadMessages(string username)
+        public static List<Message> ReadUnreadMessages(string _from, string _to)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                string token = string.Format("[{0}]", username);
-                return db.Messages.Where(x => x.IsOfficial == true && !x.Readed.Contains(token))
+                string token = string.Format("[{0}]", _to);
+                return db.Messages.Where(x => (x.From == _from || x.To == _from)
+                    && x.IsOfficial == true
+                    && !x.Readed.Contains(token))
                     .OrderByDescending(x => x.CreatedTime)
                     .ToList();
             }
@@ -57,15 +60,15 @@ namespace Client.Service.Reader
         /// 读取聊天记录的分页列表
         /// </summary>
         /// <param name="_from">发件人</param>
-        /// <param name="_to">收件人</param>
+        /// <param name="page">页码</param>
         /// <param name="pageSize">每个页面包含信息条数</param>
         /// <returns>返回聊天记录的分页列表</returns>
-        public static PaginationList<MessageResult> ReadMessages(string username, int page, int pageSize)
+        public static PaginationList<MessageResult> ReadMessages(string _from, int page, int pageSize)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
                 int statrRow = (page - 1) * pageSize;
-                Expression<Func<Message, bool>> pre = x => (x.To == username || x.From == username)
+                Expression<Func<Message, bool>> pre = x => (x.To == _from || x.From == _from)
                     && x.IsOfficial == true;
                 int c = db.Messages.Count(pre);
                 List<MessageResult> t = db.Messages.Where(pre)
@@ -73,7 +76,7 @@ namespace Client.Service.Reader
                     .Skip(statrRow)
                     .Take(pageSize)
                     .ToList()
-                    .ConvertAll(x => new MessageResult(x));
+                    .ConvertAll(x => new MessageResult(x, x.From != _from));
                 return new PaginationList<MessageResult>(page, pageSize, c, t);
             }
         }

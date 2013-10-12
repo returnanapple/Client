@@ -17,7 +17,7 @@
   <Class Name="Client.Service.DataContract.MessageResult" Collapsed="true">
     <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAQAAAAAgAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgAQAAAAAgAAAAAAAAAAAAQAAAAICAAAAAAAAAAAAAA=</HashCode>
       <FileName>MessageResult.cs</FileName>
     </TypeIdentifier>
   </Class>

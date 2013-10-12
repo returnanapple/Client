@@ -1,0 +1,37 @@
+﻿<controls:ChildWindow xmlns:Control="clr-namespace:Client.CustomerService.Control"  xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"  x:Class="Client.CustomerService.Control.ChooseIconWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           HasCloseButton="False">
+    <Grid MinWidth="100" MinHeight="70" MaxWidth="640">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <ItemsControl x:Name="ShowContent">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <toolkit:WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Control:ChooseIconButton RealValue="{Binding RealValue}"
+                                              ShowValue="{Binding Value}"
+                                              Command="{Binding ChooseIconCommand}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Grid.Row="1">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                    <GradientStop Color="#FF515151" Offset="1"/>
+                    <GradientStop Color="#FFD1D1D1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Button Content="取消" Width="60" Height="25" Grid.Row="1"
+                Style="{StaticResource ResourceKey=SubmitButton}"
+                HorizontalAlignment="Right" Margin="10,0" Click="Cancel"/>
+    </Grid>
+</controls:ChildWindow>

@@ -17,8 +17,8 @@ namespace Client.Model
         [EnumMember]
         隐身 = -1,
         [EnumMember]
-        在线 = 1,
+        忙碌 = 0,
         [EnumMember]
-        忙碌 = 2
+        在线 = 1
     }
 }

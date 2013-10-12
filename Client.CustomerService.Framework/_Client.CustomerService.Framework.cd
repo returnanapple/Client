@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Client.CustomerService.Framework.ViewModelService" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAiEAEAASAgAACAAAgAAAAAAAAAAAAABQBAAAA=</HashCode>
+      <FileName>ViewModelService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.ViewAttribute" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQABAAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.UniversalCommand" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAACAAQAAEAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UniversalCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Client.CustomerService.Framework.ViewModelBase" Collapsed="true" HideInheritanceLine="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAFAAAABQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.Messager" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAQAAAFAAIAAAAAAAAACAAAAAAAIAAAg=</HashCode>
+      <FileName>Messager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.RegisterToMessagerAttribute" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAIAAA=</HashCode>
+      <FileName>RegisterToMessagerAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.MonitorCondition" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAIAAA=</HashCode>
+      <FileName>MonitorCondition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.WindowAttribute" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WindowAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.LoginViewModel" Collapsed="true" HideInheritanceLine="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAQAEAAAAAAAAIAACQAIQAACgAAA=</HashCode>
+      <FileName>LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.IndexViewModel" Collapsed="true" HideInheritanceLine="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwAAECCAIAAAAAAAAQAABAsAIAAAAABAEQQAQAgAAJA=</HashCode>
+      <FileName>IndexViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.CountOfUserConverter" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CountOfUserConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Client.CustomerService.Framework.CountOfUserOnlineConverter" Collapsed="true">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CountOfUserOnlineConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Client.CustomerService.Framework.CountOfUserOfflineConverter" Collapsed="true">
+    <Position X="4" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CountOfUserOfflineConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Client.CustomerService.Framework.UserInfoModel" Collapsed="true" HideInheritanceLine="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAEQAAAAEAAAAACAAQAAgAAAAAAAA=</HashCode>
+      <FileName>UserInfoModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.CustomerService.Framework.ModelBase" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Client.CustomerService.Framework.CountOfNewMessageConverter" Collapsed="true">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CountOfNewMessageConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Client.CustomerService.Framework.StatusOfAvatarConverter" Collapsed="true">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StatusOfAvatarConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Client.CustomerService.Framework.IMainPage" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMainPage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Client.CustomerService.Framework.IMessage" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAgQAAQAAAAAIAAAAEAAAIAAA=</HashCode>
+      <FileName>IMessage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Client.CustomerService.Framework.IPop" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>IPop.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Client.CustomerService.Framework.Page" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Page.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Client.CustomerService.Framework.Pop" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Pop.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Client.CustomerService.Framework.DataKey" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAgAAAAA=</HashCode>
+      <FileName>DataKey.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Client.CustomerService.Framework.RecipientDelegate" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RecipientDelegate.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
