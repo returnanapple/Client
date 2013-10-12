@@ -5,20 +5,48 @@
            xmlns:Control="clr-namespace:Client.CustomerService.Control;assembly=Client.CustomerService.Control"
            HasCloseButton="False">
     <Grid>
-        <Canvas Grid.Row="1" Width="400" Height="240">
-            <TextBlock Text="上传图片" Canvas.Left="10" Style="{StaticResource ResourceKey=PageTitle}"
-                   Canvas.Top="10" FontSize="20"/>
+        <Canvas Grid.Row="1" Width="400" Height="240" Background="LightGray">
+            <TextBlock Text="上传图片" Canvas.Left="10"
+                   Canvas.Top="10" FontSize="20">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF939090" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
             <Grid Name="showTool" Width="150" Height="150" Canvas.Left="120" Canvas.Top="39">
                 <Grid.Background>
                     <ImageBrush x:Name="img" Stretch="Uniform"/>
                 </Grid.Background>
             </Grid>
-            <Button Content="浏览..." Width="75" Height="25" Click="OpenFile"
-            	Style="{StaticResource ResourceKey=SubmitButton}" Canvas.Top="205" Canvas.Left="10"/>
-            <Button Content="上传" Width="60" Height="25" Click="Upload"
-                Style="{StaticResource ResourceKey=SubmitButton}" Canvas.Left="265" Canvas.Top="205"/>
-            <Button Content="取消" Width="60" Height="25" Click="Cancel"
-            	Style="{StaticResource ResourceKey=SubmitButton}" Canvas.Left="330" Canvas.Top="205"/>
+            <Button Content="浏览..." Width="75" Height="25" Click="OpenFile" Canvas.Top="205" Canvas.Left="10"
+                    Background="White">
+                <Button.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF939090" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+            <Button Content="上传" Width="60" Height="25" Click="Upload" Canvas.Left="265" Canvas.Top="205"
+                    Background="White">
+                <Button.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF939090" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+            <Button Content="取消" Width="60" Height="25" Click="Cancel" Canvas.Left="330" Canvas.Top="205"
+                    Background="White">
+                <Button.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF939090" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
         </Canvas>
         <Control:CoverFloorTool Name="cover"/>
     </Grid>

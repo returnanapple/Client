@@ -71,6 +71,7 @@
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
@@ -91,6 +92,9 @@
     <Compile Include="Controls\ChatWindowControl.xaml.cs">
       <DependentUpon>ChatWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChooseExpressionButton.xaml.cs">
+      <DependentUpon>ChooseExpressionButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CurrentUserStateControl.xaml.cs">
       <DependentUpon>CurrentUserStateControl.xaml</DependentUpon>
     </Compile>
@@ -99,6 +103,9 @@
     </Compile>
     <Compile Include="Controls\ExpressionButton.xaml.cs">
       <DependentUpon>ExpressionButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExpressionControl.xaml.cs">
+      <DependentUpon>ExpressionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FriendButton.xaml.cs">
       <DependentUpon>FriendButton.xaml</DependentUpon>
@@ -167,6 +174,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ChooseExpressionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CurrentUserStateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ExpressionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ExpressionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,6 +291,36 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Resource Include="icon\41.png" />
+    <Resource Include="icon\42.png" />
+    <Resource Include="icon\43.png" />
+    <Resource Include="icon\44.png" />
+    <Resource Include="icon\45.png" />
+    <Resource Include="icon\46.png" />
+    <Resource Include="icon\47.png" />
+    <Resource Include="icon\48.png" />
+    <Resource Include="icon\49.png" />
+    <Resource Include="icon\50.png" />
+    <Resource Include="icon\51.png" />
+    <Resource Include="icon\52.png" />
+    <Resource Include="icon\53.png" />
+    <Resource Include="icon\54.png" />
+    <Resource Include="icon\55.png" />
+    <Resource Include="icon\56.png" />
+    <Resource Include="icon\57.png" />
+    <Resource Include="icon\58.png" />
+    <Resource Include="icon\59.png" />
+    <Resource Include="icon\60.png" />
+    <Resource Include="icon\61.png" />
+    <Resource Include="icon\62.png" />
+    <Resource Include="icon\63.png" />
+    <Resource Include="icon\64.png" />
+    <Resource Include="icon\65.png" />
+    <Resource Include="icon\66.png" />
+    <Resource Include="icon\67.png" />
+    <Resource Include="icon\68.png" />
+    <Resource Include="icon\69.png" />
+    <Resource Include="icon\70.png" />
     <Content Include="ServiceReferences.ClientConfig" />
     <None Include="Service References\UserService\UserService.wsdl" />
     <None Include="Service References\UserService\UserService.xsd">
@@ -330,6 +375,10 @@
     <ProjectReference Include="..\Client.CustomerService.Control\Client.CustomerService.Control.csproj">
       <Project>{747220c9-2893-42be-b066-fc492194d146}</Project>
       <Name>Client.CustomerService.Control</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client.CustomerService.Framework\Client.CustomerService.Framework.csproj">
+      <Project>{8bd05702-f34a-4aa5-99f4-2f32a3f77e47}</Project>
+      <Name>Client.CustomerService.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

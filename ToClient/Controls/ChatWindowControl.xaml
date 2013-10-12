@@ -52,6 +52,14 @@
                 </Grid.ColumnDefinitions>
             </Grid>
             <TextBlock Grid.Column="0" Text="{Binding ChatingWith}" FontSize="15" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                <ItemsControl>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
             <Grid Grid.Row="2">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -59,7 +67,7 @@
                         <GradientStop Color="LightGray" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <local:ExpressionButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,3,420,3"/>
+                <local:ExpressionButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,3,420,3" AddExpressionCommand="{Binding AddExpressionCommand}"/>
                 <local:UploadButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="85,3,320,3"/>
                 <local:ScreenShotButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,3,245,3"/>
                 <local:ChatRecordsButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="260,3,145,3"/>
@@ -84,7 +92,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
-                <Border x:Name="SenderBorder" Grid.Column="1" Margin="38,19,37,31" BorderBrush="White" 
+                <Border x:Name="SenderBorder" Grid.Column="1" Margin="38,19,37,31" BorderBrush="#FFFCF0C1" 
                         MouseEnter="SenderBorderMouseEnterAction"
                         MouseLeave="SenderBorderMouseLeaveAction"
                         MouseLeftButtonDown="SenderBorderMouseLeftButtonDownAction">

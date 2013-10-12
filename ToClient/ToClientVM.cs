@@ -20,25 +20,24 @@ namespace ToClient
     {
         public ToClientVM()
         {
+            Initialize();
             CustomerServiceList = new ObservableCollection<UserInfo>{ new UserInfo()};
             SuperiorList = new ObservableCollection<UserInfo> { new UserInfo{Username="a"},new UserInfo{Username="b"} };
             LowerList = new ObservableCollection<UserInfo> {new UserInfo(),new UserInfo(),new UserInfo(),new UserInfo() };
             ChatingWithList = new ObservableCollection<UserInfo> { new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo() };
-            FriendButtonAddBeginChatToSomeoneCommand();
+            AddCommand();
         }
         #region 私有字段
-        private string currentUser;
-        private States currentUserOnlineState=States.在线;
-        private bool chatWindowIsOpen = false;
-        private bool friendListWindowIsOpen=false;
-        private int newMessageCount=8;
-        private bool customerServiceListIsOpen =false;
-        private bool superiorListIsOpen = false;
-        private bool lowerListIsOpen=false;
-        private string waitSendContent="";
-        private string chatingWith="";
-
-        private ICommand sendMessageCommand;
+        private string currentUser;//？
+        private States currentUserOnlineState;
+        private bool chatWindowIsOpen;
+        private bool friendListWindowIsOpen;
+        private int newMessageCount=8;//？
+        private bool customerServiceListIsOpen;
+        private bool superiorListIsOpen;
+        private bool lowerListIsOpen;
+        private string waitSendContent;
+        private string chatingWith;
         #endregion        
         #region 属性
         /// <summary>
@@ -80,6 +79,8 @@ namespace ToClient
                 if (value == false)
                 {
                     ChatingWithList.Clear();
+                    WaitSendContent = "";
+
                 }
                 OnPropertyChanged(this, "ChatWindowIsOpen");
             }
@@ -175,6 +176,7 @@ namespace ToClient
                 OnPropertyChanged(this, "ChatingWith");
             }
         }
+
         /// <summary>
         /// 客服分组列表
         /// </summary>
@@ -192,16 +194,14 @@ namespace ToClient
         /// </summary>
         public ObservableCollection<UserInfo> ChatingWithList { get; set; }
 
-        public ICommand SendMessageCommand 
-        {
-            get
-            { return sendMessageCommand; }
-            set
-            {
-                sendMessageCommand = value;
-                OnPropertyChanged(this, "SendMessageCommand");
-            }
-        }
+        /// <summary>
+        /// 发送信息命令
+        /// </summary>
+        public ICommand SendMessageCommand { get; set; }
+        /// <summary>
+        /// 添加表情命令
+        /// </summary>
+        public ICommand AddExpressionCommand { get; set; }
         #endregion
 
 
@@ -215,6 +215,54 @@ namespace ToClient
             }
         }
         #endregion 属性改变事件
+
+        
+
+        private void Initialize()
+        {
+            currentUserOnlineState = States.在线;
+            chatWindowIsOpen = false;
+            friendListWindowIsOpen = false;
+            customerServiceListIsOpen = false;
+            superiorListIsOpen = false;
+            lowerListIsOpen = false;
+            waitSendContent = "";
+            chatingWith = "";
+            AddExpressionCommand = new BaseCommand(AddExpression);
+        }
+
+        /// <summary>
+        /// 添加表情函数
+        /// </summary>
+        /// <param name="objectExpressionName"></param>
+        public void AddExpression(object objectExpressionName)
+        {
+            WaitSendContent = WaitSendContent + (objectExpressionName.ToString());
+        }
+        
+        /// <summary>
+        /// 添加命令函数
+        /// </summary>
+        public void AddCommand()
+        {
+            BaseCommand command = new BaseCommand(BeginChatToSomeone);
+            BaseCommand switchChatingWithCommand = new BaseCommand(SwitchChatingWith);
+            foreach (UserInfo i in CustomerServiceList)
+            {
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+            foreach (UserInfo i in SuperiorList)
+            { 
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+            foreach (UserInfo i in LowerList)
+            { 
+                i.Command = command;
+                i.SwitchChatingWithCommand = switchChatingWithCommand;
+            }
+        }
 
         /// <summary>
         /// 点击好友按键开始聊天函数
@@ -242,29 +290,9 @@ namespace ToClient
             }
         }
         /// <summary>
-        /// 添加命令
+        /// 切换聊天好友函数
         /// </summary>
-        public void FriendButtonAddBeginChatToSomeoneCommand()
-        {
-            BaseCommand command = new BaseCommand(BeginChatToSomeone);
-            BaseCommand switchChatingWithCommand = new BaseCommand(SwitchChatingWith);
-            foreach (UserInfo i in CustomerServiceList)
-            {
-                i.Command = command;
-                i.SwitchChatingWithCommand = switchChatingWithCommand;
-            }
-            foreach (UserInfo i in SuperiorList)
-            { 
-                i.Command = command;
-                i.SwitchChatingWithCommand = switchChatingWithCommand;
-            }
-            foreach (UserInfo i in LowerList)
-            { 
-                i.Command = command;
-                i.SwitchChatingWithCommand = switchChatingWithCommand;
-            }
-        }
-
+        /// <param name="objectUsername"></param>
         public void SwitchChatingWith(object objectUsername)
         {
             ChatingWith = objectUsername.ToString();

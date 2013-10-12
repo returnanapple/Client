@@ -28,7 +28,10 @@ namespace ToClient.Controls
         }
         public void MouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
         {
-            //(new UploadControl()).Show();
+            UploadControl childWindow = new UploadControl();
+            childWindow.Closed += (_d, _e) => { RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 247, 245, 245)); };
+            childWindow.Show();
+            
         }
     }
 }
