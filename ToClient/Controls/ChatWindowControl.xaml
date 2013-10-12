@@ -74,7 +74,9 @@
                     <ColumnDefinition Width="135"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Margin="8,4,7,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
-                <Image Grid.Column="1" Source="/ToClient;component/Images/发送.png" Cursor="Hand" Width="60" Height="60" Margin="38,19,37,31"/>
+                <Border Grid.Column="1" Margin="38,19,37,31" Cursor="Hand">
+                    <Image Source="/ToClient;component/Images/发送.png" Width="60" Height="60" />
+                </Border>
             </Grid>
         </Grid>
     </Grid>
