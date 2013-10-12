@@ -60,6 +60,7 @@
     <Compile Include="PicService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserService.cs" />
+    <Compile Include="WebHepler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="_Client.Service.cd" />
