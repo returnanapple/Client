@@ -18,6 +18,11 @@ namespace Client.Model
         /// </summary>
         public DbSet<Message> Messages { get; set; }
 
+        /// <summary>
+        /// 图片的数据存储区
+        /// </summary>
+        public DbSet<Picture> Pictures { get; set; }
+
         #endregion
 
         #region 重写契约
@@ -26,6 +31,10 @@ namespace Client.Model
         {
             modelBuilder.Entity<Message>().ToTable("client_message");
             modelBuilder.Entity<Message>().HasKey(x => x.Id);
+
+
+            modelBuilder.Entity<Picture>().ToTable("client_picture");
+            modelBuilder.Entity<Picture>().HasKey(x => x.Id);
         }
 
         #endregion
