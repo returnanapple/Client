@@ -49,10 +49,10 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Client.Service.WebHepler" Collapsed="true">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>WebHelper.cs</FileName>
+      <FileName>WebHepler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Client.Service.IMessageService" Collapsed="true">

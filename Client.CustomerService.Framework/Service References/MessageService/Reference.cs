@@ -180,6 +180,8 @@ namespace Client.CustomerService.Framework.MessageService {
         
         private string FromField;
         
+        private string IpField;
+        
         private bool IsOfficialField;
         
         private bool IsSelfField;
@@ -210,6 +212,19 @@ namespace Client.CustomerService.Framework.MessageService {
                 if ((object.ReferenceEquals(this.FromField, value) != true)) {
                     this.FromField = value;
                     this.RaisePropertyChanged("From");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ip {
+            get {
+                return this.IpField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpField, value) != true)) {
+                    this.IpField = value;
+                    this.RaisePropertyChanged("Ip");
                 }
             }
         }
