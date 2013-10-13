@@ -8,7 +8,7 @@ namespace Client.Model
     /// <summary>
     /// 用户信息（聊天系统）
     /// </summary>
-    public class User
+    public class User : ModelBase
     {
         #region 属性
 

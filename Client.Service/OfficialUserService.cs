@@ -68,17 +68,6 @@ namespace Client.Service
             try
             {
                 List<UserInfoResult> result = OfficialUserReader.ReadUsers();
-                UserManager.Pond.Where(x => result.Any(r => r.Username == x.Username))
-                    .ToList().ForEach(x =>
-                    {
-                        var u = result.First(user => user.Username == x.Username);
-                        u.OnlineStatus = x.OnlineStatus;
-                        if (x.IsOfficial)
-                        {
-                            u.Type = UserInfoType.客服;
-                        }
-                    });
-
                 return new OperatingResult<List<UserInfoResult>>(result);
             }
             catch (Exception ex)

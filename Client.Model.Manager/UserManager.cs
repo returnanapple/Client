@@ -13,17 +13,6 @@ namespace Client.Model.Manager
     public class UserManager
     {
         /// <summary>
-        /// 令牌池（只读）
-        /// </summary>
-        public static List<User> Pond
-        {
-            get { return pond; }
-        }
-        #region 令牌池
-        static List<User> pond = new List<User>();
-        #endregion
-
-        /// <summary>
         /// 登入
         /// </summary>
         /// <param name="username">用户名</param>
@@ -31,11 +20,16 @@ namespace Client.Model.Manager
         /// <param name="isOfficial">一个布尔值 标识用户是否官方成员</param>
         public static void SetIn(string username, UserOnlineStatus onlineStatus, bool isOfficial = false)
         {
-            lock (pond)
+            using (Model2DataContext db = new Model2DataContext())
             {
-                pond.RemoveAll(x => x.Username == username && x.IsOfficial == isOfficial);
-                User userInfo = new User(username, onlineStatus, isOfficial);
-                pond.Add(userInfo);
+                db.Users.Where(x => x.Username == username
+                    && x.IsOfficial == isOfficial && x.Timeout > DateTime.Now).ToList().ForEach(x =>
+                    {
+                        x.Timeout = DateTime.Now.AddDays(-1);
+                    });
+                User u = new User(username, onlineStatus, isOfficial);
+                db.Users.Add(u);
+                db.SaveChanges();
             }
         }
 
@@ -47,10 +41,15 @@ namespace Client.Model.Manager
         /// <param name="isOfficial">一个布尔值 标识用户是否官方成员</param>
         public static void ChangeOnlineStatus(string username, UserOnlineStatus newOnlineStatus, bool isOfficial = false)
         {
-            lock (pond)
+            using (Model2DataContext db = new Model2DataContext())
             {
-                User userInfo = pond.Single(x => x.Username == username && x.IsOfficial == isOfficial);
-                userInfo.OnlineStatus = newOnlineStatus;
+                bool hadUser = db.Users.Any(x => x.Username == username
+                    && x.IsOfficial == isOfficial && x.Timeout > DateTime.Now);
+                if (!hadUser) { throw new Exception("用户未登录"); }
+                User u = db.Users.First(x => x.Username == username
+                    && x.IsOfficial == isOfficial && x.Timeout > DateTime.Now);
+                u.OnlineStatus = newOnlineStatus;
+                db.SaveChanges();
             }
         }
 
@@ -61,32 +60,16 @@ namespace Client.Model.Manager
         /// <param name="isOfficial">一个布尔值 标识用户是否官方成员</param>
         public static void Heartbeat(string username, bool isOfficial = false)
         {
-            lock (pond)
+            using (Model2DataContext db = new Model2DataContext())
             {
-                User userInfo = pond.Single(x => x.Username == username && x.IsOfficial == isOfficial);
-                userInfo.Heartbeat();
+                bool hadUser = db.Users.Any(x => x.Username == username
+                    && x.IsOfficial == isOfficial && x.Timeout > DateTime.Now);
+                if (!hadUser) { return; }
+                User u = db.Users.First(x => x.Username == username
+                    && x.IsOfficial == isOfficial && x.Timeout > DateTime.Now);
+                u.Heartbeat();
+                db.SaveChanges();
             }
         }
-
-        /// <summary>
-        /// 初始化令牌池
-        /// </summary>
-        public static void Initialize()
-        {
-            const int cleanupInterval = 2000;
-
-            Timer timer = new Timer(cleanupInterval);
-            timer.Elapsed += PurgeExpired;
-            timer.Start();
-        }
-        #region 清理过期令牌
-        static void PurgeExpired(object sender, ElapsedEventArgs e)
-        {
-            lock (pond)
-            {
-                pond.RemoveAll(x => x.Timeout <= DateTime.Now);
-            }
-        }
-        #endregion
     }
 }

@@ -23,20 +23,33 @@ namespace Client.Service.Reader
             {
                 List<UserInfoResult> result = new List<UserInfoResult>();
 
-                UserInfo u = db.UserInfo.First(x => x.UserID == username);
-                UserInfo tu = db.UserInfo.FirstOrDefault(x => x.ID.ToString() == u.ParentUID);
+                UserInfo userInfo = db.UserInfo.First(x => x.UserID == username);
+                UserInfo tu = db.UserInfo.FirstOrDefault(x => x.ID.ToString() == userInfo.ParentUID);
                 if (tu != null)
                 {
                     UserInfoResult t1 = new UserInfoResult(tu.UserID, UserInfoType.上级);
                     result.Add(t1);
                 }
 
-                db.UserInfo.Where(x => x.ParentUID == u.ID.ToString())
+                db.UserInfo.Where(x => x.ParentUID == userInfo.ID.ToString())
                     .ToList().ForEach(x =>
                         {
                             UserInfoResult t = new UserInfoResult(x.UserID, UserInfoType.下级);
                             result.Add(t);
                         });
+                using (Model2DataContext _db = new Model2DataContext())
+                {
+                    _db.Users.Where(x => x.Timeout > DateTime.Now).ToList().ForEach(x =>
+                    {
+                        if (x.IsOfficial)
+                        {
+                            result.Add(new UserInfoResult(x.Username, UserInfoType.客服) { OnlineStatus = UserOnlineStatus.在线 });
+                            return;
+                        }
+                        if (!result.Any(u => u.Username == x.Username && !x.IsOfficial)) { return; }
+                        result.First(u => u.Username == x.Username && !x.IsOfficial).OnlineStatus = x.OnlineStatus;
+                    });
+                }
 
                 return result;
             }

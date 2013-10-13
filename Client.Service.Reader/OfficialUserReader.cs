@@ -17,7 +17,25 @@ namespace Client.Service.Reader
         {
             using (MainDatadbmlDataContext db = new MainDatadbmlDataContext())
             {
-                return db.UserInfo.ToList().ConvertAll(x => new UserInfoResult(x.UserID, UserInfoType.用户));
+                var tList = db.UserInfo.ToList().ConvertAll(x => new UserInfoResult(x.UserID, UserInfoType.用户));
+                using (Model2DataContext _db = new Model2DataContext())
+                {
+                    _db.Users.Where(x => x.Timeout > DateTime.Now).ToList().ForEach(x =>
+                        {
+                            if (!tList.Any(u => u.Username == x.Username)) { return; }
+                            var ur = tList.First(u => u.Username == x.Username);
+                            if (x.IsOfficial)
+                            {
+                                ur.OnlineStatus = UserOnlineStatus.在线;
+                                ur.Type = UserInfoType.客服;
+                            }
+                            else if (ur.Type != UserInfoType.客服)
+                            {
+                                ur.OnlineStatus = x.OnlineStatus;
+                            }
+                        });
+                }
+                return tList;
             }
         }
     }
