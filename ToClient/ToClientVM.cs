@@ -242,6 +242,9 @@ namespace ToClient
             userClient = new UserServiceClient();
             userClient.GetFriendsCompleted += UserClientGetFriendsCompleted;
 
+            messageClient.GetCountOfUnreadMessagesCompleted += MessageClientGetCountOfUnreadMessagesCompleted;
+            messageClient.GetUnreadMessagesCompleted += MessageClientGetUnreadMessagesCompleted;
+
 
             currentUserOnlineState = States.在线;
             chatWindowIsOpen = false;
@@ -253,6 +256,8 @@ namespace ToClient
             chatingWith = "";
             AddExpressionCommand = new BaseCommand(AddExpression);
         }
+
+
 
 
 
@@ -354,6 +359,7 @@ namespace ToClient
         }
 
         #region 后台方法
+
         #region 刷新用户列表
         public void ReflashFriendList()
         {
@@ -387,7 +393,7 @@ namespace ToClient
             tList.Clear();
             tList.AddRange(SuperiorList);
             SuperiorList.Clear();
-            e.Result.Content.Where(x => x.Type == UserInfoType.上级).OrderByDescending(x=>x.OnlineStatus)
+            e.Result.Content.Where(x => x.Type == UserInfoType.上级).OrderByDescending(x => x.OnlineStatus)
                 .ToList().ForEach(x =>
                 {
                     UserInfo user = new UserInfo
@@ -429,6 +435,65 @@ namespace ToClient
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.Parse("0:0:3");
             timer.Tick += (sender, e) => { ReflashFriendList(); };
+            timer.Start();
+        }
+        #endregion
+
+        #region 刷新信息和未读信息条目列表
+        public void ReflashMessageAndMessageCount()
+        {
+            messageClient.GetCountOfUnreadMessagesAsync(CurrentUser);
+            if (ChatingWith != "")
+            {
+                messageClient.GetUnreadMessagesAsync(ChatingWith, CurrentUser);
+            }
+        }
+        public void MessageClientGetCountOfUnreadMessagesCompleted(object sender, GetCountOfUnreadMessagesCompletedEventArgs e)
+        {
+            if (e.Result.Success)
+            {
+                if (e.Result.Content.Count != 0)
+                {
+                    NewMessageCount = e.Result.Content.Sum(x => x.Count);
+                    foreach (UnreadMessageCountResult i in e.Result.Content)
+                    {
+                        if (CustomerServiceList.Any(x => x.Username == i.Username))
+                        {
+                            CustomerServiceList.Where(x => x.Username == i.Username).ToList()
+                                .First().NewMessageCount = i.Count;
+                        }
+                        if (SuperiorList.Any(x => x.Username == i.Username))
+                        {
+                            SuperiorList.Where(x => x.Username == i.Username).ToList()
+                                .First().NewMessageCount = i.Count;
+                        }
+                        if (LowerList.Any(x => x.Username == i.Username))
+                        {
+                            LowerList.Where(x => x.Username == i.Username).ToList()
+                                    .First().NewMessageCount = i.Count;
+                        }
+                    }
+                }
+            }
+        }
+        public void MessageClientGetUnreadMessagesCompleted(object sender, GetUnreadMessagesCompletedEventArgs e)
+        {
+            if (e.Result.Success)
+            {
+                if (e.Result.Content.Count!=0)
+                { 
+                    foreach(MessageResult i in e.Result.Content)
+                    {
+                        CurrentMessages.Add(i);
+                    }
+                }
+            }
+        }
+        public void ReflashMessageAndMessageCountTimeLine()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.Parse("0:0:1.5");
+            timer.Tick += (sender, e) => { ReflashMessageAndMessageCount(); };
             timer.Start();
         }
         #endregion
