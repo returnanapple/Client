@@ -24,25 +24,25 @@
             <RowDefinition/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <Grid HorizontalAlignment="Left" Margin="10,0,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.Row="0">
+
             <TextBlock x:Name="text_username" Text="{Binding From}" 
-                       Grid.Column="0" Style="{StaticResource ResourceKey=other}"/>
+                       Style="{StaticResource ResourceKey=other}"/>
             <TextBlock x:Name="text_date" Text="2013-10-11" 
-                       Grid.Column="1" Margin="5,0" Style="{StaticResource ResourceKey=other}"/>
+                       Margin="5,0" Style="{StaticResource ResourceKey=other}"/>
             <TextBlock x:Name="text_time" Text="7:32:11" 
-                       Grid.Column="2" Style="{StaticResource ResourceKey=other}"/>
-            <TextBlock Margin="5,0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Run>[IP:</Run>
-                <Run Text="{Binding Ip}"/>
-                <Run>]</Run>
-            </TextBlock>
-        </Grid>
+                       Style="{StaticResource ResourceKey=other}"/>
+            <TextBlock Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Text="[IP:"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Text="{Binding Ip}"/>
+            <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Text="，来自："/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Text="{Binding Address}"/>
+            <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Text="]"/>
+        </StackPanel>
         <ItemsControl Name="body" Grid.Row="1" Margin="20,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

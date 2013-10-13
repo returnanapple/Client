@@ -508,6 +508,7 @@ namespace Client.CustomerService.Framework
             Messages.Clear();
             e.Result.Content.Content.OrderBy(x => x.SendTime).ToList().ForEach(x =>
             {
+                string a = x.Address;
                 Messages.Add(x);
             });
             PageIndex = e.Result.Content.PageIndex;

@@ -176,6 +176,8 @@ namespace Client.CustomerService.Framework.MessageService {
     [System.Runtime.Serialization.DataContractAttribute(Name="MessageResult", Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract")]
     public partial class MessageResult : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private string AddressField;
+        
         private string ContentField;
         
         private string FromField;
@@ -189,6 +191,19 @@ namespace Client.CustomerService.Framework.MessageService {
         private System.DateTime SendTimeField;
         
         private string ToField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Content {
