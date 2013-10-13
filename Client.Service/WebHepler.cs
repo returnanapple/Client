@@ -33,7 +33,7 @@ namespace Client.Service
 
         public static string GetAddress(string ip)
         {
-            string path = "http://www.ip138.com/ips138.asp?ip=182.89.22.146";
+            string path = "http://www.ip138.com/ips138.asp?ip=" + ip;
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(path);
             request.Method = "GET";
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)";
