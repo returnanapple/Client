@@ -25,18 +25,17 @@ namespace ToClient
         public ToClientVM()
         {
             Initialize();
-            CustomerServiceList = new ObservableCollection<UserInfo> { new UserInfo() };
-            SuperiorList = new ObservableCollection<UserInfo> { new UserInfo { Username = "a" }, new UserInfo { Username = "b" } };
-            LowerList = new ObservableCollection<UserInfo> { new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo() };
-            ChatingWithList = new ObservableCollection<UserInfo> { new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo(), new UserInfo() };
-            AddCommand();
+            //SuperiorList.Add(new UserInfo { Username = "a", UserState = UserOnlineStatus.在线 });
+           // SuperiorList.Add(new UserInfo { Username = "b", UserState = UserOnlineStatus.忙碌 });
+            //SuperiorList.Add(new UserInfo { Username = "b", UserState = UserOnlineStatus.隐身 });
+           // TempFun();
         }
         #region 私有字段
         private string currentUser;//？
-        private States currentUserOnlineState;
+        private UserOnlineStatus currentUserOnlineState;
         private bool chatWindowIsOpen;
         private bool friendListWindowIsOpen;
-        private int newMessageCount = 8;//？
+        private int newMessageCount;
         private bool customerServiceListIsOpen;
         private bool superiorListIsOpen;
         private bool lowerListIsOpen;
@@ -48,7 +47,6 @@ namespace ToClient
         private MessageServiceClient messageClient { get; set; }
         private UserServiceClient userClient { get; set; }
         #endregion
-
 
         #region 属性
         /// <summary>
@@ -67,7 +65,7 @@ namespace ToClient
         /// <summary>
         /// 当前用户在线状态
         /// </summary>
-        public States CurrentUserOnlineState
+        public UserOnlineStatus CurrentUserOnlineState
         {
             get
             { return currentUserOnlineState; }
@@ -187,7 +185,6 @@ namespace ToClient
                 OnPropertyChanged(this, "ChatingWith");
             }
         }
-
         /// <summary>
         /// 客服分组列表
         /// </summary>
@@ -217,8 +214,11 @@ namespace ToClient
         /// 添加表情命令
         /// </summary>
         public ICommand AddExpressionCommand { get; set; }
+        /// <summary>
+        /// 关闭当前聊天命令
+        /// </summary>
+        public ICommand CloseCurrentChatCommand { get; set; }
         #endregion
-
 
         #region 属性改变事件
         public event PropertyChangedEventHandler PropertyChanged;
@@ -231,7 +231,7 @@ namespace ToClient
         }
         #endregion 属性改变事件
 
-
+        #region 初始化
         /// <summary>
         /// 初始化
         /// </summary>
@@ -239,29 +239,44 @@ namespace ToClient
         {
             messageClient = new MessageServiceClient();
             messageClient.SendCompleted += MessageClientSendCompleted;
+
             userClient = new UserServiceClient();
             userClient.GetFriendsCompleted += UserClientGetFriendsCompleted;
 
             messageClient.GetCountOfUnreadMessagesCompleted += MessageClientGetCountOfUnreadMessagesCompleted;
             messageClient.GetUnreadMessagesCompleted += MessageClientGetUnreadMessagesCompleted;
 
+            CustomerServiceList = new ObservableCollection<UserInfo>();
+            SuperiorList = new ObservableCollection<UserInfo>();
+            LowerList = new ObservableCollection<UserInfo>();
+            ChatingWithList = new ObservableCollection<UserInfo>();
+            CurrentMessages = new ObservableCollection<MessageResult>();
 
-            currentUserOnlineState = States.在线;
+
+            currentUserOnlineState = UserOnlineStatus.在线;
             chatWindowIsOpen = false;
             friendListWindowIsOpen = false;
+            newMessageCount = 0;
             customerServiceListIsOpen = false;
             superiorListIsOpen = false;
             lowerListIsOpen = false;
             waitSendContent = "";
             chatingWith = "";
+
+            SendMessageCommand = new BaseCommand(SendMessage);
             AddExpressionCommand = new BaseCommand(AddExpression);
+            CloseCurrentChatCommand = new BaseCommand(CloseCurrentChat);
+
+            ReflashFriendList();
+            ReflashMessageAndMessageCount();
+            ReflashFriendListTimeLine();
+            ReflashMessageAndMessageCountTimeLine();
+            
         }
+        #endregion
 
-
-
-
-
-
+        #region 前台方法
+        #region 发送信息
         /// <summary>
         /// 发送信息函数
         /// </summary>
@@ -288,8 +303,10 @@ namespace ToClient
         {
             if (!e.Result.Success)
             { return; }
+            ReflashMessageAndMessageCount();
         }
-
+        #endregion
+        #region 添加表情
         /// <summary>
         /// 添加表情函数
         /// </summary>
@@ -298,32 +315,8 @@ namespace ToClient
         {
             WaitSendContent = WaitSendContent + (objectExpressionName.ToString());
         }
-
-
-        /// <summary>
-        /// 添加命令函数
-        /// </summary>
-        public void AddCommand()
-        {
-            BaseCommand command = new BaseCommand(BeginChatToSomeone);
-            BaseCommand switchChatingWithCommand = new BaseCommand(SwitchChatingWith);
-            foreach (UserInfo i in CustomerServiceList)
-            {
-                i.Command = command;
-                i.SwitchChatingWithCommand = switchChatingWithCommand;
-            }
-            foreach (UserInfo i in SuperiorList)
-            {
-                i.Command = command;
-                i.SwitchChatingWithCommand = switchChatingWithCommand;
-            }
-            foreach (UserInfo i in LowerList)
-            {
-                i.Command = command;
-                i.SwitchChatingWithCommand = switchChatingWithCommand;
-            }
-        }
-
+        #endregion
+        #region 开始聊天
         /// <summary>
         /// 点击好友按键开始聊天函数
         /// </summary>
@@ -349,6 +342,8 @@ namespace ToClient
                 ChatingWithList.Insert(0, tempUserInfo);
             }
         }
+        #endregion
+        #region 切换聊天好友
         /// <summary>
         /// 切换聊天好友函数
         /// </summary>
@@ -357,6 +352,25 @@ namespace ToClient
         {
             ChatingWith = objectUsername.ToString();
         }
+        #endregion
+        #region 关闭当前聊天
+        public void CloseCurrentChat(object objectChatingWith)
+        {
+            ChatingWithList.Remove(ChatingWithList.Where(x=>x.Username==ChatingWith).First());
+            CurrentMessages.Clear();
+            if (ChatingWithList.Count != 0)
+            {
+                ChatingWith = ChatingWithList.First().Username;
+            }
+            else
+            {
+                ChatingWith = "";
+                ChatWindowIsOpen = false;
+            }
+
+        }
+        #endregion
+        #endregion
 
         #region 后台方法
 
@@ -498,5 +512,14 @@ namespace ToClient
         }
         #endregion
         #endregion
+
+        public void TempFun()
+        {
+            foreach (var i in SuperiorList)
+            {
+                i.Command = new BaseCommand(BeginChatToSomeone);
+                i.SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith);
+            }
+        }
     }
 }

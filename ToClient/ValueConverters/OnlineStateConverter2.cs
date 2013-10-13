@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,21 +9,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using ToClient.Classes;
-using System.Linq;
 using ToClient.UserService;
 
 namespace ToClient.ValueConverters
 {
-    public class OnlineFriendsCountConverter:IValueConverter
+    public class OnlineStateConverter2:IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            ObservableCollection<UserInfo> source = (ObservableCollection<UserInfo>)value;
-            return source.Where(x => x.UserState == UserOnlineStatus.在线 || x.UserState == UserOnlineStatus.忙碌).ToList().Count;
-            
+            UserOnlineStatus source = (UserOnlineStatus)value;
+            if (source == UserOnlineStatus.隐身)
+                return UserOnlineStatus.离线;
+            else
+                return source;
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();

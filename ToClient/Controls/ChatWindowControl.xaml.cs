@@ -20,7 +20,10 @@ namespace ToClient.Controls
         }
 
 
-
+        #region 依赖属性
+        /// <summary>
+        /// 发送信息命令
+        /// </summary>
         public ICommand SendMessageConmmand
         {
             get { return (ICommand)GetValue(SendMessageConmmandProperty); }
@@ -29,8 +32,19 @@ namespace ToClient.Controls
         public static readonly DependencyProperty SendMessageConmmandProperty =
             DependencyProperty.Register("SendMessageConmmand", typeof(ICommand), typeof(ChatWindowControl), new PropertyMetadata(null));
 
+        /// <summary>
+        /// 关闭当前聊天命令
+        /// </summary>
+        public ICommand CloseCurrentChatCommand
+        {
+            get { return (ICommand)GetValue(CloseCurrentChatCommandProperty); }
+            set { SetValue(CloseCurrentChatCommandProperty, value); }
+        }
+        public static readonly DependencyProperty CloseCurrentChatCommandProperty =
+            DependencyProperty.Register("CloseCurrentChatCommand", typeof(ICommand), typeof(ChatWindowControl), new PropertyMetadata(null));
+        #endregion
 
-
+        #region 发送按键
         public void SenderBorderMouseEnterAction(object sender, MouseEventArgs e)
         {
             SenderBorder.BorderThickness = new Thickness(1);
@@ -43,5 +57,21 @@ namespace ToClient.Controls
         {
             this.SendMessageConmmand.Execute(null);
         }
+        #endregion
+
+        #region 关闭按键
+        public void CloseBorderMouseEnterAction(object sender, MouseEventArgs e)
+        {
+            CloseBorder.BorderThickness = new Thickness(1);
+        }
+        public void CloseBorderMouseLeaveAction(object sender, MouseEventArgs e)
+        {
+            CloseBorder.BorderThickness = new Thickness(0);
+        }
+        public void CloseBorderMouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
+        {
+            this.CloseCurrentChatCommand.Execute(null);
+        }
+        #endregion
     }
 }

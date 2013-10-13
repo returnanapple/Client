@@ -31,7 +31,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Controls:ChatWindowControl x:Name="MyChatWindowControl" Grid.Column="0" Width="0" Height="110"/>
+        <Controls:ChatWindowControl x:Name="MyChatWindowControl" Grid.Column="0" Width="0" Height="110"
+                                    SendMessageConmmand="{Binding SendMessageCommand}"
+                                    CloseCurrentChatCommand="{Binding CloseCurrentChatCommand}"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>

@@ -14,6 +14,7 @@
             <ColumnDefinition Width="155"/>
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
+        <!--正在聊天用户列表-->
         <ScrollViewer>
             <ScrollViewer.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -22,8 +23,8 @@
                     <GradientStop Color="#FF616161" Offset="1"/>
                 </LinearGradientBrush>
             </ScrollViewer.Background>
-            <ItemsControl ItemsSource="{Binding ChatingWithList}"
-                          HorizontalAlignment="Left">
+
+            <ItemsControl ItemsSource="{Binding ChatingWithList}" HorizontalAlignment="Left">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:ChatingWithButton Command="{Binding SwitchChatingWithCommand}"/>
@@ -31,6 +32,8 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+        <!---->
+        
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -38,67 +41,94 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="110"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                        <GradientStop Color="#FF919191" Offset="1"/>
-                        <GradientStop Color="#FF727272" Offset="0.5"/>
-                        <GradientStop Color="#FFE4E4E4"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
+            
+            <!--状态栏-->
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF919191" Offset="1"/>
+                    <GradientStop Color="#FF727272" Offset="0.5"/>
+                    <GradientStop Color="#FFE4E4E4"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
             <TextBlock Grid.Column="0" Text="{Binding ChatingWith}" FontSize="15" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-                <ItemsControl>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-            <Grid Grid.Row="2">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF8B8B8B"/>
-                        <GradientStop Color="LightGray" Offset="1"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <local:ExpressionButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,3,420,3" AddExpressionCommand="{Binding AddExpressionCommand}"/>
-                <local:UploadButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="85,3,320,3"/>
-                <local:ScreenShotButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,3,245,3"/>
-                <local:ChatRecordsButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="260,3,145,3"/>
-            </Grid>
-            <Grid Grid.Row="3">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="LightGray" Offset="0.007"/>
-                        <GradientStop Color="#FF535353" Offset="0.997"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="365"/>
-                    <ColumnDefinition Width="135"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Margin="8,4,7,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"
+
+            <Border x:Name="CloseBorder" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Width="20" Height="20" BorderBrush="#FFFCF0C1"
+                        MouseEnter="CloseBorderMouseEnterAction"
+                        MouseLeave="CloseBorderMouseLeaveAction"
+                        MouseLeftButtonDown="CloseBorderMouseLeftButtonDownAction">
+                <TextBlock Text="X" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
+        <!---->
+
+            <!--当前聊天内容-->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+            <ItemsControl ItemsSource="{Binding CurrentMessages}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:MessageShowControl IsOwn="{Binding FromField}" MessageText="{Binding Content}" 
+                                                  SendTime ="{Binding SendTime}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <!---->
+
+            <!--工具栏-->
+        <Grid Grid.Row="2">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF8B8B8B"/>
+                    <GradientStop Color="LightGray" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <local:ExpressionButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,3,420,3" 
+                                    AddExpressionCommand="{Binding AddExpressionCommand}"/>
+            <local:UploadButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="85,3,320,3"/>
+            <local:ScreenShotButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,3,245,3"/>
+            <local:ChatRecordsButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="260,3,145,3"/>
+        </Grid>
+        <!---->
+            
+            <!--发送栏-->
+        <Grid Grid.Row="3">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="LightGray" Offset="0.007"/>
+                    <GradientStop Color="#FF535353" Offset="0.997"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="365"/>
+                <ColumnDefinition Width="135"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" Margin="8,4,7,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"
                          Text="{Binding WaitSendContent, Mode=TwoWay}">
-                    <i:Interaction.Triggers>
-                        <Control:KeepTextRealTime />
-                        <i:EventTrigger EventName="KeyDown">
-                            <Control:KeyDownCommandAction Key="Enter" ModifierKey="Control" Command="{Binding SendMessageCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-                <Border x:Name="SenderBorder" Grid.Column="1" Margin="38,19,37,31" BorderBrush="#FFFCF0C1" 
+                <i:Interaction.Triggers>
+                    <Control:KeepTextRealTime />
+                    <i:EventTrigger EventName="KeyDown">
+                        <Control:KeyDownCommandAction Key="Enter" ModifierKey="Control" Command="{Binding SendMessageCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+
+            <Border x:Name="SenderBorder" Grid.Column="1" Margin="38,19,37,31" BorderBrush="#FFFCF0C1" 
                         MouseEnter="SenderBorderMouseEnterAction"
                         MouseLeave="SenderBorderMouseLeaveAction"
                         MouseLeftButtonDown="SenderBorderMouseLeftButtonDownAction">
-                    <Image Source="/ToClient;component/Images/发送.png" Width="60" Height="60" />
-                </Border>
-            </Grid>
+                <Image Source="/ToClient;component/Images/发送.png" Width="60" Height="60" />
+            </Border>
         </Grid>
+        <!---->
+    </Grid>
     </Grid>
 </UserControl>

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using ToClient.UserService;
 
 namespace ToClient.ValueConverters
 {
@@ -17,7 +18,7 @@ namespace ToClient.ValueConverters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            States source = (States)value;
+            UserOnlineStatus source = (UserOnlineStatus)value;
             string tempParameter = (string)parameter;
             if (source.ToString() == tempParameter)
             {
@@ -38,11 +39,11 @@ namespace ToClient.ValueConverters
                 switch (tempParameter)
                 {
                     case "在线":
-                        return States.在线;
+                        return UserOnlineStatus.在线;
                     case "忙碌":
-                        return States.忙碌;
+                        return UserOnlineStatus.忙碌;
                     case "隐身":
-                        return States.隐身;
+                        return UserOnlineStatus.隐身;
                     default:
                         throw new NotImplementedException();
                 }

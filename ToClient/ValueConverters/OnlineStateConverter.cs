@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using ToClient.UserService;
 
 namespace ToClient.ValueConverters
 {
@@ -17,19 +18,15 @@ namespace ToClient.ValueConverters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            States source = (States)value;
-            if (source == States.离线 || source == States.隐身)
+            UserOnlineStatus source = (UserOnlineStatus)value;
+            if (source == UserOnlineStatus.离线 || source == UserOnlineStatus.隐身)
             {
                 return "/ToClient;component/Images/离线.png";
             }
             else
             {
-                if (source != 0)
-                {
-                    return (source == States.在线 ? "/ToClient;component/Images/在线.png" : "/ToClient;component/Images/忙碌.png");
-                }
-                else
-                    return "/ToClient;component/Images/离线.png";
+                return (source == UserOnlineStatus.在线 ? "/ToClient;component/Images/在线.png" : "/ToClient;component/Images/忙碌.png");
+                
             }
                 
         }
@@ -40,13 +37,13 @@ namespace ToClient.ValueConverters
             switch (source)
             {
                 case "/ToClient;component/Images/离线.png":
-                    return States.离线;
+                    return UserOnlineStatus.离线;
                 case "/ToClient;component/Images/忙碌.png":
-                    return States.忙碌;
+                    return UserOnlineStatus.忙碌;
                 case "/ToClient;component/Images/隐身.png":
-                    return States.隐身;
+                    return UserOnlineStatus.隐身;
                 case "/ToClient;component/Images/在线.png":
-                    return States.在线;
+                    return UserOnlineStatus.在线;
                 default:
                     return null;
             }

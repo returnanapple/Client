@@ -119,6 +119,9 @@
     <Compile Include="Controls\FriendsControl.xaml.cs">
       <DependentUpon>FriendsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MessageShowControl.xaml.cs">
+      <DependentUpon>MessageShowControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ScreenShotButton.xaml.cs">
       <DependentUpon>ScreenShotButton.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,7 @@
     <Compile Include="ValueConverters\NewMessageCountSymbolConverter.cs" />
     <Compile Include="ValueConverters\OnlineFriendsCountConverter.cs" />
     <Compile Include="ValueConverters\OnlineStateConverter.cs" />
+    <Compile Include="ValueConverters\OnlineStateConverter2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -207,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FriendsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

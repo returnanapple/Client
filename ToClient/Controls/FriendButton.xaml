@@ -26,6 +26,7 @@
         </Storyboard>
 
         <localValueConverters:OnlineStateConverter x:Key="OnlineStateConverter"/>
+        <localValueConverters:OnlineStateConverter2 x:Key="OnlineStateConverter2"/>
     </UserControl.Resources>
 
     <Grid x:Name="MyGrid" Background="#FFF7F5F5" Width="200" Height="20"
@@ -45,7 +46,7 @@
         <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="12" Opacity="0.5" RenderTransformOrigin="0.5,0.5">
             <Run x:Name="Username" Text="{Binding Username}"/>
             <Run Text="（"/>
-            <Run Text="{Binding UserState}"/>
+            <Run Text="{Binding UserState,Converter={StaticResource OnlineStateConverter2}}"/>
             <Run Text="）"/>
         </TextBlock>
     </Grid>

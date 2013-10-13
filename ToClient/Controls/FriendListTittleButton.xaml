@@ -28,7 +28,7 @@
 			<ColumnDefinition Width="10"/>
 			<ColumnDefinition Width="45"/>
 		</Grid.ColumnDefinitions>
-		<TextBlock Grid.Column="1" Text="{Binding TittleText, ElementName=MyUserControl}" HorizontalAlignment="Left" Style="{StaticResource TextStyle}"/>
+        <TextBlock Grid.Column="1" Text="{Binding TittleText, ElementName=MyUserControl}" HorizontalAlignment="Left" Style="{StaticResource TextStyle}"/>
         <TextBlock Grid.Column="2" Text="{Binding OnlineFriendsCount, ElementName=MyUserControl}" HorizontalAlignment="Right" Style="{StaticResource TextStyle}"/>
         <TextBlock Grid.Column="3" Text="/" HorizontalAlignment="Center" Style="{StaticResource TextStyle}"/>
         <TextBlock Grid.Column="4" Text="{Binding AllFriendsCount, ElementName=MyUserControl}" HorizontalAlignment="Left" Style="{StaticResource TextStyle}"/>
