@@ -62,8 +62,10 @@
   <xs:element name="ArrayOfMessageResult" nillable="true" type="tns:ArrayOfMessageResult" />
   <xs:complexType name="MessageResult">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ip" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsOfficial" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsSelf" type="xs:boolean" />
       <xs:element minOccurs="0" name="SendTime" type="xs:dateTime" />

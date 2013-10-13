@@ -3,29 +3,22 @@
     <bindings>
       <basicHttpBinding>
         <binding name="BasicHttpBinding_IPicService" maxBufferSize="2147483647"
-            maxReceivedMessageSize="2147483647">
-          <security mode="None" />
-        </binding>
-        <binding name="BasicHttpBinding_IMessageService" maxBufferSize="2147483647"
-            maxReceivedMessageSize="2147483647">
+          maxReceivedMessageSize="2147483647">
           <security mode="None" />
         </binding>
         <binding name="BasicHttpBinding_IUserService" maxBufferSize="2147483647"
-            maxReceivedMessageSize="2147483647">
+          maxReceivedMessageSize="2147483647">
           <security mode="None" />
         </binding>
       </basicHttpBinding>
     </bindings>
     <client>
       <endpoint address="../Api/PicService.svc" binding="basicHttpBinding"
-          bindingConfiguration="BasicHttpBinding_IPicService" contract="PicService.IPicService"
-          name="BasicHttpBinding_IPicService" />
-      <endpoint address="../Api/MessageService.svc" binding="basicHttpBinding"
-          bindingConfiguration="BasicHttpBinding_IMessageService" contract="MessageService.IMessageService"
-          name="BasicHttpBinding_IMessageService" />
+        bindingConfiguration="BasicHttpBinding_IPicService" contract="PicService.IPicService"
+        name="BasicHttpBinding_IPicService" />
       <endpoint address="../Api/UserService.svc" binding="basicHttpBinding"
-          bindingConfiguration="BasicHttpBinding_IUserService" contract="UserService.IUserService"
-          name="BasicHttpBinding_IUserService" />
+        bindingConfiguration="BasicHttpBinding_IUserService" contract="UserService.IUserService"
+        name="BasicHttpBinding_IUserService" />
     </client>
   </system.serviceModel>
 </configuration>
