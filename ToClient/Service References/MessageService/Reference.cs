@@ -176,9 +176,13 @@ namespace ToClient.MessageService {
     [System.Runtime.Serialization.DataContractAttribute(Name="MessageResult", Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract")]
     public partial class MessageResult : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private string AddressField;
+        
         private string ContentField;
         
         private string FromField;
+        
+        private string IpField;
         
         private bool IsOfficialField;
         
@@ -187,6 +191,19 @@ namespace ToClient.MessageService {
         private System.DateTime SendTimeField;
         
         private string ToField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Content {
@@ -210,6 +227,19 @@ namespace ToClient.MessageService {
                 if ((object.ReferenceEquals(this.FromField, value) != true)) {
                     this.FromField = value;
                     this.RaisePropertyChanged("From");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ip {
+            get {
+                return this.IpField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpField, value) != true)) {
+                    this.IpField = value;
+                    this.RaisePropertyChanged("Ip");
                 }
             }
         }
