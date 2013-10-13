@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Client.Host.Framework;
-using System.Text.RegularExpressions;
+using System.Net;
+using System.IO;
 
 namespace Client.Host
 {
@@ -12,16 +14,10 @@ namespace Client.Host
     {
         static void Main(string[] args)
         {
-            string a = "1111[^pic]0[$pic]343434343[^icon]41[$icon]6666666";
-            Regex reg = new Regex(@"\[\^pic\]([a-zA-Z0-9]{0,})\[\$pic\]");
-            Match m = reg.Match(a);
-            for (int i = 0; i < m.Groups.Count; i++)
-            {
-                Console.WriteLine(m.Groups[i].Value);
-            }
+            RunHosts();
         }
 
-        void RunHosts()
+        static void RunHosts()
         {
             HostManager.Run();
             Console.WriteLine("服务正在运行，如需暂停服务请输入stop，如需重置服务请输入reset，如需完全关闭服务请输入off");
