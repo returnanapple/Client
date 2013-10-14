@@ -61,9 +61,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Api\MessageService.svc" />
-    <Content Include="Api\PicService.svc" />
-    <Content Include="Api\UserService.svc" />
     <Content Include="ClientBin\ToClient.xap" />
     <Content Include="Silverlight.js" />
     <Content Include="ToClientTestPage.aspx" />
