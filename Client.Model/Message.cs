@@ -30,7 +30,7 @@ namespace Client.Model
         /// <summary>
         /// 已经阅读
         /// </summary>
-        public string Readed { get; set; }
+        public bool Readed { get; set; }
 
         /// <summary>
         /// 一个布尔值 标识改信息是否官方信息
@@ -66,13 +66,15 @@ namespace Client.Model
         /// <param name="content">正文</param>
         /// <param name="ip">来源地址</param>
         /// <param name="address">地址</param>
+        /// <param name="readed">已经阅读</param>
         /// <param name="isOfficial">一个布尔值 标识改信息是否官方信息(默认为 false)</param>
-        public Message(string _from, string _to, string content, string ip, string address, bool isOfficial = false)
+        public Message(string _from, string _to, string content, string ip, string address
+            , bool readed, bool isOfficial = false)
         {
             this.From = _from;
             this.To = _to;
             this.Content = content;
-            this.Readed = "";
+            this.Readed = readed;
             this.IsOfficial = isOfficial;
             this.Ip = ip;
             this.Address = address;

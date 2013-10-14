@@ -1,100 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Client.Service.PicService" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="2.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAEAAAAAAAA=</HashCode>
-      <FileName>PicService.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Service.MessageService" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="2.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAg=</HashCode>
-      <FileName>MessageService.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Service.UserService" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAABIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>UserService.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Client.Service.DomainService" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DomainService.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Client.Service.OfficialMessageService" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAg=</HashCode>
-      <FileName>OfficialMessageService.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Service.OfficialUserService" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAIAAAIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>OfficialUserService.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Client.Service.WebHepler" Collapsed="true">
-    <Position X="6" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>WebHepler.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Interface Name="Client.Service.IMessageService" Collapsed="true">
-    <Position X="2.25" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAg=</HashCode>
-      <FileName>IMessageService.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Client.Service.IUserService" Collapsed="true">
-    <Position X="4" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAABIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>IUserService.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Client.Service.IPicService" Collapsed="true">
-    <Position X="2.25" Y="3.5" Width="1.5" />
+  <Class Name="Client.Service.PicService" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAEAAAAAAAA=</HashCode>
-      <FileName>IPicService.cs</FileName>
+      <FileName>PicService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Client.Service.MyPond" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Client.Service.MyPond.UserTokenAndCallback" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MyPond.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ABAAAAQAAAAAAICIAABAIIAADAAQAEAAEAAAAAABAAA=</HashCode>
+      <FileName>MyPond.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.Service.ChatService" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAACAAAAAACAAQEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChatService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Client.Service.OfficialLoginService" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>OfficialLoginService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Client.Service.IChatService" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAACAAAAAACAAQEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IChatService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Client.Service.IDomainService" Collapsed="true">
-    <Position X="0.5" Y="2.75" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IDomainService.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Client.Service.IOfficialMessageService" Collapsed="true">
-    <Position X="4" Y="2.75" Width="1.5" />
+  <Interface Name="Client.Service.IChatServiceCallback" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAg=</HashCode>
-      <FileName>IOfficialMessageService.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>IChatServiceCallback.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Client.Service.IOfficialUserService" Collapsed="true">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+  <Interface Name="Client.Service.IOfficialLoginService" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAIAAAIAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>IOfficialUserService.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>IOfficialLoginService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Client.Service.IPicService" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>IPicService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft YaHei UI" Size="9" />

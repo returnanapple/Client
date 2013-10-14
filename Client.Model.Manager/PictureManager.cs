@@ -14,7 +14,7 @@ namespace Client.Model.Manager
             {
                 string token = Guid.NewGuid().ToString("N");
                 Picture pic = new Picture(token, content);
-                db.Pictures.Add(pic);
+                db.PondOfPicture.Add(pic);
                 db.SaveChanges();
 
                 return token;

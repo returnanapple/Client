@@ -16,21 +16,20 @@ namespace Client.Service.Reader
         /// <summary>
         /// 读取未读信息的数量
         /// </summary>
-        /// <param name="username">用户名</param>
+        /// <param name="self">自己的用户名</param>
         /// <returns>返回未读信息的数量</returns>
-        public static List<UnreadMessageCountResult> ReadCountOfUnreadMessages(string username)
+        public static List<UnreadMessageCountResult> ReadCountOfUnreadMessages(string self)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
                 List<UnreadMessageCountResult> result = new List<UnreadMessageCountResult>();
-                string token = string.Format("[{0}]", username);
-                List<string> tos = db.Messages.Where(x => x.To == username && !x.Readed.Contains(token))
+                List<string> tos = db.PondOfMessage.Where(x => x.To == self && !x.Readed)
                     .Select(x => x.From)
                     .Distinct()
                     .ToList();
                 tos.ForEach(sender =>
                     {
-                        int c = db.Messages.Count(x => x.To == username && x.From == sender && !x.Readed.Contains(token));
+                        int c = db.PondOfMessage.Count(x => x.To == self && x.From == sender && !x.Readed);
                         result.Add(new UnreadMessageCountResult(sender, c));
                     });
                 return result;
@@ -38,45 +37,41 @@ namespace Client.Service.Reader
         }
 
         /// <summary>
-        /// 读取未读信息的列表
+        /// 读取未读信息列表
         /// </summary>
-        /// <param name="_from">发件人</param>
-        /// <param name="_to">收件人</param>
+        /// <param name="targetUser">对方的用户名</param>
+        /// <param name="self">自己的用户名</param>
         /// <returns>返回未读信息的列表</returns>
-        public static List<Message> ReadUnreadMessages(string _from, string _to)
+        public static List<MessageResult> ReadUnreadMessages(string targetUser, string self)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                string token = string.Format("[{0}]", _to);
-                return db.Messages.Where(x => ((x.From == _from && x.To == _to)
-                    || (x.From == _to && x.To == _from))
-                    && !x.Readed.Contains(token))
-                    .OrderByDescending(x => x.CreatedTime)
-                    .ToList();
+                return db.PondOfMessage.Where(x => x.From == targetUser && x.To == self && !x.Readed).ToList()
+                     .ConvertAll(x => new MessageResult(x, x.From == self));
             }
         }
 
         /// <summary>
         /// 读取聊天记录的分页列表
         /// </summary>
-        /// <param name="_from">发件人</param>
-        /// <param name="_to">收件人</param>
+        /// <param name="targetUser">对方的用户名</param>
+        /// <param name="self">自己的用户名</param>
         /// <param name="pageSize">每个页面包含信息条数</param>
         /// <returns>返回聊天记录的分页列表</returns>
-        public static PaginationList<MessageResult> ReadMessages(string _from, string _to, int page, int pageSize)
+        public static PaginationList<MessageResult> ReadMessages(string targetUser, string self, int page, int pageSize)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
                 int statrRow = (page - 1) * pageSize;
-                Expression<Func<Message, bool>> pre = x => (x.To == _to && x.From == _from)
-                    || (x.From == _to && x.To == _from);
-                int c = db.Messages.Count(pre);
-                List<MessageResult> t = db.Messages.Where(pre)
+                Expression<Func<Message, bool>> pre = x => (x.To == self && x.From == targetUser)
+                    || (x.From == self && x.To == targetUser);
+                int c = db.PondOfMessage.Count(pre);
+                List<MessageResult> t = db.PondOfMessage.Where(pre)
                     .OrderByDescending(x => x.CreatedTime)
                     .Skip(statrRow)
                     .Take(pageSize)
                     .ToList()
-                    .ConvertAll(x => new MessageResult(x, x.From == _to));
+                    .ConvertAll(x => new MessageResult(x, x.From == self));
                 return new PaginationList<MessageResult>(page, pageSize, c, t);
             }
         }

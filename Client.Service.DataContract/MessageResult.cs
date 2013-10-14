@@ -77,5 +77,12 @@ namespace Client.Service.DataContract
             this.Ip = message.Ip;
             this.Address = message.Address;
         }
+
+        /// <summary>
+        /// 实例化一个新的聊天信息
+        /// </summary>
+        public MessageResult()
+        {
+        }
     }
 }

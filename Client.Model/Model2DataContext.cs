@@ -16,17 +16,17 @@ namespace Client.Model
         /// <summary>
         /// 聊天信息的数据存储区
         /// </summary>
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<Message> PondOfMessage { get; set; }
 
         /// <summary>
         /// 图片的数据存储区
         /// </summary>
-        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Picture> PondOfPicture { get; set; }
 
         /// <summary>
-        /// 用户令牌的数据存储区
+        /// Ip/实际地址对照的数据存储区
         /// </summary>
-        public DbSet<User> Users { get; set; }
+        public DbSet<IpToAddress> PondOfIpToAddress { get; set; }
 
         #endregion
 
@@ -37,11 +37,11 @@ namespace Client.Model
             modelBuilder.Entity<Message>().ToTable("client_message");
             modelBuilder.Entity<Message>().HasKey(x => x.Id);
 
-            modelBuilder.Entity<User>().ToTable("client_user");
-            modelBuilder.Entity<User>().HasKey(x => x.Id);
-
             modelBuilder.Entity<Picture>().ToTable("client_picture");
             modelBuilder.Entity<Picture>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<IpToAddress>().ToTable("client_ipToAddressr");
+            modelBuilder.Entity<IpToAddress>().HasKey(x => x.Id);
         }
 
         #endregion

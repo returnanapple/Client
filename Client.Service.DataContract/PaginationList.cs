@@ -54,7 +54,11 @@ namespace Client.Service.DataContract
             this.TotalOfPage = total % pageSize == 0 ? total / pageSize : total / pageSize + 1;
             this.Content = new List<T>();
 
-            if (this.TotalOfPage == 0)
+            if (this.PageIndex <= 0)
+            {
+                this.PageIndex = 1;
+            }
+            if (this.TotalOfPage <= 0)
             {
                 this.TotalOfPage = 1;
             }

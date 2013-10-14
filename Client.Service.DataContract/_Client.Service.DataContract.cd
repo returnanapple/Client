@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Client.Service.DataContract.OperatingResult" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OperatingResult.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Client.Service.DataContract.UserInfoResult" Collapsed="true">
     <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
@@ -17,7 +10,7 @@
   <Class Name="Client.Service.DataContract.MessageResult" Collapsed="true">
     <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAQAAAAAgAAAAAAAAAAAAQAAAAICAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgAQAAAAAgAAAAAAAAAAAAQAAAAICAACAAAAAAAAIAA=</HashCode>
       <FileName>MessageResult.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -29,7 +22,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Client.Service.DataContract.PaginationList&lt;T&gt;" Collapsed="true">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAABEAAAAAAAQAAAAAAAEAAAAAA=</HashCode>
       <FileName>PaginationList.cs</FileName>
@@ -40,6 +33,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>UnreadMessageCountResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.Service.DataContract.SetInResult" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SetInResult.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="Client.Service.DataContract.UserInfoType" Collapsed="true">

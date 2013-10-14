@@ -41,10 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageResult.cs" />
-    <Compile Include="OperatingResult.cs" />
     <Compile Include="PaginationList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendMessageImport.cs" />
+    <Compile Include="SetInResult.cs" />
     <Compile Include="UnreadMessageCountResult.cs" />
     <Compile Include="UserInfoResult.cs" />
     <Compile Include="UserInfoType.cs" />
