@@ -125,6 +125,9 @@
     <Compile Include="Controls\ScreenShotButton.xaml.cs">
       <DependentUpon>ScreenShotButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ScreenShotControl.xaml.cs">
+      <DependentUpon>ScreenShotControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UploadButton.xaml.cs">
       <DependentUpon>UploadButton.xaml</DependentUpon>
     </Compile>
@@ -219,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ScreenShotButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ScreenShotControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,7 +19,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" MinWidth="600" MaxWidth="760">
+    <Grid x:Name="LayoutRoot" MinWidth="600" MaxWidth="760" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>

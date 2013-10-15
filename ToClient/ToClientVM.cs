@@ -25,10 +25,11 @@ namespace ToClient
         public ToClientVM()
         {
             Initialize();
-            //SuperiorList.Add(new UserInfo { Username = "a", UserState = UserOnlineStatus.在线 });
-           // SuperiorList.Add(new UserInfo { Username = "b", UserState = UserOnlineStatus.忙碌 });
-            //SuperiorList.Add(new UserInfo { Username = "b", UserState = UserOnlineStatus.隐身 });
-           // TempFun();
+            LowerList.Add(new UserInfo { Username = "a",UserState = UserOnlineStatus.在线});
+            foreach (var i in LowerList)
+            {
+                i.Command = new BaseCommand(BeginChatToSomeone);
+            }
         }
         #region 私有字段
         private string currentUser;//？
@@ -41,6 +42,10 @@ namespace ToClient
         private bool lowerListIsOpen;
         private string waitSendContent;
         private string chatingWith;
+
+        private bool timeToReflashCustomerServiceList;
+        private bool timeToReflashSuperiorList;
+        private bool timeToReflashLowerList;
         #endregion
 
         #region 网络连接
@@ -218,6 +223,39 @@ namespace ToClient
         /// 关闭当前聊天命令
         /// </summary>
         public ICommand CloseCurrentChatCommand { get; set; }
+
+        public bool TimeToReflashCustomerServiceList
+        {
+            get
+            { return timeToReflashCustomerServiceList; }
+            set
+            {
+                timeToReflashCustomerServiceList = value;
+                OnPropertyChanged(this, "TimeToReflashCustomerServiceList");
+            }
+        }
+        public bool TimeToReflashSuperiorList
+        {
+            get
+            {
+                return timeToReflashSuperiorList;
+            }
+            set
+            {
+                timeToReflashSuperiorList = value;
+                OnPropertyChanged(this, "TimeToReflashSuperiorList");
+            }
+        }
+        public bool TimeToReflashLowerList
+        {
+            get
+            { return timeToReflashLowerList; }
+            set
+            {
+                timeToReflashLowerList = value;
+                OnPropertyChanged(this,"TimeToReflashLowerList");
+            }
+        }
         #endregion
 
         #region 属性改变事件
@@ -247,30 +285,38 @@ namespace ToClient
             messageClient.GetUnreadMessagesCompleted += MessageClientGetUnreadMessagesCompleted;
 
             CustomerServiceList = new ObservableCollection<UserInfo>();
+            CustomerServiceList.CollectionChanged += (d, e) => { OnPropertyChanged(this, "CustomerServiceList"); };
             SuperiorList = new ObservableCollection<UserInfo>();
+            SuperiorList.CollectionChanged += (d, e) => { OnPropertyChanged(this, "SuperiorList"); };
             LowerList = new ObservableCollection<UserInfo>();
+            LowerList.CollectionChanged += (d, e) => { OnPropertyChanged(this, "LowerList"); };
+
             ChatingWithList = new ObservableCollection<UserInfo>();
             CurrentMessages = new ObservableCollection<MessageResult>();
 
 
-            currentUserOnlineState = UserOnlineStatus.在线;
-            chatWindowIsOpen = false;
-            friendListWindowIsOpen = false;
-            newMessageCount = 0;
-            customerServiceListIsOpen = false;
-            superiorListIsOpen = false;
-            lowerListIsOpen = false;
-            waitSendContent = "";
-            chatingWith = "";
+            CurrentUserOnlineState = UserOnlineStatus.在线;
+            ChatWindowIsOpen = false;
+            FriendListWindowIsOpen = false;
+            NewMessageCount = 0;
+            CustomerServiceListIsOpen = false;
+            SuperiorListIsOpen = false;
+            LowerListIsOpen = false;
+            WaitSendContent = "";
+            ChatingWith = "";
 
             SendMessageCommand = new BaseCommand(SendMessage);
             AddExpressionCommand = new BaseCommand(AddExpression);
             CloseCurrentChatCommand = new BaseCommand(CloseCurrentChat);
 
-            ReflashFriendList();
-            ReflashMessageAndMessageCount();
-            ReflashFriendListTimeLine();
-            ReflashMessageAndMessageCountTimeLine();
+            TimeToReflashCustomerServiceList = false;
+            TimeToReflashSuperiorList = false;
+            TimeToReflashLowerList = false;
+
+            //ReflashFriendList();
+            //ReflashMessageAndMessageCount();
+            //ReflashFriendListTimeLine();
+            //ReflashMessageAndMessageCountTimeLine();
             
         }
         #endregion
@@ -292,7 +338,7 @@ namespace ToClient
                 To = ChatingWith
             };
             messageClient.SendAsync(import);
-            ChatingWith = "";
+            WaitSendContent = "";
         }
         /// <summary>
         /// 判断信息是否发送成功
@@ -401,6 +447,7 @@ namespace ToClient
                             : 0
                     };
                     CustomerServiceList.Add(user);
+                    TimeToReflashCustomerServiceList = true;
                 });
             #endregion
             #region 刷新上级列表
@@ -421,6 +468,7 @@ namespace ToClient
                             : 0
                     };
                     SuperiorList.Add(user);
+                    TimeToReflashSuperiorList = true;
                 });
             #endregion
             #region 刷新下级列表
@@ -441,6 +489,7 @@ namespace ToClient
                             : 0
                     };
                     LowerList.Add(user);
+                    TimeToReflashLowerList = true;
                 });
             #endregion
         }

@@ -4,13 +4,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:ToClient.Controls" xmlns:local="clr-namespace:ToClient" x:Class="ToClient.MainPage"
-    mc:Ignorable="d">
+    mc:Ignorable="d"  Width="1024" Height="768" Background="White">
 
 
-    <Grid>
-        <local:ToClientV x:Name="root" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+    <Grid x:Name="root"  Background="GreenYellow">
+        <Button Width="50" Height="30" Click="Button_Click"/>
+        <!--local:ToClientV x:Name="root" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                          ChatWindowIsOpen="{Binding ChatWindowIsOpen, Mode=TwoWay}"
-                         FriendListWindowIsOpen="{Binding FriendListWindowIsOpen}"/>
+                         FriendListWindowIsOpen="{Binding FriendListWindowIsOpen}"/-->
     </Grid>
 
 

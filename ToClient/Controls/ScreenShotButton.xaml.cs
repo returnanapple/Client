@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace ToClient.Controls
@@ -25,6 +26,15 @@ namespace ToClient.Controls
         public void MouseLeaveAction(object sender, MouseEventArgs e)
         {
             RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 247, 245, 245));//#FFF7F5F5
+        }
+
+        public void MouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
+        {
+            UserControl tUC = Application.Current.RootVisual as UserControl;
+            Panel tUCContent = tUC.Content as Panel;
+            WriteableBitmap tWB = new WriteableBitmap(tUC,null);
+            Canvas cover = new Canvas() { Background = new ImageBrush { ImageSource = tWB } };
+            tUCContent.Children.Add(cover);
         }
     }
 }

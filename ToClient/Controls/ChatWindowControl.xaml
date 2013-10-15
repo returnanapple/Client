@@ -69,15 +69,15 @@
         <!---->
 
             <!--当前聊天内容-->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-            <ItemsControl ItemsSource="{Binding CurrentMessages}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:MessageShowControl IsOwn="{Binding FromField}" MessageText="{Binding Content}" 
+        <ScrollViewer x:Name="sv" Grid.Row="1" Background="White">
+            <ItemsControl ItemsSource="{Binding CurrentMessages}" HorizontalAlignment="Left">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:MessageShowControl IsOwn="{Binding FromField}" MessageText="{Binding Content}" 
                                                   SendTime ="{Binding SendTime}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
         </ScrollViewer>
         <!---->
 

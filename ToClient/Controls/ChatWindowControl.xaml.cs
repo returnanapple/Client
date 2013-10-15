@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -17,6 +18,7 @@ namespace ToClient.Controls
         public ChatWindowControl()
         {
             InitializeComponent();
+            BingSomthing();
         }
 
 
@@ -42,6 +44,20 @@ namespace ToClient.Controls
         }
         public static readonly DependencyProperty CloseCurrentChatCommandProperty =
             DependencyProperty.Register("CloseCurrentChatCommand", typeof(ICommand), typeof(ChatWindowControl), new PropertyMetadata(null));
+
+        public double ShowHeight
+        {
+            get { return (double)GetValue(ShowHeightProperty); }
+            set { SetValue(ShowHeightProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowHeightProperty =
+            DependencyProperty.Register("ShowHeight", typeof(double), typeof(ChatWindowControl)
+            , new PropertyMetadata(0.0, (d, e) =>
+            {
+                ChatWindowControl tool = (ChatWindowControl)d;
+                tool.sv.ScrollToVerticalOffset((double)e.NewValue);
+            }));
         #endregion
 
         #region 发送按键
@@ -72,6 +88,16 @@ namespace ToClient.Controls
         {
             this.CloseCurrentChatCommand.Execute(null);
         }
+        #endregion
+
+        #region 私有方法
+
+        void BingSomthing()
+        {
+            Binding binding = new Binding("ExtentHeight") { Source = this.sv };
+            this.SetBinding(ChatWindowControl.ShowHeightProperty, binding);
+        }
+
         #endregion
     }
 }

@@ -6,7 +6,8 @@
     mc:Ignorable="d">
     <Border x:Name="RootBorder" CornerRadius="2" Background="#FFF7F5F5"
             MouseEnter="MouseEnterAction"
-            MouseLeave="MouseLeaveAction">
+            MouseLeave="MouseLeaveAction"
+            MouseLeftButtonDown="MouseLeftButtonDownAction">
         <Grid Width="70" Height="25">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>

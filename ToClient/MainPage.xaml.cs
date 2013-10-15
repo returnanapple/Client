@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using ToClient.Controls;
 
 namespace ToClient
 {
@@ -17,7 +18,12 @@ namespace ToClient
         public MainPage()
         {
             InitializeComponent();
-            root.DataContext = new ToClientVM { CurrentUser = "aaaa"};
+            //root.DataContext = new ToClientVM { CurrentUser = "Admin"};
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new ScreenShotControl(App.Current.RootVisual);
         }
     }
 }

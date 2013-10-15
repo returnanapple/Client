@@ -17,7 +17,8 @@
             <Controls:FriendListTittleButton TittleText="客服" IsOpen="{Binding CustomerServiceListIsOpen, Mode=TwoWay}"
 						OnlineFriendsCount="{Binding CustomerServiceList, Converter={StaticResource OnlineFriendsCountConverter}}"
 						AllFriendsCount="{Binding CustomerServiceList, Converter={StaticResource AllFriendsCountConverter}}"/>
-            <Controls:FriendsControl ItemsSource="{Binding CustomerServiceList}" IsOpen="{Binding CustomerServiceListIsOpen}">
+            <Controls:FriendsControl ItemsSource="{Binding CustomerServiceList}" IsOpen="{Binding CustomerServiceListIsOpen}"
+                                     TimeToReflash="{Binding TimeToReflashCustomerServiceList}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
                         <Controls:CustomerServiceButton Command="{Binding Command}"/>
@@ -27,7 +28,8 @@
             <Controls:FriendListTittleButton TittleText="上级" IsOpen="{Binding SuperiorListIsOpen, Mode=TwoWay}"
 						OnlineFriendsCount="{Binding SuperiorList, Converter={StaticResource OnlineFriendsCountConverter}}"
 						AllFriendsCount="{Binding SuperiorList, Converter={StaticResource AllFriendsCountConverter}}"/>
-            <Controls:FriendsControl ItemsSource="{Binding SuperiorList}" IsOpen="{Binding SuperiorListIsOpen}">
+            <Controls:FriendsControl ItemsSource="{Binding SuperiorList}" IsOpen="{Binding SuperiorListIsOpen}"
+                                     TimeToReflash="{Binding TimeToReflashSuperiorList}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
                         <Controls:FriendButton Command="{Binding Command}"/>
@@ -37,7 +39,8 @@
             <Controls:FriendListTittleButton TittleText="下级" IsOpen="{Binding LowerListIsOpen, Mode=TwoWay}"
 						OnlineFriendsCount="{Binding LowerList, Converter={StaticResource OnlineFriendsCountConverter}}"
 						AllFriendsCount="{Binding LowerList, Converter={StaticResource AllFriendsCountConverter}}"/>
-            <Controls:FriendsControl ItemsSource="{Binding LowerList}" IsOpen="{Binding LowerListIsOpen}">
+            <Controls:FriendsControl ItemsSource="{Binding LowerList}" IsOpen="{Binding LowerListIsOpen}"
+                                     TimeToReflash="{Binding TimeToReflashLowerList}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
                         <Controls:FriendButton Command="{Binding Command}"/>
