@@ -22,10 +22,10 @@
       <endpoint address="../Api/MessageService.svc" binding="basicHttpBinding"
         bindingConfiguration="BasicHttpBinding_IMessageService" contract="MessageService.IMessageService"
         name="BasicHttpBinding_IMessageService" />
-      <endpoint address="http://192.168.1.119:4511/PicService" binding="basicHttpBinding"
+      <endpoint address="http://192.168.1.100:4511/PicService" binding="basicHttpBinding"
         bindingConfiguration="BasicHttpBinding_IPicService" contract="PicService.IPicService"
         name="BasicHttpBinding_IPicService" />
-      <endpoint address="net.tcp://192.168.1.119:4512/ChatService"
+      <endpoint address="net.tcp://192.168.1.100:4512/ChatService"
         binding="customBinding" bindingConfiguration="NetTcpBinding_IChatService"
         contract="ChatService.IChatService" name="NetTcpBinding_IChatService" />
     </client>
