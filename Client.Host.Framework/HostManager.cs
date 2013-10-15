@@ -12,11 +12,9 @@ namespace Client.Host.Framework
     /// </summary>
     public class HostManager
     {
-        static ServiceHost messageHost = new ServiceHost(typeof(MessageService));
-        static ServiceHost userHost = new ServiceHost(typeof(UserService));
+        static ServiceHost chatHost = new ServiceHost(typeof(ChatService));
         static ServiceHost picHost = new ServiceHost(typeof(PicService));
-        static ServiceHost officialMessageService = new ServiceHost(typeof(OfficialMessageService));
-        static ServiceHost officialUserService = new ServiceHost(typeof(OfficialUserService));
+        static ServiceHost loginHost = new ServiceHost(typeof(OfficialLoginService));
         static ServiceHost domainHost = new ServiceHost(typeof(DomainService));
         static bool running = false;
 
@@ -31,11 +29,9 @@ namespace Client.Host.Framework
         public static void Run()
         {
             if (running) { return; }
-            messageHost.Open();
-            userHost.Open();
+            chatHost.Open();
             picHost.Open();
-            officialMessageService.Open();
-            officialUserService.Open();
+            loginHost.Open();
             domainHost.Open();
             running = true;
         }
@@ -46,11 +42,9 @@ namespace Client.Host.Framework
         public static void Stop()
         {
             if (!running) { return; }
-            messageHost.Close();
-            userHost.Close();
+            chatHost.Close();
             picHost.Close();
-            officialMessageService.Close();
-            officialUserService.Close();
+            loginHost.Close();
             domainHost.Close();
             Reset();
             running = false;
@@ -61,12 +55,10 @@ namespace Client.Host.Framework
         /// </summary>
         static void Reset()
         {
-            messageHost = new ServiceHost(typeof(MessageService));
-            userHost = new ServiceHost(typeof(UserService));
+            chatHost = new ServiceHost(typeof(ChatService));
             picHost = new ServiceHost(typeof(PicService));
+            loginHost = new ServiceHost(typeof(OfficialLoginService));
             domainHost = new ServiceHost(typeof(DomainService));
-            officialMessageService = new ServiceHost(typeof(OfficialMessageService));
-            officialUserService = new ServiceHost(typeof(OfficialUserService));
         }
     }
 }

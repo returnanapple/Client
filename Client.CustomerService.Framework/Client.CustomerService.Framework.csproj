@@ -49,6 +49,8 @@
     <Reference Include="mscorlib" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Extensions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.NetTcp, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
@@ -74,7 +76,12 @@
     <Compile Include="ModelBase.cs" />
     <Compile Include="MonitorCondition.cs" />
     <Compile Include="RegisterToMessagerAttribute.cs" />
-    <Compile Include="Service References\MessageService\Reference.cs">
+    <Compile Include="Service References\ChatService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OfficialLoginService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -84,12 +91,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\UserService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="StatusOfAvatarConverter.cs" />
     <Compile Include="UniversalCommand.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Pop.cs" />
@@ -102,27 +103,27 @@
     <Compile Include="WindowAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\MessageService\Client.CustomerService.Framework.MessageService.OperatingResult.datasource">
+    <None Include="Service References\ChatService\Client.CustomerService.Framework.ChatService.MessageResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MessageService\Client.CustomerService.Framework.MessageService.OperatingResultOfArrayOfMessageResult5O3_PPRz2.datasource">
+    <None Include="Service References\ChatService\Client.CustomerService.Framework.ChatService.PaginationListOfMessageResult5O3_PPRz2.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MessageService\Client.CustomerService.Framework.MessageService.OperatingResultOfArrayOfUnreadMessageCountResult5O3_PPRz2.datasource">
+    <None Include="Service References\ChatService\Client.CustomerService.Framework.ChatService.SetInResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MessageService\Client.CustomerService.Framework.MessageService.OperatingResultOfPaginationListOfMessageResult5O3_PPRz25O3_PPRz2.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\MessageService\MessageService.disco" />
-    <None Include="Service References\MessageService\configuration91.svcinfo" />
-    <None Include="Service References\MessageService\configuration.svcinfo" />
-    <None Include="Service References\MessageService\Reference.svcmap">
+    <None Include="Service References\ChatService\configuration91.svcinfo" />
+    <None Include="Service References\ChatService\configuration.svcinfo" />
+    <None Include="Service References\ChatService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\PicService\Client.CustomerService.Framework.PicService.OperatingResultOfstring.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <None Include="Service References\OfficialLoginService\OfficialLoginService.wsdl" />
+    <None Include="Service References\OfficialLoginService\OfficialLoginService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OfficialLoginService\OfficialLoginService1.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\PicService\PicService.disco" />
     <None Include="Service References\PicService\configuration91.svcinfo" />
@@ -131,34 +132,27 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\UserService\Client.CustomerService.Framework.UserService.OperatingResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\UserService\Client.CustomerService.Framework.UserService.OperatingResultOfArrayOfUserInfoResult5O3_PPRz2.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\UserService\Client.CustomerService.Framework.UserService.OperatingResultOfstring.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\UserService\OfficialUserService.wsdl" />
-    <None Include="Service References\UserService\UserService.disco" />
-    <None Include="Service References\UserService\configuration91.svcinfo" />
-    <None Include="Service References\UserService\configuration.svcinfo" />
-    <None Include="Service References\UserService\Reference.svcmap">
+    <None Include="Service References\OfficialLoginService\OfficialLoginService.disco" />
+    <None Include="Service References\OfficialLoginService\configuration91.svcinfo" />
+    <None Include="Service References\OfficialLoginService\configuration.svcinfo" />
+    <None Include="Service References\OfficialLoginService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="ServiceReferences.ClientConfig" />
-    <None Include="Service References\MessageService\MessageService.xsd">
+    <None Include="Service References\ChatService\Client.Model.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MessageService\MessageService1.xsd">
+    <None Include="Service References\ChatService\Client.Service.DataContract.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MessageService\MessageService2.xsd">
+    <None Include="Service References\ChatService\service.wsdl" />
+    <None Include="Service References\ChatService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MessageService\OfficialMessageService.wsdl" />
+    <None Include="Service References\ChatService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\PicService\PicService.wsdl" />
     <None Include="Service References\PicService\PicService.xsd">
       <SubType>Designer</SubType>
@@ -169,30 +163,15 @@
     <None Include="Service References\PicService\PicService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PicService\PicService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\UserService\UserService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\UserService\UserService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\UserService\UserService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\UserService\UserService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="_Client.CustomerService.Framework.cd" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\MessageService\" />
+    <WCFMetadataStorage Include="Service References\ChatService\" />
+    <WCFMetadataStorage Include="Service References\OfficialLoginService\" />
     <WCFMetadataStorage Include="Service References\PicService\" />
-    <WCFMetadataStorage Include="Service References\UserService\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

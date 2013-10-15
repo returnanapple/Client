@@ -2,30 +2,32 @@
   <system.serviceModel>
     <bindings>
       <basicHttpBinding>
-        <binding name="BasicHttpBinding_IOfficialMessageService" maxBufferSize="2147483647"
-            maxReceivedMessageSize="2147483647" transferMode="StreamedResponse">
-          <security mode="None" />
-        </binding>
         <binding name="BasicHttpBinding_IPicService" maxBufferSize="2147483647"
-            maxReceivedMessageSize="2147483647">
+          maxReceivedMessageSize="2147483647">
           <security mode="None" />
         </binding>
-        <binding name="BasicHttpBinding_IOfficialUserService" maxBufferSize="2147483647"
-            maxReceivedMessageSize="2147483647">
+        <binding name="BasicHttpBinding_IOfficialLoginService" maxBufferSize="2147483647"
+          maxReceivedMessageSize="2147483647">
           <security mode="None" />
         </binding>
       </basicHttpBinding>
+      <customBinding>
+        <binding name="NetTcpBinding_IChatService">
+          <binaryMessageEncoding />
+          <tcpTransport maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" />
+        </binding>
+      </customBinding>
     </bindings>
     <client>
-      <endpoint address="../API/MessageService.svc"
-          binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IOfficialMessageService"
-          contract="MessageService.IOfficialMessageService" name="BasicHttpBinding_IOfficialMessageService" />
-      <endpoint address="../API/PicService.svc"
-          binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IPicService"
-          contract="PicService.IPicService" name="BasicHttpBinding_IPicService" />
-      <endpoint address="../API/UserService.svc"
-          binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IOfficialUserService"
-          contract="UserService.IOfficialUserService" name="BasicHttpBinding_IOfficialUserService" />
+      <endpoint address="net.tcp://192.168.1.119:4512/ChatService"
+        binding="customBinding" bindingConfiguration="NetTcpBinding_IChatService"
+        contract="ChatService.IChatService" name="NetTcpBinding_IChatService" />
+      <endpoint address="http://192.168.1.119:4511/PicService" binding="basicHttpBinding"
+        bindingConfiguration="BasicHttpBinding_IPicService" contract="PicService.IPicService"
+        name="BasicHttpBinding_IPicService" />
+      <endpoint address="http://192.168.1.119:4511/OfficialLoginService"
+        binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IOfficialLoginService"
+        contract="OfficialLoginService.IOfficialLoginService" name="BasicHttpBinding_IOfficialLoginService" />
     </client>
   </system.serviceModel>
 </configuration>

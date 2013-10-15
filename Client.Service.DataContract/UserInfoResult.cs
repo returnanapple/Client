@@ -13,8 +13,6 @@ namespace Client.Service.DataContract
     [DataContract]
     public class UserInfoResult
     {
-        #region 属性
-
         /// <summary>
         /// 用户名
         /// </summary>
@@ -32,23 +30,5 @@ namespace Client.Service.DataContract
         /// </summary>
         [DataMember]
         public UserInfoType Type { get; set; }
-
-        #endregion
-
-        #region 构造方法
-
-        /// <summary>
-        /// 实例化一个新的用户信息
-        /// </summary>
-        /// <param name="username">用户名</param>
-        /// <param name="type">用户的类型</param>
-        public UserInfoResult(string username, UserInfoType type)
-        {
-            this.Username = username;
-            this.OnlineStatus = UserOnlineStatus.离线;
-            this.Type = type;
-        }
-
-        #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace Client.Service.Reader
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                Picture pic = db.Pictures.First(x => x.Token == token);
+                Picture pic = db.PondOfPicture.First(x => x.Token == token);
                 return pic.Content;
             }
         }

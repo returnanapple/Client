@@ -19,14 +19,16 @@ namespace Client.Model.Manager
         /// <param name="content">正文</param>
         /// <param name="ip">来源地址</param>
         /// <param name="address">来源地址</param>
+        /// <param name="readed">已经阅读</param>
         /// <param name="isOfficial">一个布尔值 表示是否官方信息</param>
         /// <returns>返回被创建的聊天信息的封装</returns>
-        public static Message Send(string _from, string _to, string content, string ip, string address, bool isOfficial = false)
+        public static Message Send(string _from, string _to, string content, string ip, string address
+            , bool readed, bool isOfficial = false)
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                Message message = new Message(_from, _to, content, ip, address, isOfficial);
-                db.Messages.Add(message);
+                Message message = new Message(_from, _to, content, ip, address, readed, isOfficial);
+                db.PondOfMessage.Add(message);
                 db.SaveChanges();
 
                 return message;
@@ -42,11 +44,10 @@ namespace Client.Model.Manager
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                string tokne = string.Format("[{0}]", username);
-                Message message = db.Messages.FirstOrDefault(x => x.Id == messageId);
+                Message message = db.PondOfMessage.FirstOrDefault(x => x.Id == messageId);
                 if (message == null) { throw new Exception("消息不存在"); }
-                if (message.Readed.Contains(tokne)) { return; }
-                message.Readed += tokne;
+                if (message.Readed) { return; }
+                message.Readed = true;
                 db.SaveChanges();
             }
         }

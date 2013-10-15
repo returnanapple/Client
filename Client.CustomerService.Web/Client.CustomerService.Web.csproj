@@ -65,9 +65,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="API\MessageService.svc" />
-    <Content Include="API\PicService.svc" />
-    <Content Include="API\UserService.svc" />
     <Content Include="Client.CustomerServiceTestPage.aspx" />
     <Content Include="Client.CustomerServiceTestPage.html" />
     <Content Include="ClientBin\Client.CustomerService.xap" />

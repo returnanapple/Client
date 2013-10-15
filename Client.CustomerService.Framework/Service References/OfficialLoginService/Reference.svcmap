@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="47d50352-8017-4d4e-8f38-82b56acd1cec" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.119:4511/OfficialLoginService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="OfficialLoginService.disco" MetadataType="Disco" ID="323a5156-ae3a-4866-9038-b79f94303691" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialLoginService?disco" />
+    <MetadataFile FileName="OfficialLoginService.xsd" MetadataType="Schema" ID="f08c33a6-bf6c-4802-88db-d8e437074e76" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialLoginService?xsd=xsd0" />
+    <MetadataFile FileName="OfficialLoginService.wsdl" MetadataType="Wsdl" ID="181aa9e6-a384-48a3-b188-9d26b5045b40" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialLoginService?wsdl" />
+    <MetadataFile FileName="OfficialLoginService1.xsd" MetadataType="Schema" ID="7e1fc228-6ff2-42cd-8b28-03cc880e746f" SourceId="1" SourceUrl="http://192.168.1.119:4511/OfficialLoginService?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

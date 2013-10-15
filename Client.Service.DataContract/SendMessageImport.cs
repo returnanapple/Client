@@ -29,5 +29,11 @@ namespace Client.Service.DataContract
         /// </summary>
         [DataMember]
         public string Content { get; set; }
+
+        /// <summary>
+        /// 一个布尔值 表示该信息是否是发送给或来自官方人员
+        /// </summary>
+        [DataMember]
+        public bool IsOfficial { get; set; }
     }
 }

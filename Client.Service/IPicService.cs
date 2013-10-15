@@ -20,7 +20,7 @@ namespace Client.Service
         /// <param name="picStream">图片的流文件</param>
         /// <returns>返回带图片的存储令牌的操作结果</returns>
         [OperationContract]
-        OperatingResult<string> Upload(Stream picStream);
+        string Upload(Stream picStream);
 
         /// <summary>
         /// 下载

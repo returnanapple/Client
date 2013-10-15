@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ChatService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IChatService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Client.Model" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IChatService_RegisterAndGetFriendList_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterAndGetFriendList" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_RegisterAndGetFriendList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterAndGetFriendListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ChangeTargetUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeTargetUser" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ChangeTargetUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeTargetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ChangeStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeStatus" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ChangeStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_KeepHeartbeat_InputMessage">
+    <wsdl:part name="parameters" element="tns:KeepHeartbeat" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_KeepHeartbeat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:KeepHeartbeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_GetMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessages" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_GetMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_AddTheCountOfNewMessageForSomeone_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:AddTheCountOfNewMessageForSomeone" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_WriteMessage_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:WriteMessage" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ChangeOnlineStatus_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ChangeOnlineStatus" />
+  </wsdl:message>
+  <wsdl:portType name="IChatService">
+    <wsdl:operation name="RegisterAndGetFriendList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/RegisterAndGetFriendList" message="tns:IChatService_RegisterAndGetFriendList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/RegisterAndGetFriendListResponse" message="tns:IChatService_RegisterAndGetFriendList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTargetUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/ChangeTargetUser" message="tns:IChatService_ChangeTargetUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/ChangeTargetUserResponse" message="tns:IChatService_ChangeTargetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/ChangeStatus" message="tns:IChatService_ChangeStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/ChangeStatusResponse" message="tns:IChatService_ChangeStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="KeepHeartbeat">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/KeepHeartbeat" message="tns:IChatService_KeepHeartbeat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/KeepHeartbeatResponse" message="tns:IChatService_KeepHeartbeat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/SendMessage" message="tns:IChatService_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/SendMessageResponse" message="tns:IChatService_SendMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/GetMessages" message="tns:IChatService_GetMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/GetMessagesResponse" message="tns:IChatService_GetMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTheCountOfNewMessageForSomeone">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/AddTheCountOfNewMessageForSomeone" message="tns:IChatService_AddTheCountOfNewMessageForSomeone_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WriteMessage">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/WriteMessage" message="tns:IChatService_WriteMessage_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeOnlineStatus">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/ChangeOnlineStatus" message="tns:IChatService_ChangeOnlineStatus_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IChatService" type="tns:IChatService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IChatService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="RegisterAndGetFriendList">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/RegisterAndGetFriendList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeTargetUser">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/ChangeTargetUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeStatus">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/ChangeStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KeepHeartbeat">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/KeepHeartbeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/SendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessages">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/GetMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTheCountOfNewMessageForSomeone">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/AddTheCountOfNewMessageForSomeone" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WriteMessage">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/WriteMessage" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeOnlineStatus">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/ChangeOnlineStatus" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ChatService">
+    <wsdl:port name="NetTcpBinding_IChatService" binding="tns:NetTcpBinding_IChatService">
+      <soap12:address location="net.tcp://192.168.1.119:4512/ChatService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://192.168.1.119:4512/ChatService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

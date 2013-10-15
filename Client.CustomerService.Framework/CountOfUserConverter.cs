@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Data;
-using Client.CustomerService.Framework.UserService;
 
 namespace Client.CustomerService.Framework
 {

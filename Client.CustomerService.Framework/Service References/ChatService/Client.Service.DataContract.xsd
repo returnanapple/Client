@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Client.Model" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="SetInResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UnreadMessageCounts" nillable="true" type="tns:ArrayOfUnreadMessageCountResult" />
+      <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUserInfoResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SetInResult" nillable="true" type="tns:SetInResult" />
+  <xs:complexType name="ArrayOfUnreadMessageCountResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UnreadMessageCountResult" nillable="true" type="tns:UnreadMessageCountResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUnreadMessageCountResult" nillable="true" type="tns:ArrayOfUnreadMessageCountResult" />
+  <xs:complexType name="UnreadMessageCountResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnreadMessageCountResult" nillable="true" type="tns:UnreadMessageCountResult" />
+  <xs:complexType name="ArrayOfUserInfoResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserInfoResult" nillable="true" type="tns:ArrayOfUserInfoResult" />
+  <xs:complexType name="UserInfoResult">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Client.Model" minOccurs="0" name="OnlineStatus" type="q1:UserOnlineStatus" />
+      <xs:element minOccurs="0" name="Type" type="tns:UserInfoType" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
+  <xs:simpleType name="UserInfoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="上级">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">101</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="下级">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">102</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="用户">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">201</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="客服">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">301</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="UserInfoType" nillable="true" type="tns:UserInfoType" />
+  <xs:complexType name="ArrayOfMessageResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MessageResult" nillable="true" type="tns:MessageResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMessageResult" nillable="true" type="tns:ArrayOfMessageResult" />
+  <xs:complexType name="MessageResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ip" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsOfficial" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelf" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SendTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="To" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MessageResult" nillable="true" type="tns:MessageResult" />
+  <xs:complexType name="SendMessageImport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsOfficial" type="xs:boolean" />
+      <xs:element minOccurs="0" name="To" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SendMessageImport" nillable="true" type="tns:SendMessageImport" />
+  <xs:complexType name="PaginationListOfMessageResult5O3_PPRz2">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="PaginationListOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MessageResult" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract">
+          </GenericParameter>
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Content" nillable="true" type="tns:ArrayOfMessageResult" />
+      <xs:element minOccurs="0" name="PageIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalOfPage" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaginationListOfMessageResult5O3_PPRz2" nillable="true" type="tns:PaginationListOfMessageResult5O3_PPRz2" />
+</xs:schema>

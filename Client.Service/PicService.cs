@@ -21,13 +21,13 @@ namespace Client.Service
         /// </summary>
         /// <param name="picStream">图片的流文件</param>
         /// <returns>返回带图片的存储令牌的操作结果</returns>
-        public OperatingResult<string> Upload(Stream picStream)
+        public string Upload(Stream picStream)
         {
             MemoryStream s = new MemoryStream();
             picStream.CopyTo(s);
             byte[] t = s.ToArray();
             string token = PictureManager.Create(t);
-            return new OperatingResult<string>(token);
+            return token;
         }
 
         /// <summary>
