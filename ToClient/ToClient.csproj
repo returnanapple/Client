@@ -67,6 +67,8 @@
     <Reference Include="mscorlib" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Extensions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.NetTcp, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
@@ -141,17 +143,12 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\MessageService\Reference.cs">
+    <Compile Include="Service References\ChatService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\PicService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\UserService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -252,14 +249,20 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
-    <None Include="Service References\MessageService\MessageService.wsdl" />
-    <None Include="Service References\MessageService\MessageService.xsd">
+    <None Include="Properties\DataSources\Client.CustomerService.Framework.ChatService.MessageResult.datasource" />
+    <None Include="Properties\DataSources\Client.CustomerService.Framework.ChatService.PaginationListOfMessageResult5O3_PPRz2.datasource" />
+    <None Include="Properties\DataSources\Client.CustomerService.Framework.ChatService.SetInResult.datasource" />
+    <None Include="Service References\ChatService\Client.Model.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MessageService\MessageService1.xsd">
+    <None Include="Service References\ChatService\Client.Service.DataContract.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MessageService\MessageService2.xsd">
+    <None Include="Service References\ChatService\service.wsdl" />
+    <None Include="Service References\ChatService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\PicService\PicService.wsdl" />
@@ -271,25 +274,6 @@
     </None>
     <None Include="Service References\PicService\PicService2.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PicService\PicService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PicService\ToClient.PicService.OperatingResultOfstring.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\UserService\ToClient.UserService.OperatingResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\UserService\ToClient.UserService.OperatingResultOfArrayOfUserInfoResult5O3_PPRz2.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\UserService\UserService.disco" />
-    <None Include="Service References\UserService\configuration91.svcinfo" />
-    <None Include="Service References\UserService\configuration.svcinfo" />
-    <None Include="Service References\UserService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Resource Include="icon\41.png" />
     <Resource Include="icon\42.png" />
@@ -321,27 +305,20 @@
     <Resource Include="icon\68.png" />
     <Resource Include="icon\69.png" />
     <Resource Include="icon\70.png" />
-    <None Include="Service References\MessageService\MessageService.disco" />
-    <None Include="Service References\MessageService\configuration91.svcinfo" />
-    <None Include="Service References\MessageService\configuration.svcinfo" />
-    <None Include="Service References\MessageService\Reference.svcmap">
+    <None Include="Service References\PicService\PicService.disco" />
+    <None Include="Service References\PicService\configuration91.svcinfo" />
+    <None Include="Service References\PicService\configuration.svcinfo" />
+    <None Include="Service References\PicService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ChatService\configuration91.svcinfo" />
+    <None Include="Service References\ChatService\configuration.svcinfo" />
+    <None Include="Service References\ChatService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="ServiceReferences.ClientConfig" />
-    <None Include="Service References\UserService\UserService.wsdl" />
-    <None Include="Service References\UserService\UserService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\UserService\UserService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\UserService\UserService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\UserService\UserService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\在线.png" />
@@ -359,26 +336,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\MessageService\" />
-    <WCFMetadataStorage Include="Service References\PicService\" />
-    <WCFMetadataStorage Include="Service References\UserService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\PicService\PicService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\PicService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\PicService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\PicService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Client.CustomerService.Control\Client.CustomerService.Control.csproj">
       <Project>{747220c9-2893-42be-b066-fc492194d146}</Project>
       <Name>Client.CustomerService.Control</Name>
@@ -387,6 +344,10 @@
       <Project>{8bd05702-f34a-4aa5-99f4-2f32a3f77e47}</Project>
       <Name>Client.CustomerService.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ChatService\" />
+    <WCFMetadataStorage Include="Service References\PicService\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

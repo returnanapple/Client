@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ad3e565c-3757-4474-8819-6f0abd68c973" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7e04e10d-5c34-471b-9175-6b8a07b6ee33" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -20,15 +20,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:4293/Api/PicService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://192.168.1.119:4511/PicService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="PicService.xsd" MetadataType="Schema" ID="b22d7429-b3d8-42c9-b5f8-739b5c8bb0da" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd2" />
-    <MetadataFile FileName="PicService1.xsd" MetadataType="Schema" ID="9168299f-25a5-4d76-bba6-a96c63c388f3" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd1" />
-    <MetadataFile FileName="PicService2.xsd" MetadataType="Schema" ID="b9735e4e-0ec8-4683-bbb1-2a1da16ad983" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd0" />
-    <MetadataFile FileName="PicService.disco" MetadataType="Disco" ID="619ed7c1-2ea1-4f06-aecc-126f96b0d7d1" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?disco" />
-    <MetadataFile FileName="PicService.wsdl" MetadataType="Wsdl" ID="9b335ea3-69d9-469f-b57b-07a476761470" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?wsdl" />
-    <MetadataFile FileName="PicService3.xsd" MetadataType="Schema" ID="5c77b7f1-7c14-48db-8d5e-13a77ee4e92b" SourceId="1" SourceUrl="http://localhost:4293/Api/PicService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PicService.xsd" MetadataType="Schema" ID="85af4250-2143-46ba-9cec-80ef563918d9" SourceId="1" SourceUrl="http://192.168.1.119:4511/PicService?xsd=xsd1" />
+    <MetadataFile FileName="PicService1.xsd" MetadataType="Schema" ID="e6577c24-4cf8-477d-92a0-6029b309797a" SourceId="1" SourceUrl="http://192.168.1.119:4511/PicService?xsd=xsd2" />
+    <MetadataFile FileName="PicService.wsdl" MetadataType="Wsdl" ID="6b7cc64b-c010-4d2d-9314-a25f44d6d1a0" SourceId="1" SourceUrl="http://192.168.1.119:4511/PicService?wsdl" />
+    <MetadataFile FileName="PicService.disco" MetadataType="Disco" ID="9f8de239-69ba-4e4e-a2c2-7ea47bbc806d" SourceId="1" SourceUrl="http://192.168.1.119:4511/PicService?disco" />
+    <MetadataFile FileName="PicService2.xsd" MetadataType="Schema" ID="b584dad4-5388-4619-97b9-adf00a453bab" SourceId="1" SourceUrl="http://192.168.1.119:4511/PicService?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
