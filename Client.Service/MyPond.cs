@@ -74,6 +74,14 @@ namespace Client.Service
             var t = GetUser(token.Username);
             t.TargetUser = "";
             t.Callback = null;
+            Tokens.Where(x => x.Token.UID.ToString() == t.Token.PID
+                || x.Token.PID == t.Token.UID.ToString()
+                || x.Token.IsOfficial)
+                .ToList()
+                .ForEach(x =>
+                {
+                    CallStatusChanged(x, t.Token.Username, UserOnlineStatus.离线);
+                });
         }
 
         #endregion
@@ -93,6 +101,15 @@ namespace Client.Service
             UserTokenAndCallback t = GetUser(username);
             t.Token.SetIn(isOfficial);
             t.Callback = callback;
+
+            Tokens.Where(x => x.Token.UID.ToString() == t.Token.PID
+                || x.Token.PID == t.Token.UID.ToString()
+                || x.Token.IsOfficial)
+                .ToList()
+                .ForEach(x =>
+                    {
+                        CallStatusChanged(x, username, UserOnlineStatus.在线);
+                    });
         }
 
         /// <summary>
@@ -104,7 +121,32 @@ namespace Client.Service
         {
             UserTokenAndCallback t = GetUser(username);
             t.Token.ChangeOnlineStatus(newOnlineStatus);
+
+            Tokens.Where(x => x.Token.UID.ToString() == t.Token.PID
+                || x.Token.PID == t.Token.UID.ToString()
+                || x.Token.IsOfficial)
+                .ToList()
+                .ForEach(x =>
+                {
+                    CallStatusChanged(x, username, newOnlineStatus);
+                });
         }
+        #region 通知用户有好友改变了在线状态
+
+        void CallStatusChanged(UserTokenAndCallback input, string targetUser, UserOnlineStatus newOnlineStatus)
+        {
+            try
+            {
+                var t = GetUser(targetUser);
+                input.Callback.ChangeOnlineStatus(targetUser, newOnlineStatus, t.Token.IsOfficial);
+            }
+            catch (Exception)
+            {
+                RemoveToken(input.Token.Username);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// 保持心跳
@@ -290,7 +332,7 @@ namespace Client.Service
             var t = GetUser(username);
             if (!t.Token.IsOfficial) { throw new Exception("你不是客服人员"); }
             List<UserInfoResult> result = new List<UserInfoResult>();
-            Tokens.ForEach(x =>
+            Tokens.Where(x => x.Token.Username != username).ToList().ForEach(x =>
                 {
                     UserInfoResult uir = new UserInfoResult
                     {

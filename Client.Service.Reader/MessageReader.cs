@@ -46,8 +46,17 @@ namespace Client.Service.Reader
         {
             using (Model2DataContext db = new Model2DataContext())
             {
-                return db.PondOfMessage.Where(x => x.From == targetUser && x.To == self && !x.Readed).ToList()
-                     .ConvertAll(x => new MessageResult(x, x.From == self));
+                List<MessageResult> result = new List<MessageResult>();
+                List<Message> tList = db.PondOfMessage.Where(x => x.From == targetUser && x.To == self && !x.Readed)
+                    .ToList();
+                tList.ForEach(x =>
+                    {
+                        x.Readed = true;
+                        MessageResult mr = new MessageResult(x, x.From == self);
+                        result.Add(mr);
+                    });
+                db.SaveChanges();
+                return result;
             }
         }
 

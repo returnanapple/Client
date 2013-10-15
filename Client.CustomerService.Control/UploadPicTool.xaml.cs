@@ -59,11 +59,7 @@ namespace Client.CustomerService.Control
             PicServiceClient client = new PicServiceClient();
             client.UploadCompleted += (_sender, _e) =>
                 {
-                    if (!_e.Result.Success)
-                    {
-                        this.DialogResult = false;
-                    }
-                    State = _e.Result.Content;
+                    State = _e.Result;
                     cover.CanSee = false;
                     hadOpenFile = true;
                 };

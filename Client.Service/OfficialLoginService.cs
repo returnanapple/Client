@@ -15,16 +15,9 @@ namespace Client.Service
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
         /// <returns>返回用户名</returns>
-        public string Login(string username, string password)
+        public bool Login(string username, string password)
         {
-            try
-            {
-                return UserReader.Login(username, password);
-            }
-            catch (Exception ex)
-            {
-                throw new FaultException<string>(ex.Message);
-            }
+            return UserReader.Login(username, password);
         }
     }
 }

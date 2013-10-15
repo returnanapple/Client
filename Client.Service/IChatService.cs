@@ -1,6 +1,7 @@
 ﻿using Client.Service.DataContract;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Client.Model;
 
 namespace Client.Service
 {
@@ -17,7 +18,6 @@ namespace Client.Service
         /// <param name="isOfficia">一个布尔值 表示是否官方用户</param>
         /// <returns>返回登入结果</returns>
         [OperationContract]
-        [FaultContract(typeof(string))]
         SetInResult RegisterAndGetFriendList(string username, bool isOfficia = false);
 
         /// <summary>
@@ -27,15 +27,21 @@ namespace Client.Service
         /// <param name="self">自己的用户名</param>
         /// <returns>返回目标对象相对于自己的唯独消息</returns>
         [OperationContract]
-        [FaultContract(typeof(string))]
         List<MessageResult> ChangeTargetUser(string targetUser, string self);
+
+        /// <summary>
+        /// 改变在线状态
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="newOnlineStatus"></param>
+        [OperationContract]
+        void ChangeStatus(string username, UserOnlineStatus newOnlineStatus);
 
         /// <summary>
         /// 保持心跳
         /// </summary>
         /// <param name="username">用户名</param>
         [OperationContract]
-        [FaultContract(typeof(string))]
         void KeepHeartbeat(string username);
 
         /// <summary>
@@ -43,7 +49,6 @@ namespace Client.Service
         /// </summary>
         /// <param name="import">数据集</param>
         [OperationContract]
-        [FaultContract(typeof(string))]
         void SendMessage(SendMessageImport import);
 
         /// <summary>
@@ -55,7 +60,6 @@ namespace Client.Service
         /// <param name="pageSize">页面大小</param>
         /// <returns>返回聊天记录的分页列表</returns>
         [OperationContract]
-        [FaultContract(typeof(string))]
         PaginationList<MessageResult> GetMessages(string _from, string to, int pageIndex, int pageSize);
     }
 }

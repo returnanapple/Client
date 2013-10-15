@@ -28,7 +28,8 @@ namespace Client.Service
         /// </summary>
         /// <param name="username"></param>
         /// <param name="onlineStatus"></param>
+        /// <param name="isOfficial"></param>
         [OperationContract(IsOneWay = true)]
-        void ChangeOnlineStatus(string username, UserOnlineStatus onlineStatus);
+        void ChangeOnlineStatus(string username, UserOnlineStatus onlineStatus, bool isOfficial);
     }
 }

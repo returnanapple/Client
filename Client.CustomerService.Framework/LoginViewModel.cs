@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
-using Client.CustomerService.Framework.UserService;
+using Client.CustomerService.Framework.OfficialLoginService;
 
 namespace Client.CustomerService.Framework
 {
@@ -14,7 +14,7 @@ namespace Client.CustomerService.Framework
     {
         #region 网络链接
 
-        OfficialUserServiceClient UserClient { get; set; }
+        OfficialLoginServiceClient UserClient { get; set; }
 
         #endregion
 
@@ -133,11 +133,13 @@ namespace Client.CustomerService.Framework
                 this.Password = package.Password;
                 this.RememberMe = true;
             }
-            UserClient = new OfficialUserServiceClient();
-            UserClient.SetInCompleted += ShowLoginResult;
+            UserClient = new OfficialLoginServiceClient();
+            UserClient.LoginCompleted += ShowLoginResult;
         }
 
         #region 私有方法
+
+        string tUsername = "";
 
         /// <summary>
         /// 登陆
@@ -174,27 +176,28 @@ namespace Client.CustomerService.Framework
 
             #endregion
 
+            tUsername = this.Username;
             //登陆
-            UserClient.SetInAsync(this.Username, this.Password, UserOnlineStatus.在线);
+            UserClient.LoginAsync(this.Username, this.Password);
 
         }
 
         #region 登陆结果
 
-        void ShowLoginResult(object sender, SetInCompletedEventArgs e)
+        void ShowLoginResult(object sender, LoginCompletedEventArgs e)
         {
             string dataKeyOfUsername = DataKey.Client_Username.ToString();
             string dataKeyOfRememberMe = DataKey.Client_RememberMe.ToString();
-            if (e.Result.Success)
+            if (e.Result == true)
             {
-                IsolatedStorageSettings.ApplicationSettings[dataKeyOfUsername] = e.Result.Content;
+                IsolatedStorageSettings.ApplicationSettings[dataKeyOfUsername] = tUsername;
                 IsolatedStorageSettings.ApplicationSettings.Save();
 
                 ViewModelService.Current.JumpTo(Page.IndexPage);
             }
             else
             {
-                this.Error = e.Result.Error;
+                this.Error = "用户名/密码错误，请重试";
 
                 IsolatedStorageSettings.ApplicationSettings.Remove(dataKeyOfUsername);
                 IsolatedStorageSettings.ApplicationSettings.Remove(dataKeyOfRememberMe);

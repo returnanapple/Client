@@ -15,7 +15,6 @@ namespace Client.Service
         /// <param name="password">密码</param>
         /// <returns>返回用户名</returns>
         [OperationContract]
-        [FaultContract(typeof(string))]
-        string Login(string username, string password);
+        bool Login(string username, string password);
     }
 }

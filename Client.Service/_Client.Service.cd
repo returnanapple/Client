@@ -18,22 +18,15 @@
   </Class>
   <Class Name="Client.Service.MyPond" Collapsed="true">
     <Position X="0.5" Y="2.5" Width="1.5" />
-    <NestedTypes>
-      <Class Name="Client.Service.MyPond.UserTokenAndCallback" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>MyPond.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ABAAAAQAAAAAAICIAABAIIAADAAQAEAAEAAAAAABAAA=</HashCode>
+      <HashCode>ABAAAAQAAAAAAICYAABAIIAADAAQAEAAEAAAAABBAAA=</HashCode>
       <FileName>MyPond.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Client.Service.ChatService" Collapsed="true">
     <Position X="5.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAACAAAAAACAAQEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAACAAAAAACAAQEAAAAAAAAAEAAAA=</HashCode>
       <FileName>ChatService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -49,7 +42,7 @@
   <Interface Name="Client.Service.IChatService" Collapsed="true">
     <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAACAAAAAACAAQEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAACAAAAAACAAQEAAAAAAAAAEAAAA=</HashCode>
       <FileName>IChatService.cs</FileName>
     </TypeIdentifier>
   </Interface>

@@ -118,7 +118,7 @@ namespace Client.Model
         /// </summary>
         public void KeepHeartbeat()
         {
-            if (this.Timeout > DateTime.Now)
+            if (this.Timeout <= DateTime.Now)
             {
                 throw new Exception("令牌已经过期");
             }

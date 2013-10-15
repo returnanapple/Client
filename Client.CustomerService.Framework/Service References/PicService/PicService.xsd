@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="OperatingResultOfstring">
-    <xs:annotation>
-      <xs:appinfo>
-        <GenericType Name="OperatingResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Client.Service.DataContract" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-          <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
-        </GenericType>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:OperatingResult">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="OperatingResultOfstring" nillable="true" type="tns:OperatingResultOfstring" />
-  <xs:complexType name="OperatingResult">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="OperatingResult" nillable="true" type="tns:OperatingResult" />
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.119:4511/PicService?xsd=xsd0" namespace="http://schemas.microsoft.com/Message" />
+  <xs:element name="Upload">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.microsoft.com/Message" name="picStream" type="q1:StreamBody" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UploadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UploadResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Download">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.microsoft.com/Message" name="DownloadResult" type="q2:StreamBody" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

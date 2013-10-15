@@ -6,21 +6,20 @@ using System.Text;
 using System.Windows;
 using System.IO.IsolatedStorage;
 using System.Windows.Controls;
-using Client.CustomerService.Framework.UserService;
-using Client.CustomerService.Framework.MessageService;
 using System.Windows.Threading;
+using Client.CustomerService.Framework.ChatService;
+using System.ServiceModel;
 
 namespace Client.CustomerService.Framework
 {
     /// <summary>
     /// 首页的视图模型
     /// </summary>
-    public class IndexViewModel : ViewModelBase
+    public class IndexViewModel : ViewModelBase, IChatServiceCallback
     {
         #region 网络链接
 
-        OfficialUserServiceClient UserClient { get; set; }
-        OfficialMessageServiceClient MessageClient { get; set; }
+        ChatServiceClient chatClient { get; set; }
 
         #endregion
 
@@ -199,13 +198,11 @@ namespace Client.CustomerService.Framework
         /// </summary>
         public IndexViewModel()
         {
-            UserClient = new OfficialUserServiceClient();
-            UserClient.GetUsersCompleted += WriteUserList;
-            MessageClient = new OfficialMessageServiceClient();
-            MessageClient.SendCompleted += ShowSendMessageResult;
-            MessageClient.GetCountOfUnreadMessagesCompleted += UpdateCountOfNewMessage;
-            MessageClient.GetUnreadMessagesCompleted += WriteMessageList;
-            MessageClient.GetMessagesCompleted += WriteOldMessages;
+            chatClient = new ChatServiceClient(new InstanceContext(this));
+            chatClient.RegisterAndGetFriendListCompleted += WriteFriendList;
+            chatClient.ChangeTargetUserCompleted += WriteNewMessages;
+            chatClient.GetMessagesCompleted += WriteOldMessages;
+            chatClient.RegisterAndGetFriendListAsync(Username, true);
 
             Users = new ObservableCollection<UserInfoModel>();
             Messages = new ObservableCollection<MessageResult>();
@@ -215,8 +212,6 @@ namespace Client.CustomerService.Framework
             SendMessageCommand = new UniversalCommand(new Action<object>(SendNewMessage));
             ShowChooseIconWindowCommand = new UniversalCommand(new Action<object>(ShowChooseIconWindow));
             ShowUploadPicWindowCommand = new UniversalCommand(new Action<object>(ShowUploadPicWindow));
-            RefreshUserList();
-            ReadMessageListOnTimeLine();
             KeepHeartbeat();
         }
 
@@ -268,7 +263,21 @@ namespace Client.CustomerService.Framework
                 Users.First(x => x.Username == TargetUser).CountOfNewMessage = 0;
             }
             ResetPage();
+            chatClient.ChangeTargetUserAsync(TargetUser, Username);
         }
+        #region 写信息
+
+        void WriteNewMessages(object sender, ChangeTargetUserCompletedEventArgs e)
+        {
+            Messages.Clear();
+            e.Result.OrderBy(x => x.SendTime).ToList().ForEach(x =>
+            {
+                string a = x.Address;
+                Messages.Add(x);
+            });
+        }
+
+        #endregion
 
         #endregion
 
@@ -300,24 +309,9 @@ namespace Client.CustomerService.Framework
                 To = TargetUser,
                 Content = MessageValue
             };
-            MessageClient.SendAsync(import);
+            chatClient.SendMessageAsync(import);
             MessageValue = "";
         }
-        #region 显示信息发送结果
-
-        void ShowSendMessageResult(object sender, SendCompletedEventArgs e)
-        {
-            if (!e.Result.Success)
-            {
-                IPop<string> pop = ViewModelService.Current.GetPop(Pop.ErrorPrompt) as IPop<string>;
-                pop.State = "消息发送失败，请重试";
-                pop.Show();
-                return;
-            }
-            RefreshMessageList();
-        }
-
-        #endregion
 
         #endregion
 
@@ -359,160 +353,38 @@ namespace Client.CustomerService.Framework
 
         #region 后台操作
 
-        #region 刷新用户列表
-
-        /// <summary>
-        /// 刷新用户列表
-        /// </summary>
-        void RefreshUserList()
-        {
-            UserClient.GetUsersAsync(Username);
-        }
         #region 写用户列表
 
-        /// <summary>
-        /// 重写用户列表
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void WriteUserList(object sender, GetUsersCompletedEventArgs e)
+        void WriteFriendList(object sender, RegisterAndGetFriendListCompletedEventArgs e)
         {
-            if (e.Result.Success)
-            {
-                lock (Users)
+            if (Users == null) { Users = new ObservableCollection<UserInfoModel>(); }
+            Users.Clear();
+            e.Result.Users.OrderByDescending(x => x.OnlineStatus).ToList().ForEach(x =>
                 {
-                    List<UserInfoModel> ums = new List<UserInfoModel>();
-                    e.Result.Content.ForEach(x =>
-                        {
-                            UserInfoModel um = new UserInfoModel();
-                            um.Username = x.Username;
-                            if (x.OnlineStatus == UserOnlineStatus.离线)
-                            {
-                                um.UserType = UserInfoModel.UserModelType.离线;
-                            }
-                            else if (x.Type == UserInfoType.客服)
-                            {
-                                um.UserType = UserInfoModel.UserModelType.客服;
-                            }
-                            else
-                            {
-                                um.UserType = UserInfoModel.UserModelType.在线;
-                            }
-                            if (Users.Any(u => u.Username == x.Username))
-                            {
-                                um.CountOfNewMessage = Users.Where(u => u.Username == x.Username)
-                                    .Select(u => u.CountOfNewMessage).First();
-                            }
-                            um.OpenTalkingWindowCommand = this.OpenTalkingWindowCommand;
-                            ums.Add(um);
-                        });
-                    Users.Clear();
-                    ums.OrderBy(x => x.UserType).ToList().ForEach(x =>
-                        {
-                            Users.Add(x);
-                        });
-                }
-                OnPropertyChanged("Users");
-            }
-            else
-            {
-                Logout_do();
-            }
-        }
-
-        #endregion
-        #region 读取唯独信息条数
-
-        void ReadCountOfNewMessage()
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(300);
-            timer.Tick += (sender, e) =>
+                    UserInfoModel.UserModelType _type = UserInfoModel.UserModelType.离线;
+                    if (x.Type == UserInfoType.客服)
+                    {
+                        _type = UserInfoModel.UserModelType.客服;
+                    }
+                    else if (x.OnlineStatus != UserOnlineStatus.离线)
+                    {
+                        _type = UserInfoModel.UserModelType.在线;
+                    }
+                    UserInfoModel uim = new UserInfoModel
+                    {
+                        Username = x.Username,
+                        UserType = _type,
+                        CountOfNewMessage = 0,
+                        OpenTalkingWindowCommand = this.OpenTalkingWindowCommand
+                    };
+                    Users.Add(uim);
+                });
+            e.Result.UnreadMessageCounts.ForEach(x =>
                 {
-                    MessageClient.GetCountOfUnreadMessagesAsync(Username);
-                };
-            timer.Start();
-        }
-
-        void UpdateCountOfNewMessage(object sender, GetCountOfUnreadMessagesCompletedEventArgs e)
-        {
-            if (!e.Result.Success) { Logout_do(); }
-            e.Result.Content.ForEach(x =>
-                {
+                    if (!Users.Any(u => u.Username == x.Username)) { return; }
                     Users.First(u => u.Username == x.Username).CountOfNewMessage = x.Count;
                 });
-        }
-
-        #endregion
-
-        #endregion
-
-        #region 刷新消息列表
-
-        void RefreshMessageList()
-        {
-            if (TargetUser == "" || Username == "") { return; }
-            MessageClient.GetUnreadMessagesAsync(TargetUser, Username);
-        }
-        #region 写消息列表
-
-        void WriteMessageList(object sender, GetUnreadMessagesCompletedEventArgs e)
-        {
-            if (!e.Result.Success) { Logout_do(); }
-            e.Result.Content.OrderBy(x => x.SendTime).ToList().ForEach(x =>
-                {
-                    if (Messages.Any(m => IsSameMessage(x, m))) { return; }
-                    Messages.Add(x);
-                });
-        }
-
-        #endregion
-        #region 轮询唯独信息
-
-        void ReadMessageListOnTimeLine()
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(30);
-            timer.Tick += (sender, e) =>
-                {
-                    RefreshMessageList();
-                };
-            timer.Start();
-        }
-
-        #endregion
-        #region 判断两条消息是否相等
-
-        bool IsSameMessage(MessageResult m1, MessageResult m2)
-        {
-            return m1.From == m2.From
-                && m1.To == m2.To
-                && m1.Content == m2.Content
-                && m1.SendTime == m2.SendTime;
-        }
-
-        #endregion
-
-        #endregion
-
-        #region 显示聊天纪录
-
-        void ShowOldMessages(int page = 1)
-        {
-            MessageClient.GetMessagesAsync(TargetUser, page, 20000);
-        }
-
-        void WriteOldMessages(object sender, GetMessagesCompletedEventArgs e)
-        {
-            if (!e.Result.Success) { Logout_do(); }
-            Messages.Clear();
-            e.Result.Content.Content.OrderBy(x => x.SendTime).ToList().ForEach(x =>
-            {
-                string a = x.Address;
-                Messages.Add(x);
-            });
-            PageIndex = e.Result.Content.PageIndex;
-            AllPage = e.Result.Content.TotalOfPage;
+            OnPropertyChanged("Users");
         }
 
         #endregion
@@ -531,8 +403,29 @@ namespace Client.CustomerService.Framework
             else
             {
                 TalkToolHeight = new GridLength(220);
+
             }
         }
+        #region 显示聊天纪录
+
+        void ShowOldMessages(int page = 1)
+        {
+            chatClient.GetMessagesAsync(TargetUser, Username, page, int.MaxValue - 10);
+        }
+
+        void WriteOldMessages(object sender, GetMessagesCompletedEventArgs e)
+        {
+            Messages.Clear();
+            e.Result.Content.OrderBy(x => x.SendTime).ToList().ForEach(x =>
+            {
+                string a = x.Address;
+                Messages.Add(x);
+            });
+            PageIndex = e.Result.PageIndex;
+            AllPage = e.Result.TotalOfPage;
+        }
+
+        #endregion
 
         #endregion
 
@@ -544,7 +437,7 @@ namespace Client.CustomerService.Framework
             timer.Interval = new TimeSpan(300);
             timer.Tick += (sender, e) =>
                 {
-                    UserClient.HeartbeatAsync(Username);
+                    chatClient.KeepHeartbeatAsync(Username);
                 };
             timer.Start();
         }
@@ -552,6 +445,44 @@ namespace Client.CustomerService.Framework
         #endregion
 
         #endregion
+
+        #endregion
+
+        #region 服务端回调方法
+
+        public void AddTheCountOfNewMessageForSomeone(string username)
+        {
+            if (!Users.Any(x => x.Username == username)) { return; }
+            Users.First(x => x.Username == username).CountOfNewMessage++;
+        }
+
+        public void WriteMessage(MessageResult message)
+        {
+            if ((message.From == TargetUser && message.To == Username)
+                || (message.To == TargetUser && message.From == Username))
+            {
+                Messages.Add(message);
+            }
+        }
+
+        public void ChangeOnlineStatus(string username, UserOnlineStatus onlineStatus, bool isOfficial)
+        {
+            if (!Users.Any(x => x.Username == username)) { return; }
+            var u = Users.First(x => x.Username == username);
+            if (isOfficial && onlineStatus != UserOnlineStatus.离线)
+            {
+                u.UserType = UserInfoModel.UserModelType.客服;
+            }
+            else if (onlineStatus != UserOnlineStatus.离线)
+            {
+                u.UserType = UserInfoModel.UserModelType.在线;
+            }
+            else
+            {
+                u.UserType = UserInfoModel.UserModelType.离线;
+            }
+            OnPropertyChanged("Users");
+        }
 
         #endregion
     }

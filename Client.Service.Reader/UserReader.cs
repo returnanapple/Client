@@ -12,13 +12,12 @@ namespace Client.Service.Reader
     /// </summary>
     public class UserReader
     {
-        public static string Login(string username, string password)
+        public static bool Login(string username, string password)
         {
             using (MainDatadbmlDataContext db = new MainDatadbmlDataContext())
             {
                 UserInfo ui = db.UserInfo.FirstOrDefault(x => x.UserID == username && x.UserPwd == password);
-                if (ui == null) { throw new Exception("用户名/密码错误"); }
-                return ui.UserID;
+                return ui != null;
             }
         }
     }
