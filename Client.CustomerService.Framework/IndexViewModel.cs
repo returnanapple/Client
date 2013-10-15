@@ -257,11 +257,10 @@ namespace Client.CustomerService.Framework
 
         public void OpenTalkingWindow(object parameter)
         {
+            if (TargetUser == parameter.ToString()) { return; }
             TargetUser = parameter.ToString();
-            if (DoingNow == "发送消息")
-            {
-                Users.First(x => x.Username == TargetUser).CountOfNewMessage = 0;
-            }
+            DoingNow = "发送消息";
+            Users.First(x => x.Username == TargetUser).CountOfNewMessage = 0;
             ResetPage();
             chatClient.ChangeTargetUserAsync(TargetUser, Username);
         }
@@ -285,6 +284,7 @@ namespace Client.CustomerService.Framework
 
         public void ChooseWhatDoing(object parameter)
         {
+            if (DoingNow == parameter.ToString()) { return; }
             DoingNow = parameter.ToString();
             ResetPage();
         }
