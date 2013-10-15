@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.CustomerService.Framework.ChatService;
+using System;
 using System.ComponentModel;
 using System.Net;
 using System.Windows;
@@ -9,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using ToClient.UserService;
 
 namespace ToClient.Classes
 {

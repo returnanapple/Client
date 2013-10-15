@@ -12,7 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using ToClient.Classes;
 using System.Linq;
-using ToClient.UserService;
+using Client.CustomerService.Framework.ChatService;
 
 namespace ToClient.ValueConverters
 {

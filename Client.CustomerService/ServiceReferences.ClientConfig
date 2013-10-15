@@ -19,13 +19,13 @@
       </customBinding>
     </bindings>
     <client>
-      <endpoint address="net.tcp://192.168.1.119:4512/ChatService"
+      <endpoint address="net.tcp://192.168.1.100:4512/ChatService"
         binding="customBinding" bindingConfiguration="NetTcpBinding_IChatService"
         contract="ChatService.IChatService" name="NetTcpBinding_IChatService" />
-      <endpoint address="http://192.168.1.119:4511/PicService" binding="basicHttpBinding"
+      <endpoint address="http://192.168.1.100:4511/PicService" binding="basicHttpBinding"
         bindingConfiguration="BasicHttpBinding_IPicService" contract="PicService.IPicService"
         name="BasicHttpBinding_IPicService" />
-      <endpoint address="http://192.168.1.119:4511/OfficialLoginService"
+      <endpoint address="http://192.168.1.100:4511/OfficialLoginService"
         binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IOfficialLoginService"
         contract="OfficialLoginService.IOfficialLoginService" name="BasicHttpBinding_IOfficialLoginService" />
     </client>

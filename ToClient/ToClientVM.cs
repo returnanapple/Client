@@ -13,24 +13,22 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using ToClient.Classes;
 using System.Linq;
-using ToClient.MessageService;
-using ToClient.UserService;
+
+
 using System.Threading;
 using System.Windows.Threading;
 using ToClient.PicService;
+using Client.CustomerService.Framework.ChatService;
+using System.ServiceModel;
 
 namespace ToClient
 {
-    public class ToClientVM : INotifyPropertyChanged
+    public class ToClientVM : INotifyPropertyChanged, IChatServiceCallback
     {
-        public ToClientVM()
+        public ToClientVM( string user)
         {
+            CurrentUser = user;
             Initialize();
-            LowerList.Add(new UserInfo { Username = "a",UserState = UserOnlineStatus.在线});
-            foreach (var i in LowerList)
-            {
-                i.Command = new BaseCommand(BeginChatToSomeone);
-            }
         }
         #region 私有字段
         private string currentUser;//？
@@ -50,8 +48,7 @@ namespace ToClient
         #endregion
 
         #region 网络连接
-        private MessageServiceClient messageClient { get; set; }
-        private UserServiceClient userClient { get; set; }
+        private ChatServiceClient chatClient { get; set; }
         #endregion
 
         #region 属性
@@ -78,6 +75,7 @@ namespace ToClient
             set
             {
                 currentUserOnlineState = value;
+                chatClient.ChangeStatusAsync(CurrentUser, value);
                 OnPropertyChanged(this, "CurrentUserOnlineState");
             }
         }
@@ -95,7 +93,6 @@ namespace ToClient
                 {
                     ChatingWithList.Clear();
                     WaitSendContent = "";
-
                 }
                 OnPropertyChanged(this, "ChatWindowIsOpen");
             }
@@ -188,6 +185,7 @@ namespace ToClient
             set
             {
                 chatingWith = value;
+                chatClient.ChangeTargetUserAsync(value, CurrentUser);
                 OnPropertyChanged(this, "ChatingWith");
             }
         }
@@ -258,7 +256,7 @@ namespace ToClient
             set
             {
                 timeToReflashLowerList = value;
-                OnPropertyChanged(this,"TimeToReflashLowerList");
+                OnPropertyChanged(this, "TimeToReflashLowerList");
             }
         }
         #endregion
@@ -280,14 +278,6 @@ namespace ToClient
         /// </summary>
         private void Initialize()
         {
-            messageClient = new MessageServiceClient();
-            messageClient.SendCompleted += MessageClientSendCompleted;
-
-            userClient = new UserServiceClient();
-            userClient.GetFriendsCompleted += UserClientGetFriendsCompleted;
-
-            messageClient.GetCountOfUnreadMessagesCompleted += MessageClientGetCountOfUnreadMessagesCompleted;
-            messageClient.GetUnreadMessagesCompleted += MessageClientGetUnreadMessagesCompleted;
 
             CustomerServiceList = new ObservableCollection<UserInfo>();
             CustomerServiceList.CollectionChanged += (d, e) => { OnPropertyChanged(this, "CustomerServiceList"); };
@@ -300,15 +290,15 @@ namespace ToClient
             CurrentMessages = new ObservableCollection<MessageResult>();
 
 
-            CurrentUserOnlineState = UserOnlineStatus.在线;
-            ChatWindowIsOpen = false;
-            FriendListWindowIsOpen = false;
-            NewMessageCount = 0;
-            CustomerServiceListIsOpen = false;
-            SuperiorListIsOpen = false;
-            LowerListIsOpen = false;
-            WaitSendContent = "";
-            ChatingWith = "";
+            currentUserOnlineState = UserOnlineStatus.在线;
+            chatWindowIsOpen = false;
+            friendListWindowIsOpen = false;
+            newMessageCount = 0;
+            customerServiceListIsOpen = false;
+            superiorListIsOpen = false;
+            lowerListIsOpen = false;
+            waitSendContent = "";
+            chatingWith = "";
 
             SendMessageCommand = new BaseCommand(SendMessage);
             AddExpressionCommand = new BaseCommand(AddExpression);
@@ -319,12 +309,14 @@ namespace ToClient
             TimeToReflashSuperiorList = false;
             TimeToReflashLowerList = false;
 
-            //ReflashFriendList();
-            //ReflashMessageAndMessageCount();
-            //ReflashFriendListTimeLine();
-            //ReflashMessageAndMessageCountTimeLine();
-            
+
+
+            chatClient = new ChatServiceClient(new InstanceContext(this));
+            chatClient.RegisterAndGetFriendListCompleted += ChatClientRegisterAndGetFriendListCompleted;
+            chatClient.RegisterAndGetFriendListAsync(CurrentUser, false);
         }
+
+
         #endregion
 
         #region 前台方法
@@ -343,19 +335,8 @@ namespace ToClient
                 From = CurrentUser,
                 To = ChatingWith
             };
-            messageClient.SendAsync(import);
+            chatClient.SendMessageAsync(import);
             WaitSendContent = "";
-        }
-        /// <summary>
-        /// 判断信息是否发送成功
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void MessageClientSendCompleted(object sender, SendCompletedEventArgs e)
-        {
-            if (!e.Result.Success)
-            { return; }
-            ReflashMessageAndMessageCount();
         }
         #endregion
         #region 添加表情
@@ -408,7 +389,7 @@ namespace ToClient
         #region 关闭当前聊天
         public void CloseCurrentChat(object objectChatingWith)
         {
-            ChatingWithList.Remove(ChatingWithList.Where(x=>x.Username==ChatingWith).First());
+            ChatingWithList.Remove(ChatingWithList.Where(x => x.Username == ChatingWith).First());
             CurrentMessages.Clear();
             if (ChatingWithList.Count != 0)
             {
@@ -427,166 +408,123 @@ namespace ToClient
         {
             byte[] byteImage = (byte[])objectImage;
             PicServiceClient client = new PicServiceClient();
-            client.UploadCompleted += (sender, e) => 
+            client.UploadCompleted += (sender, e) =>
             {
-                waitSendContent = waitSendContent + e.Result;
+                WaitSendContent = WaitSendContent +"[^pic]"+e.Result+"[$pic]";
             };
             client.UploadAsync(byteImage);
         }
         #endregion
         #endregion
 
-        #region 后台方法
-
-        #region 刷新用户列表
-        public void ReflashFriendList()
+        #region 登陆后行为
+        void ChatClientRegisterAndGetFriendListCompleted(object sender, RegisterAndGetFriendListCompletedEventArgs e)
         {
-            userClient.GetFriendsAsync(CurrentUser);
-        }
-        void UserClientGetFriendsCompleted(object sender, GetFriendsCompletedEventArgs e)
-        {
-            if (!e.Result.Success)
-            { return; }
-            List<UserInfo> tList = new List<UserInfo>();
-            #region 刷新客服列表
-            tList.AddRange(CustomerServiceList);
-            CustomerServiceList.Clear();
-            e.Result.Content.Where(x => x.Type == UserInfoType.客服 && x.OnlineStatus != UserOnlineStatus.离线)
-                .ToList().ForEach(x =>
-                {
-                    UserInfo user = new UserInfo
-                    {
-                        Username = x.Username,
-                        UserState = x.OnlineStatus,
-                        Command = new BaseCommand(BeginChatToSomeone),
-                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith),
-                        NewMessageCount = tList.Any(y => y.Username == x.Username)
-                            ? tList.First(y => y.Username == x.Username).NewMessageCount
-                            : 0
-                    };
-                    CustomerServiceList.Add(user);
-                    TimeToReflashCustomerServiceList = true;
-                });
-            #endregion
-            #region 刷新上级列表
-            tList.Clear();
-            tList.AddRange(SuperiorList);
-            SuperiorList.Clear();
-            e.Result.Content.Where(x => x.Type == UserInfoType.上级).OrderByDescending(x => x.OnlineStatus)
-                .ToList().ForEach(x =>
-                {
-                    UserInfo user = new UserInfo
-                    {
-                        Username = x.Username,
-                        UserState = x.OnlineStatus,
-                        Command = new BaseCommand(BeginChatToSomeone),
-                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith),
-                        NewMessageCount = tList.Any(y => y.Username == x.Username)
-                            ? tList.First(y => y.Username == x.Username).NewMessageCount
-                            : 0
-                    };
-                    SuperiorList.Add(user);
-                    TimeToReflashSuperiorList = true;
-                });
-            #endregion
-            #region 刷新下级列表
-            tList.Clear();
-            tList.AddRange(LowerList);
-            LowerList.Clear();
-            e.Result.Content.Where(x => x.Type == UserInfoType.下级).OrderByDescending(x => x.OnlineStatus)
-                .ToList().ForEach(x =>
-                {
-                    UserInfo user = new UserInfo
-                    {
-                        Username = x.Username,
-                        UserState = x.OnlineStatus,
-                        Command = new BaseCommand(BeginChatToSomeone),
-                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith),
-                        NewMessageCount = tList.Any(y => y.Username == x.Username)
-                            ? tList.First(y => y.Username == x.Username).NewMessageCount
-                            : 0
-                    };
-                    LowerList.Add(user);
-                    TimeToReflashLowerList = true;
-                });
-            #endregion
-        }
-        public void ReflashFriendListTimeLine()
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.Parse("0:0:3");
-            timer.Tick += (sender, e) => { ReflashFriendList(); };
-            timer.Start();
-        }
-        #endregion
-
-        #region 刷新信息和未读信息条目列表
-        public void ReflashMessageAndMessageCount()
-        {
-            messageClient.GetCountOfUnreadMessagesAsync(CurrentUser);
-            if (ChatingWith != "")
+            #region 填充好友列表
+            foreach (UserInfoResult i in e.Result.Users)
             {
-                messageClient.GetUnreadMessagesAsync(ChatingWith, CurrentUser);
-            }
-        }
-        public void MessageClientGetCountOfUnreadMessagesCompleted(object sender, GetCountOfUnreadMessagesCompletedEventArgs e)
-        {
-            if (e.Result.Success)
-            {
-                if (e.Result.Content.Count != 0)
+                if (i.Type == UserInfoType.客服)
                 {
-                    NewMessageCount = e.Result.Content.Sum(x => x.Count);
-                    foreach (UnreadMessageCountResult i in e.Result.Content)
+                    CustomerServiceList.Add(new UserInfo
                     {
-                        if (CustomerServiceList.Any(x => x.Username == i.Username))
-                        {
-                            CustomerServiceList.Where(x => x.Username == i.Username).ToList()
-                                .First().NewMessageCount = i.Count;
-                        }
-                        if (SuperiorList.Any(x => x.Username == i.Username))
-                        {
-                            SuperiorList.Where(x => x.Username == i.Username).ToList()
-                                .First().NewMessageCount = i.Count;
-                        }
-                        if (LowerList.Any(x => x.Username == i.Username))
-                        {
-                            LowerList.Where(x => x.Username == i.Username).ToList()
-                                    .First().NewMessageCount = i.Count;
-                        }
-                    }
+                        Username = i.Username,
+                        UserState = i.OnlineStatus,
+                        NewMessageCount = 0,
+                        Command = new BaseCommand(BeginChatToSomeone),
+                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith)
+                    });
+                }
+                else if (i.Type == UserInfoType.上级)
+                {
+                    SuperiorList.Add(new UserInfo
+                    {
+                        Username = i.Username,
+                        UserState = i.OnlineStatus,
+                        NewMessageCount = 0,
+                        Command = new BaseCommand(BeginChatToSomeone),
+                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith)
+                    });
+                }
+                else if (i.Type == UserInfoType.下级)
+                {
+                    LowerList.Add(new UserInfo
+                    {
+                        Username = i.Username,
+                        UserState = i.OnlineStatus,
+                        NewMessageCount = 0,
+                        Command = new BaseCommand(BeginChatToSomeone),
+                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith)
+                    });
+
                 }
             }
-        }
-        public void MessageClientGetUnreadMessagesCompleted(object sender, GetUnreadMessagesCompletedEventArgs e)
-        {
-            if (e.Result.Success)
+            #endregion
+            #region 填充未读信息
+            List<UserInfo> tl = new List<UserInfo>();
+            tl.AddRange(CustomerServiceList);
+            tl.AddRange(SuperiorList);
+            tl.AddRange(LowerList);
+            foreach (UserInfo j in tl)
             {
-                if (e.Result.Content.Count!=0)
-                { 
-                    foreach(MessageResult i in e.Result.Content)
-                    {
-                        CurrentMessages.Add(i);
-                    }
+                if (e.Result.UnreadMessageCounts.Any(x => x.Username == j.Username))
+                {
+                    j.NewMessageCount = e.Result.UnreadMessageCounts.Where(x => x.Username == j.Username).First().Count;
+                    NewMessageCount = NewMessageCount + j.NewMessageCount;
                 }
             }
+            #endregion
         }
-        public void ReflashMessageAndMessageCountTimeLine()
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.Parse("0:0:1.5");
-            timer.Tick += (sender, e) => { ReflashMessageAndMessageCount(); };
-            timer.Start();
-        }
-        #endregion
         #endregion
 
-        public void TempFun()
+        #region 实现接口
+        public void AddTheCountOfNewMessageForSomeone(string username)
         {
-            foreach (var i in SuperiorList)
+            newMessageCount++;
+            List<UserInfo> tl = new List<UserInfo>();
+            tl.AddRange(CustomerServiceList);
+            tl.AddRange(SuperiorList);
+            tl.AddRange(LowerList);
+            tl.Where(x => x.Username == username).First().NewMessageCount++;
+        }
+
+        public void WriteMessage(MessageResult message)
+        {
+            CurrentMessages.Add(message);
+        }
+
+        public void ChangeOnlineStatus(string username, UserOnlineStatus onlineStatus, bool isOfficial)
+        {
+            if (isOfficial)
             {
-                i.Command = new BaseCommand(BeginChatToSomeone);
-                i.SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith);
+                if (onlineStatus == UserOnlineStatus.离线 || onlineStatus == UserOnlineStatus.隐身)
+                {
+
+                    if (CustomerServiceList.Any(x => x.Username == username))
+                    {
+                        UserInfo tui;
+                        tui = CustomerServiceList.Where(x => x.Username == username).First();
+                        CustomerServiceList.Remove(tui);
+                    }
+                }
+                else
+                {
+                    if (CustomerServiceList.Any(x => x.Username == username))
+                    {
+                        UserInfo tui;
+                        tui = CustomerServiceList.Where(x => x.Username == username).First();
+                        tui.UserState = UserOnlineStatus.在线;
+                    }
+
+                }
+            }
+            else
+            {
+                List<UserInfo> tl = new List<UserInfo>();
+                tl.AddRange(SuperiorList);
+                tl.AddRange(LowerList);
+                tl.Where(x => x.Username == username).First().UserState = onlineStatus;
             }
         }
+        #endregion
     }
 }
