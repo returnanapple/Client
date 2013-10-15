@@ -18,12 +18,7 @@ namespace ToClient
         public MainPage()
         {
             InitializeComponent();
-            //root.DataContext = new ToClientVM { CurrentUser = "Admin"};
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new ScreenShotControl(App.Current.RootVisual);
+            root.DataContext = new ToClientVM { CurrentUser = "Admin"};
         }
     }
 }

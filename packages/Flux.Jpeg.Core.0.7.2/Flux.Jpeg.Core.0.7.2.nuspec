@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Flux.Jpeg.Core</id>
+    <version>0.7.2</version>
+    <title>FluxJpeg.Core, FJCore, JPG Library</title>
+    <authors>Occipital, Brian Donahue, Anders Gustafsson</authors>
+    <owners>Occipital, Brian Donahue, Anders Gustafsson</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/briandonahue/FluxJpeg.Core</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is a fork with minor changes from the original FJCore library at https://code.google.com/p/fjcore
+That library seems to be stagnant.</description>
+    <summary>JPEG encoding / decoding / resizing for .NET, Windows Store, Windows Phone, Silverlight and XBox.</summary>
+    <releaseNotes>v 0.7.2
+
+Signed assemblies with snk-key to make assemblies names strong.
+		
+v 0.7.1:
+
+Added .NET 3.5 library and portable library. Portable library can target .NET 4 and higher, Windows Store apps, Windows Phone 7 and higher, Silverlight 4 and higher, XBox 360.
+
+v 0.7.0:
+
+BREAKING CHANGE. Changed Resize() to use specific x,y dimensions and moved old Resize() to ResizeToScale()
+Also wired up the Progress Changed event to actually fire.</releaseNotes>
+    <copyright>Copyright 2013 (c) Brian Donahue, Anders Gustafsson</copyright>
+    <language />
+    <tags>jpg jpeg images imageresizing GDI graphics thumbnail</tags>
+    <references>
+      <reference file="FJ.CoreWin.dll" />
+      <reference file="Portable.FJCore.dll" />
+      <reference file="FJ.Core.dll" />
+    </references>
+  </metadata>
+</package>

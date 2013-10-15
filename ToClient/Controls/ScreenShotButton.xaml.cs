@@ -19,6 +19,19 @@ namespace ToClient.Controls
         {
             InitializeComponent();
         }
+
+
+
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(ScreenShotButton), new PropertyMetadata(null));
+
+
+
         public void MouseEnterAction(object sender, MouseEventArgs e)
         {
             RootBorder.Background = new SolidColorBrush(Color.FromArgb(255, 252, 240, 193));//#FFFCF0C1
@@ -30,11 +43,7 @@ namespace ToClient.Controls
 
         public void MouseLeftButtonDownAction(object sender, MouseButtonEventArgs e)
         {
-            UserControl tUC = Application.Current.RootVisual as UserControl;
-            Panel tUCContent = tUC.Content as Panel;
-            WriteableBitmap tWB = new WriteableBitmap(tUC,null);
-            Canvas cover = new Canvas() { Background = new ImageBrush { ImageSource = tWB } };
-            tUCContent.Children.Add(cover);
+            new ScreenShotControl(App.Current.RootVisual,this.Command);
         }
     }
 }

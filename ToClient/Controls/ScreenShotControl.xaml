@@ -6,10 +6,15 @@
     mc:Ignorable="d">
 
     <Canvas x:Name="Cover"
-            MouseLeftButtonDown="MouseLeftButtonDownAction">
-        <Canvas x:Name="ShotCanvas" Width="50" Height="45">
-            <Image x:Name="ShotImage"/>
-
-        </Canvas>
+            MouseLeftButtonDown="MouseLeftButtonDownAction"
+            MouseMove="MouseMoveAction"
+            MouseLeftButtonUp="MouseLeftButtonUpAction"
+            MouseLeave="MouseLeaveAction">
+        <Grid x:Name="ShotGrid">
+            <Image x:Name="ShotImage" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Grid.Clip>
+                <RectangleGeometry x:Name="RectClip"/>
+            </Grid.Clip>
+        </Grid>
     </Canvas>
 </UserControl>

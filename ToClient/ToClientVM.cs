@@ -17,6 +17,7 @@ using ToClient.MessageService;
 using ToClient.UserService;
 using System.Threading;
 using System.Windows.Threading;
+using ToClient.PicService;
 
 namespace ToClient
 {
@@ -223,6 +224,10 @@ namespace ToClient
         /// 关闭当前聊天命令
         /// </summary>
         public ICommand CloseCurrentChatCommand { get; set; }
+        /// <summary>
+        /// 添加截图命令
+        /// </summary>
+        public ICommand AddScreenShotCommand { get; set; }
 
         public bool TimeToReflashCustomerServiceList
         {
@@ -308,6 +313,7 @@ namespace ToClient
             SendMessageCommand = new BaseCommand(SendMessage);
             AddExpressionCommand = new BaseCommand(AddExpression);
             CloseCurrentChatCommand = new BaseCommand(CloseCurrentChat);
+            AddScreenShotCommand = new BaseCommand(AddScreenShot);
 
             TimeToReflashCustomerServiceList = false;
             TimeToReflashSuperiorList = false;
@@ -414,6 +420,18 @@ namespace ToClient
                 ChatWindowIsOpen = false;
             }
 
+        }
+        #endregion
+        #region 添加屏幕截图
+        public void AddScreenShot(object objectImage)
+        {
+            byte[] byteImage = (byte[])objectImage;
+            PicServiceClient client = new PicServiceClient();
+            client.UploadCompleted += (sender, e) => 
+            {
+                waitSendContent = waitSendContent + e.Result;
+            };
+            client.UploadAsync(byteImage);
         }
         #endregion
         #endregion

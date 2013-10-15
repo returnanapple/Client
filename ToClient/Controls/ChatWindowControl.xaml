@@ -93,7 +93,7 @@
             <local:ExpressionButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,3,420,3" 
                                     AddExpressionCommand="{Binding AddExpressionCommand}"/>
             <local:UploadButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="85,3,320,3"/>
-            <local:ScreenShotButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,3,245,3"/>
+            <local:ScreenShotButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="185,3,245,3" Command="{Binding AddScreenShotCommand}"/>
             <local:ChatRecordsButton VerticalAlignment="Center" HorizontalAlignment="Center" Margin="260,3,145,3"/>
         </Grid>
         <!---->
