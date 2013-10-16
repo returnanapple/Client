@@ -39,7 +39,8 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Controls:CurrentUserStateControl Grid.Row="0" FriendListWindowIsOpen="{Binding FriendListWindowIsOpen, Mode=TwoWay}"/>
+            <Controls:CurrentUserStateControl Grid.Row="0" FriendListWindowIsOpen="{Binding FriendListWindowIsOpen, Mode=TwoWay}"
+                                               NewMessageCount="{Binding NewMessageCount}"/>
             <Controls:FriendListControl x:Name="MyFriendListControl" Grid.Row="1" Height="0"/>
         </Grid>
     </Grid>

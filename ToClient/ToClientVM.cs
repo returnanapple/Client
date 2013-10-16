@@ -25,7 +25,7 @@ namespace ToClient
 {
     public class ToClientVM : INotifyPropertyChanged, IChatServiceCallback
     {
-        public ToClientVM( string user)
+        public ToClientVM(string user)
         {
             CurrentUser = user;
             Initialize();
@@ -43,8 +43,7 @@ namespace ToClient
         private string chatingWith;
 
         private bool timeToReflashCustomerServiceList;
-        private bool timeToReflashSuperiorList;
-        private bool timeToReflashLowerList;
+        private bool timeToReflash2CustomerServiceList;
         #endregion
 
         #region 网络连接
@@ -185,10 +184,11 @@ namespace ToClient
             set
             {
                 chatingWith = value;
-                chatClient.ChangeTargetUserAsync(value, CurrentUser);
                 OnPropertyChanged(this, "ChatingWith");
             }
         }
+
+        public bool ChatRecordsIsLoaded { get; set; }
         /// <summary>
         /// 客服分组列表
         /// </summary>
@@ -227,6 +227,8 @@ namespace ToClient
         /// </summary>
         public ICommand AddScreenShotCommand { get; set; }
 
+        public ICommand AddChatRecordsCommand { get; set; }
+
         public bool TimeToReflashCustomerServiceList
         {
             get
@@ -237,28 +239,21 @@ namespace ToClient
                 OnPropertyChanged(this, "TimeToReflashCustomerServiceList");
             }
         }
-        public bool TimeToReflashSuperiorList
+        public bool TimeToReflash2CustomerServiceList
         {
             get
             {
-                return timeToReflashSuperiorList;
+                return timeToReflash2CustomerServiceList;
             }
             set
             {
-                timeToReflashSuperiorList = value;
-                OnPropertyChanged(this, "TimeToReflashSuperiorList");
+                timeToReflash2CustomerServiceList = value;
+                OnPropertyChanged(this, "TimeToReflash2CustomerServiceList");
             }
         }
-        public bool TimeToReflashLowerList
-        {
-            get
-            { return timeToReflashLowerList; }
-            set
-            {
-                timeToReflashLowerList = value;
-                OnPropertyChanged(this, "TimeToReflashLowerList");
-            }
-        }
+
+        public ICommand Command { get; set; }
+        public ICommand SwitchChatingWithCommand { get; set; }
         #endregion
 
         #region 属性改变事件
@@ -305,9 +300,11 @@ namespace ToClient
             CloseCurrentChatCommand = new BaseCommand(CloseCurrentChat);
             AddScreenShotCommand = new BaseCommand(AddScreenShot);
 
+            Command = new BaseCommand(BeginChatToSomeone);
+            SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith);
+
             TimeToReflashCustomerServiceList = false;
-            TimeToReflashSuperiorList = false;
-            TimeToReflashLowerList = false;
+            TimeToReflash2CustomerServiceList = false;
 
 
 
@@ -373,6 +370,19 @@ namespace ToClient
                 tempList.AddRange(LowerList.ToList());
                 tempUserInfo = tempList.Where(x => x.Username == username).ToList().First();
                 ChatingWithList.Insert(0, tempUserInfo);
+                CurrentMessages.Clear();
+                ChatRecordsIsLoaded = false;
+                chatClient.ChangeTargetUserCompleted += (d, e) =>
+                {
+                    foreach (MessageResult i in e.Result)
+                    {
+                        CurrentMessages.Add(i);
+                    }
+                };
+                chatClient.ChangeTargetUserAsync(ChatingWith, CurrentUser);
+                NewMessageCount = NewMessageCount - tempUserInfo.NewMessageCount;
+                tempUserInfo.NewMessageCount = 0;
+
             }
         }
         #endregion
@@ -384,6 +394,24 @@ namespace ToClient
         public void SwitchChatingWith(object objectUsername)
         {
             ChatingWith = objectUsername.ToString();
+            CurrentMessages.Clear();
+            chatClient.ChangeTargetUserCompleted += (d, e) =>
+            {
+                foreach (MessageResult i in e.Result)
+                {
+                    CurrentMessages.Add(i);
+                }
+            };
+            chatClient.ChangeTargetUserAsync(ChatingWith, CurrentUser);
+            List<UserInfo> tempList = new List<UserInfo>();
+            UserInfo tempUserInfo;
+            tempList.AddRange(CustomerServiceList.ToList());
+            tempList.AddRange(SuperiorList.ToList());
+            tempList.AddRange(LowerList.ToList());
+            tempUserInfo = tempList.Where(x => x.Username == ChatingWith).ToList().First();
+            NewMessageCount = NewMessageCount - tempUserInfo.NewMessageCount;
+            tempUserInfo.NewMessageCount = 0;
+            ChatRecordsIsLoaded = false;
         }
         #endregion
         #region 关闭当前聊天
@@ -400,6 +428,7 @@ namespace ToClient
                 ChatingWith = "";
                 ChatWindowIsOpen = false;
             }
+            ChatRecordsIsLoaded = false;
 
         }
         #endregion
@@ -410,9 +439,27 @@ namespace ToClient
             PicServiceClient client = new PicServiceClient();
             client.UploadCompleted += (sender, e) =>
             {
-                WaitSendContent = WaitSendContent +"[^pic]"+e.Result+"[$pic]";
+                WaitSendContent = WaitSendContent + "[^pic]" + e.Result + "[$pic]";
             };
             client.UploadAsync(byteImage);
+        }
+        #endregion
+        #region 添加聊天纪录
+        public void AddChatRecords()
+        {
+            chatClient.GetMessagesCompleted += (d, e) => 
+            {
+                if (ChatRecordsIsLoaded == false)
+                {
+                    CurrentMessages.Clear();
+                    foreach (MessageResult i in e.Result.Content)
+                    {
+                        CurrentMessages.Add(i);
+                    }
+                    ChatRecordsIsLoaded = true;
+                }
+            };
+            chatClient.GetMessagesAsync(ChatingWith,currentUser,1,int.MaxValue);
         }
         #endregion
         #endregion
@@ -430,8 +477,8 @@ namespace ToClient
                         Username = i.Username,
                         UserState = i.OnlineStatus,
                         NewMessageCount = 0,
-                        Command = new BaseCommand(BeginChatToSomeone),
-                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith)
+                        Command = Command,
+                        SwitchChatingWithCommand = SwitchChatingWithCommand
                     });
                 }
                 else if (i.Type == UserInfoType.上级)
@@ -441,8 +488,8 @@ namespace ToClient
                         Username = i.Username,
                         UserState = i.OnlineStatus,
                         NewMessageCount = 0,
-                        Command = new BaseCommand(BeginChatToSomeone),
-                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith)
+                        Command = Command,
+                        SwitchChatingWithCommand = SwitchChatingWithCommand
                     });
                 }
                 else if (i.Type == UserInfoType.下级)
@@ -452,8 +499,8 @@ namespace ToClient
                         Username = i.Username,
                         UserState = i.OnlineStatus,
                         NewMessageCount = 0,
-                        Command = new BaseCommand(BeginChatToSomeone),
-                        SwitchChatingWithCommand = new BaseCommand(SwitchChatingWith)
+                        Command = Command,
+                        SwitchChatingWithCommand = SwitchChatingWithCommand
                     });
 
                 }
@@ -496,33 +543,44 @@ namespace ToClient
         {
             if (isOfficial)
             {
-                if (onlineStatus == UserOnlineStatus.离线 || onlineStatus == UserOnlineStatus.隐身)
+                if (onlineStatus == UserOnlineStatus.离线)
                 {
-
                     if (CustomerServiceList.Any(x => x.Username == username))
                     {
-                        UserInfo tui;
-                        tui = CustomerServiceList.Where(x => x.Username == username).First();
-                        CustomerServiceList.Remove(tui);
+                        UserInfo y = CustomerServiceList.First(x => x.Username == username);
+                        CustomerServiceList.Remove(y);
+                        TimeToReflash2CustomerServiceList = true;
                     }
                 }
                 else
                 {
-                    if (CustomerServiceList.Any(x => x.Username == username))
+                    if (!CustomerServiceList.Any(x => x.Username == username))
                     {
-                        UserInfo tui;
-                        tui = CustomerServiceList.Where(x => x.Username == username).First();
-                        tui.UserState = UserOnlineStatus.在线;
+                        CustomerServiceList.Add(new UserInfo
+                        {
+                            Username = username,
+                            UserState = UserOnlineStatus.在线,
+                            NewMessageCount = 0,
+                            Command = Command,
+                            SwitchChatingWithCommand = SwitchChatingWithCommand
+                        });
+                        TimeToReflashCustomerServiceList = true;
                     }
-
                 }
+                OnPropertyChanged(this, "CustomerServiceList");
             }
             else
             {
-                List<UserInfo> tl = new List<UserInfo>();
-                tl.AddRange(SuperiorList);
-                tl.AddRange(LowerList);
-                tl.Where(x => x.Username == username).First().UserState = onlineStatus;
+                List<ObservableCollection<UserInfo>> l = new List<ObservableCollection<UserInfo>> { SuperiorList, LowerList };
+                ObservableCollection<UserInfo> o = l.FirstOrDefault(x => x.Any(y => y.Username == username));
+                if (o == null)
+                {
+                    return;
+                }
+                o.First(x => x.Username == username).UserState = onlineStatus;
+                OnPropertyChanged(this, "SuperiorList");
+                OnPropertyChanged(this, "LowerList");
+
             }
         }
         #endregion

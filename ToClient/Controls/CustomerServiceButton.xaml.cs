@@ -25,9 +25,9 @@ namespace ToClient.Controls
             set { SetValue(NewMessageCountProperty, value); }
         }
         public static readonly DependencyProperty NewMessageCountProperty =
-            DependencyProperty.Register("NewMessageCount", typeof(int), typeof(FriendButton), new PropertyMetadata(0, (d, e) =>
+            DependencyProperty.Register("NewMessageCount", typeof(int), typeof(CustomerServiceButton), new PropertyMetadata(0, (d, e) =>
             {
-                FriendButton tempX = (FriendButton)d;
+                CustomerServiceButton tempX = (CustomerServiceButton)d;
                 Storyboard tempY = (Storyboard)(tempX.Resources["NewMessageStoryboard"]);
                 if ((int)e.NewValue != 0)
                 { tempY.Begin(); }

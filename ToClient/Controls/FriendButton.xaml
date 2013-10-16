@@ -4,7 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:localValueConverters="clr-namespace:ToClient.ValueConverters">
+    xmlns:localValueConverters="clr-namespace:ToClient.ValueConverters"
+             x:Name="MyUserControl">
     <UserControl.Resources>
         <Storyboard x:Key="NewMessageStoryboard"
                     FillBehavior="Stop" 
@@ -46,7 +47,7 @@
         <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="12" Opacity="0.5" RenderTransformOrigin="0.5,0.5">
             <Run x:Name="Username" Text="{Binding Username}"/>
             <Run Text="（"/>
-            <Run Text="{Binding UserState,Converter={StaticResource OnlineStateConverter2}}"/>
+            <Run Text="{Binding NewMessageCount}"/>
             <Run Text="）"/>
         </TextBlock>
     </Grid>

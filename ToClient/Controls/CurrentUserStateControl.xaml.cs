@@ -19,8 +19,6 @@ namespace ToClient.Controls
             InitializeComponent();
         }
 
-
-
         public bool FriendListWindowIsOpen
         {
             get { return (bool)GetValue(FriendListWindowIsOpenProperty); }
@@ -46,5 +44,30 @@ namespace ToClient.Controls
         {
             this.FriendListWindowIsOpen = this.FriendListWindowIsOpen == true ? false : true;
         }
+
+
+
+        public int NewMessageCount
+        {
+            get { return (int)GetValue(NewMessageCountProperty); }
+            set { SetValue(NewMessageCountProperty, value); }
+        }
+        public static readonly DependencyProperty NewMessageCountProperty =
+            DependencyProperty.Register("NewMessageCount", typeof(int), typeof(CurrentUserStateControl), new PropertyMetadata(0, (d, e) => 
+            {
+                CurrentUserStateControl tempD = (CurrentUserStateControl)d;
+                int tempE = (int)e.NewValue;
+                Storyboard tStoryboard = tempD.Resources["NewMessageStoryboard"] as Storyboard;
+                if (tempE != 0)
+                {
+                    tStoryboard.Begin();
+                }
+                else
+                {
+                    tStoryboard.Stop();
+                }
+            }));
+
+        
     }
 }

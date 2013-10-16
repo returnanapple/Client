@@ -17,9 +17,10 @@ namespace ToClient
         public ToClientV()
         {
             InitializeComponent();
+            MySelf = this;
         }
 
-
+        public static ToClientV MySelf { get; set; }
 
         public bool ChatWindowIsOpen
         {

@@ -58,6 +58,31 @@ namespace ToClient.Controls
 
 
 
+        public bool TimeToReflash2
+        {
+            get { return (bool)GetValue(TimeToReflash2Property); }
+            set { SetValue(TimeToReflash2Property, value); }
+        }
+        public static readonly DependencyProperty TimeToReflash2Property =
+            DependencyProperty.Register("TimeToReflash2", typeof(bool), typeof(FriendsControl), new PropertyMetadata(false, (d, e) => 
+            {
+                FriendsControl tempD = (FriendsControl)d;
+                bool tempE = (bool)(e.NewValue);
+                if (tempE == true && tempD.IsOpen == true)
+                {
+                    Storyboard tempStoryboard = tempD.Resources["OpenStoryboard"] as Storyboard;
+                    tempD.OpenAnimation.To = tempD.MyItemsControl.Height-20;
+                    tempStoryboard.Begin();
+                    tempD.TimeToReflash2 = false;
+                }
+            }));
+
+
+
+        
+
+
+
 
     }
 }

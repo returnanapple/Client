@@ -20,6 +20,14 @@
             <DoubleAnimation x:Name="DirectionDoubleAnimation" Storyboard.TargetName="Direction"
                              Storyboard.TargetProperty="RotationZ" Duration="0:0:0.1"/>
         </Storyboard>
+
+        <Storyboard x:Key="NewMessageStoryboard">
+            <DoubleAnimation x:Name="NewMessageDoubleAnimation" Duration="0:0:0.2"
+                             Storyboard.TargetName="NewMessageTextBlock"
+                             Storyboard.TargetProperty="Opacity"
+                             To="1" RepeatBehavior="Forever"
+                              AutoReverse="True"/>
+        </Storyboard>
     </UserControl.Resources>
     <Grid Width="220" Height="110">
         <Grid.Background>
@@ -65,8 +73,8 @@
             <Image Grid.Column="3" Source="/ToClient;component/Images/隐身.png" MouseLeftButtonDown="StateImageMouseLeftButtonDownAction" Style="{StaticResource ImageStyle}"
 					Opacity="{Binding CurrentUserOnlineState, ConverterParameter=隐身, Converter={StaticResource CurrentUserOnlineStateConverter}, Mode=TwoWay}"/>
         </Grid>
-        <TextBlock Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="15"
-                   Opacity="{Binding NewMessageCount,Converter={StaticResource NewMessageCountSymbolConverter}}" Foreground="White">
+        <TextBlock x:Name="NewMessageTextBlock" Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="15" Foreground="White"
+                   Opacity="0">
             <Run Text="NewMessage"/>
             <Run Text="("/>
             <Run Text="{Binding NewMessageCount}"/>

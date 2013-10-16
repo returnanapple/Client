@@ -18,32 +18,34 @@
 						OnlineFriendsCount="{Binding CustomerServiceList, Converter={StaticResource OnlineFriendsCountConverter}}"
 						AllFriendsCount="{Binding CustomerServiceList, Converter={StaticResource AllFriendsCountConverter}}"/>
             <Controls:FriendsControl ItemsSource="{Binding CustomerServiceList}" IsOpen="{Binding CustomerServiceListIsOpen}"
-                                     TimeToReflash="{Binding TimeToReflashCustomerServiceList}">
+                                     TimeToReflash="{Binding TimeToReflashCustomerServiceList}"
+                                     TimeToReflash2="{Binding TimeToReflash2}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
-                        <Controls:CustomerServiceButton Command="{Binding Command}"/>
+                        <Controls:CustomerServiceButton Command="{Binding Command}"
+                                                        NewMessageCount="{Binding NewMessageCount}"/>
                     </DataTemplate>
                 </Controls:FriendsControl.ItemTemplate>
             </Controls:FriendsControl>
             <Controls:FriendListTittleButton TittleText="上级" IsOpen="{Binding SuperiorListIsOpen, Mode=TwoWay}"
 						OnlineFriendsCount="{Binding SuperiorList, Converter={StaticResource OnlineFriendsCountConverter}}"
 						AllFriendsCount="{Binding SuperiorList, Converter={StaticResource AllFriendsCountConverter}}"/>
-            <Controls:FriendsControl ItemsSource="{Binding SuperiorList}" IsOpen="{Binding SuperiorListIsOpen}"
-                                     TimeToReflash="{Binding TimeToReflashSuperiorList}">
+            <Controls:FriendsControl ItemsSource="{Binding SuperiorList}" IsOpen="{Binding SuperiorListIsOpen}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
-                        <Controls:FriendButton Command="{Binding Command}"/>
+                        <Controls:FriendButton Command="{Binding Command}"
+                                               NewMessageCount="{Binding NewMessageCount}"/>
                     </DataTemplate>
                 </Controls:FriendsControl.ItemTemplate>
             </Controls:FriendsControl>
             <Controls:FriendListTittleButton TittleText="下级" IsOpen="{Binding LowerListIsOpen, Mode=TwoWay}"
 						OnlineFriendsCount="{Binding LowerList, Converter={StaticResource OnlineFriendsCountConverter}}"
 						AllFriendsCount="{Binding LowerList, Converter={StaticResource AllFriendsCountConverter}}"/>
-            <Controls:FriendsControl ItemsSource="{Binding LowerList}" IsOpen="{Binding LowerListIsOpen}"
-                                     TimeToReflash="{Binding TimeToReflashLowerList}">
+            <Controls:FriendsControl ItemsSource="{Binding LowerList}" IsOpen="{Binding LowerListIsOpen}">
                 <Controls:FriendsControl.ItemTemplate>
                     <DataTemplate>
-                        <Controls:FriendButton Command="{Binding Command}"/>
+                        <Controls:FriendButton Command="{Binding Command}"
+                                               NewMessageCount="{Binding NewMessageCount}"/>
                     </DataTemplate>
                 </Controls:FriendsControl.ItemTemplate>
             </Controls:FriendsControl>

@@ -91,7 +91,7 @@ namespace ToClient.Classes
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(sender, new PropertyChangedEventArgs("property"));
+                PropertyChanged(sender, new PropertyChangedEventArgs(property));
             }
         }
     }

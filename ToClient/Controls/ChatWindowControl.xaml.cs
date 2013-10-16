@@ -21,7 +21,6 @@ namespace ToClient.Controls
             BingSomthing();
         }
 
-
         #region 依赖属性
         /// <summary>
         /// 发送信息命令
