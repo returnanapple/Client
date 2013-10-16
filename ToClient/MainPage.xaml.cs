@@ -18,7 +18,7 @@ namespace ToClient
         public MainPage()
         {
             InitializeComponent();
-            root.DataContext = new ToClientVM ("abc");
+            root.DataContext = new ToClientVM("abc");
         }
     }
 }
